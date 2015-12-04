@@ -1,0 +1,38 @@
+#include "SG_MmoServer.h"
+#include <string>
+#include <random>
+#include "Constructors/SG_Packets.h"
+#include "Tools/SG_Logger.h"
+#include "Handlers/MMO/SG_MMOHandler.h"
+#include "Packets/Auth/LoginPackets.h"
+#include <Packets/MMO/MMOPackets.h>
+
+
+bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
+{
+	SG_Logger::instance().log(pSession->m_Player->SessionKey + " connected from " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelPlayer);
+	return true;
+}
+
+void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
+{
+	SG_Logger::instance().log(pSession->m_Player->SessionKey + " disconnected", SG_Logger::kLogLevelPlayer);
+}
+
+bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pSession, const TS_MESSAGE* packet)
+{
+	switch (packet->id)
+	{
+	case SG_Packets::Recv::XX_SC_KEEP_ALIVE_recv:
+		pSession->m_Player->UpdateLastKeepAlive();
+		return true;
+	case BM_SC_LOGIN::packetID:
+		SG_MMOHandler::HandleLogin(pSession, static_cast<const BM_SC_LOGIN*>(packet));
+		break;
+	default:
+		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
+	}
+
+	return true;
+}
+
