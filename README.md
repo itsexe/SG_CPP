@@ -64,10 +64,6 @@ static const uint16~t packetID = 1003;
 (The packet in this example is used to check the clientversion and the language).
 We will also use this method to create the packets we send to the client.
 
-### Commuication between Servers
-All servers will register themself at the Database Server.
-To simplify matters they use the same packet headers as the client.
-
 
 ## Setup
 ### How to compile
