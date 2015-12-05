@@ -46,9 +46,10 @@ namespace SG_Config
 
 		//IPs
 		static std::string AuthIP;
+		
 		static std::string MMOIP;
 		static std::string LobbyIP;
-		static std::string MsgIP;
+		static std::string msgIP;
 
 		//Clientversion
 		static std::string ClientVersion;
@@ -65,8 +66,9 @@ namespace SG_Config
 
 void SG_Config::init()
 {
+	std::fstream ifs("D:\\SG_Config.ini"); //maybe you'll have to specify your path here
 	boost::property_tree::ptree conf;
-	read_ini("C:\\Users\\Simon\\Documents\\Visual Studio 2015\\Projects\\SG_Auth\\Debug\\SG_Config.ini", conf);
+	read_ini(ifs, conf);
 
 	//Global config
 	MaximumUsersPerServer = conf.get<uint16_t>("Global.MaximumUsersPerServer");
@@ -89,13 +91,13 @@ void SG_Config::init()
 	//MMO Configuration
 	MMOIP = conf.get<std::string>("MMO.ServerIP");
 	MMOPort = conf.get<short>("MMO.ServerPort");
-
+	
 	//Lobby Configuration
 	LobbyIP = conf.get<std::string>("Lobby.ServerIP");
 	LobbyPort = conf.get<short>("Lobby.ServerPort");
 
 	//Message Configuration
-	MsgIP = conf.get<std::string>("Message.ServerIP");
+	msgIP = conf.get<std::string>("Message.ServerIP");
 	MsgPort = conf.get<short>("Message.ServerPort");
 
 	//Encryption

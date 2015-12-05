@@ -4,6 +4,8 @@
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
+#include <SG_Config.h>
+
 const enum TM_SC_RESULT_error : uint16_t
 {
 	SUCCESS_INTERNAL = 0, //THIS WILL BE USED FOR INTERNAL COMMUNICATION!

@@ -75,7 +75,7 @@ void SG_AuthHandler::AcceptLogin(const boost::shared_ptr<SG_ClientSession> Sessi
 	TS_SC_WE_LOGIN response;
 	TS_MESSAGE::initMessage<TS_SC_WE_LOGIN>(&response);
 	response.uk1 = 1;
-	strcpy(response.sessionKey, Session->m_Player->SessionKey.c_str());
+	strcpy_s(response.sessionKey, Session->m_Player->SessionKey.c_str());
 	response.uk2 = 700;
 	response.uk3 = 1;
 	Session->SendPacketStruct(&response);
@@ -94,16 +94,28 @@ void SG_AuthHandler::SendServerList(const boost::shared_ptr<SG_ClientSession> Se
 {
 	TS_CA_SERVER_LIST_RESP response;
 	TS_CA_SERVER_LIST_RESP::initMessage<TS_CA_SERVER_LIST_RESP>(&response);
-	
+	SG_Config::init();
 	//TODO: Make this crap dynamic
 	response.uk1 = 1;
 	response.xID = 100;
 	response.Msg_ID = 2;
 	response.Lobby_ID = 3;
 	response.MMO_ID = 4;
-	strcpy(response.msg_IP, SG_Config::MsgIP.c_str());
-	strcpy(response.lobby_IP, SG_Config::LobbyIP.c_str());
-	strcpy(response.mmo_IP, SG_Config::MMOIP.c_str());
+	strcpy_s(response.msg_IP, SG_Config::msgIP.c_str());
+	strcpy_s(response.mmo_IP, SG_Config::MMOIP.c_str());
+	strcpy_s(response.lobby_IP, SG_Config::LobbyIP.c_str());
+	for (auto i = SG_Config::msgIP.length(); i != 16; i++)
+	{
+		response.msg_IP[i] = static_cast<uint8_t>(0);
+	}
+	for (auto i = SG_Config::MMOIP.length(); i != 16; i++)
+	{
+		response.mmo_IP[i] = static_cast<uint8_t>(0);
+	}
+	for (auto i = SG_Config::LobbyIP.length(); i != 16; i++)
+	{
+		response.lobby_IP[i] = static_cast<uint8_t>(0);
+	}
 	response.Msg_Port = SG_Config::MsgPort;
 	response.Lobby_Port = SG_Config::LobbyPort;
 	response.MMO_Port = SG_Config::MMOPort;

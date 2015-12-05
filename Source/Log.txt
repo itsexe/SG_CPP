@@ -1,0 +1,338 @@
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] QmesX116pqGW7iw2m connected from 127.0.0.1
+[PLAYER] [QmesX116pqGW7iw2m] Client Version okay! [de] [200708240]
+[DEBUG] [QmesX116pqGW7iw2m] tried to login with Username: admin Password: admin
+[PLAYER] QmesX116pqGW7iw2m disconnected
+[PLAYER] gOSPCLPt327XuM0EH connected from 127.0.0.1
+[PLAYER] [gOSPCLPt327XuM0EH] Client Version okay! [de] [200708240]
+[DEBUG] [gOSPCLPt327XuM0EH] tried to login with Username: admin Password: admin
+[PLAYER] QmesX116pqGW7iw2m disconnected
+[PLAYER] gOSPCLPt327XuM0EH disconnected
+[PLAYER] gOSPCLPt327XuM0EH disconnected
+[PLAYER] 9ovfM6PZAWsQu680d connected from 127.0.0.1
+[PLAYER] [9ovfM6PZAWsQu680d] Client Version okay! [de] [200708240]
+[DEBUG] [9ovfM6PZAWsQu680d] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] pKSIJXVZYxS7h1H1U connected from 127.0.0.1
+[PLAYER] [pKSIJXVZYxS7h1H1U] Client Version okay! [de] [200708240]
+[DEBUG] [pKSIJXVZYxS7h1H1U] tried to login with Username: admin Password: admin
+[PLAYER] pKSIJXVZYxS7h1H1U disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] e46gKbRqrEK2mNLhC connected from 127.0.0.1
+[PLAYER] [e46gKbRqrEK2mNLhC] Client Version okay! [de] [200708240]
+[DEBUG] [e46gKbRqrEK2mNLhC] tried to login with Username: admin Password: admin
+[PLAYER] e46gKbRqrEK2mNLhC disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] hi7Mmblni7sWvT7jA connected from 127.0.0.1
+[PLAYER] [hi7Mmblni7sWvT7jA] Client Version okay! [de] [200708240]
+[DEBUG] [hi7Mmblni7sWvT7jA] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] ven8pG7upNgHRQYJ9 connected from 127.0.0.1
+[PLAYER] [ven8pG7upNgHRQYJ9] Client Version okay! [de] [200708240]
+[DEBUG] [ven8pG7upNgHRQYJ9] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] 1OFr0KgNXjrjQ6kT7 connected from 127.0.0.1
+[PLAYER] [1OFr0KgNXjrjQ6kT7] Client Version okay! [de] [200708240]
+[DEBUG] [1OFr0KgNXjrjQ6kT7] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] 1jQXPOh0ieTx3sGGP connected from 127.0.0.1
+[PLAYER] [1jQXPOh0ieTx3sGGP] Client Version okay! [de] [200708240]
+[DEBUG] [1jQXPOh0ieTx3sGGP] tried to login with Username: admin Password: admin
+[PLAYER] 1jQXPOh0ieTx3sGGP disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] xrCzjqZYvSn2UeRUC connected from 127.0.0.1
+[PLAYER] [xrCzjqZYvSn2UeRUC] Client Version okay! [de] [200708240]
+[DEBUG] [xrCzjqZYvSn2UeRUC] tried to login with Username: admin Password: admin
+[PLAYER] xrCzjqZYvSn2UeRUC disconnected
+[PLAYER] zFYHmLdrE23cAiqNu connected from 127.0.0.1
+[PLAYER] [zFYHmLdrE23cAiqNu] Client Version okay! [de] [200708240]
+[DEBUG] [zFYHmLdrE23cAiqNu] tried to login with Username: admin Password: admin
+[PLAYER] zFYHmLdrE23cAiqNu disconnected
+[PLAYER] xrCzjqZYvSn2UeRUC disconnected
+[PLAYER] EPDvFxhGcipjlNofx connected from 127.0.0.1
+[PLAYER] [EPDvFxhGcipjlNofx] Client Version okay! [de] [200708240]
+[DEBUG] [EPDvFxhGcipjlNofx] tried to login with Username: admin Password: admin
+[PLAYER] zFYHmLdrE23cAiqNu disconnected
+[PLAYER] EPDvFxhGcipjlNofx disconnected
+[PLAYER] EPDvFxhGcipjlNofx disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] kOjiFDdw15rzRawom connected from 127.0.0.1
+[PLAYER] [kOjiFDdw15rzRawom] Client Version okay! [de] [200708240]
+[DEBUG] [kOjiFDdw15rzRawom] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] WjLVOisy9O9ZYMfCN connected from 127.0.0.1
+[PLAYER] [WjLVOisy9O9ZYMfCN] Client Version okay! [de] [200708240]
+[DEBUG] [WjLVOisy9O9ZYMfCN] tried to login with Username: admin Password: admin
+[PLAYER] WjLVOisy9O9ZYMfCN disconnected
+[PLAYER] gL4Q9mbPsdRHsYFzX connected from 127.0.0.1
+[PLAYER] [gL4Q9mbPsdRHsYFzX] Client Version okay! [de] [200708240]
+[DEBUG] [gL4Q9mbPsdRHsYFzX] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] rv947izw0Cgfch9UW connected from 127.0.0.1
+[PLAYER] [rv947izw0Cgfch9UW] Client Version okay! [de] [200708240]
+[DEBUG] [rv947izw0Cgfch9UW] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] 6Y3KiAQonADF9YlIz connected from 127.0.0.1
+[PLAYER] [6Y3KiAQonADF9YlIz] Client Version okay! [de] [200708240]
+[DEBUG] [6Y3KiAQonADF9YlIz] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] vorAgssmUwzFBEH1W connected from 127.0.0.1
+[PLAYER] [vorAgssmUwzFBEH1W] Client Version okay! [de] [200708240]
+[DEBUG] [vorAgssmUwzFBEH1W] tried to login with Username: admin Password: admin
+[PLAYER] vorAgssmUwzFBEH1W disconnected
+[PLAYER] vorAgssmUwzFBEH1W disconnected
+[PLAYER] GVSPy4jAONVPxf72x connected from 127.0.0.1
+[PLAYER] [GVSPy4jAONVPxf72x] Client Version okay! [de] [200708240]
+[DEBUG] [GVSPy4jAONVPxf72x] tried to login with Username: admin Password: admin
+[PLAYER] GVSPy4jAONVPxf72x disconnected
+[PLAYER] GVSPy4jAONVPxf72x disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] rwiMqtfW2kTky5iw0 connected from 127.0.0.1
+[PLAYER] [rwiMqtfW2kTky5iw0] Client Version okay! [de] [200708240]
+[DEBUG] [rwiMqtfW2kTky5iw0] tried to login with Username: admin Password: admin
+[PLAYER] rwiMqtfW2kTky5iw0 disconnected
+[PLAYER] rwiMqtfW2kTky5iw0 disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] IDbBqvgvH4pc2Z48f connected from 127.0.0.1
+[PLAYER] [IDbBqvgvH4pc2Z48f] Client Version okay! [de] [200708240]
+[DEBUG] [IDbBqvgvH4pc2Z48f] tried to login with Username: admin Password: admin
+[PLAYER] IDbBqvgvH4pc2Z48f disconnected
+[PLAYER] WF1pR8TjfRJ0b3IxJ connected from 127.0.0.1
+[PLAYER] [WF1pR8TjfRJ0b3IxJ] Client Version okay! [de] [200708240]
+[DEBUG] [WF1pR8TjfRJ0b3IxJ] tried to login with Username: admin Password: admin
+[PLAYER] IDbBqvgvH4pc2Z48f disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] KYfEnRnC1ISc0s8OM connected from 127.0.0.1
+[PLAYER] [KYfEnRnC1ISc0s8OM] Client Version okay! [de] [200708240]
+[DEBUG] [KYfEnRnC1ISc0s8OM] tried to login with Username: admin Password: admin
+[PLAYER] KYfEnRnC1ISc0s8OM disconnected
+[PLAYER] bkC1Y0lU5NFTjJsi2 connected from 127.0.0.1
+[PLAYER] [bkC1Y0lU5NFTjJsi2] Client Version okay! [de] [200708240]
+[DEBUG] [bkC1Y0lU5NFTjJsi2] tried to login with Username: admin Password: admin
+[PLAYER] bkC1Y0lU5NFTjJsi2 disconnected
+[PLAYER] ODalufc08nBn5myzT connected from 127.0.0.1
+[PLAYER] [ODalufc08nBn5myzT] Client Version okay! [de] [200708240]
+[DEBUG] [ODalufc08nBn5myzT] tried to login with Username: admin Password: admin
+[PLAYER] ODalufc08nBn5myzT disconnected
+[PLAYER] VqrxBGE9JlRK8ZF6g connected from 127.0.0.1
+[PLAYER] [VqrxBGE9JlRK8ZF6g] Client Version okay! [de] [200708240]
+[DEBUG] [VqrxBGE9JlRK8ZF6g] tried to login with Username: admin Password: admin
+[PLAYER] VqrxBGE9JlRK8ZF6g disconnected
+[PLAYER] JgLN20cZsZkAucYcs connected from 127.0.0.1
+[PLAYER] [JgLN20cZsZkAucYcs] Client Version okay! [de] [200708240]
+[DEBUG] [JgLN20cZsZkAucYcs] tried to login with Username: admin Password: admin
+[PLAYER] JgLN20cZsZkAucYcs disconnected
+[PLAYER] pe4k6s064C4uMkF4o connected from 127.0.0.1
+[PLAYER] [pe4k6s064C4uMkF4o] Client Version okay! [de] [200708240]
+[DEBUG] [pe4k6s064C4uMkF4o] tried to login with Username: admin Password: admin
+[PLAYER] pe4k6s064C4uMkF4o disconnected
+[PLAYER] 3hDfEP9C11Y1Ptj04 connected from 127.0.0.1
+[PLAYER] [3hDfEP9C11Y1Ptj04] Client Version okay! [de] [200708240]
+[DEBUG] [3hDfEP9C11Y1Ptj04] tried to login with Username: admin Password: admin
+[PLAYER] KYfEnRnC1ISc0s8OM disconnected
+[PLAYER] 3hDfEP9C11Y1Ptj04 disconnected
+[PLAYER] bK3o1DSjqMfVyW6Kk connected from 127.0.0.1
+[PLAYER] [bK3o1DSjqMfVyW6Kk] Client Version okay! [de] [200708240]
+[DEBUG] [bK3o1DSjqMfVyW6Kk] tried to login with Username: admin Password: admin
+[PLAYER] bK3o1DSjqMfVyW6Kk disconnected
+[PLAYER] q3zpYtkzFHL2j3ifA connected from 127.0.0.1
+[PLAYER] [q3zpYtkzFHL2j3ifA] Client Version okay! [de] [200708240]
+[DEBUG] [q3zpYtkzFHL2j3ifA] tried to login with Username: admin Password: admin
+[PLAYER] q3zpYtkzFHL2j3ifA disconnected
+[PLAYER] bkC1Y0lU5NFTjJsi2 disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] f687j3FnkWaETha1t connected from 127.0.0.1
+[PLAYER] [f687j3FnkWaETha1t] Client Version okay! [de] [200708240]
+[DEBUG] [f687j3FnkWaETha1t] tried to login with Username: admin Password: admin
+[PLAYER] f687j3FnkWaETha1t disconnected
+[PLAYER] V4LxxLVvA0RARdmYK connected from 127.0.0.1
+[PLAYER] [V4LxxLVvA0RARdmYK] Client Version okay! [de] [200708240]
+[DEBUG] [V4LxxLVvA0RARdmYK] tried to login with Username: admin Password: admin
+[PLAYER] V4LxxLVvA0RARdmYK disconnected
+[PLAYER] I9anZGI9z4gjSusgJ connected from 127.0.0.1
+[PLAYER] [I9anZGI9z4gjSusgJ] Client Version okay! [de] [200708240]
+[DEBUG] [I9anZGI9z4gjSusgJ] tried to login with Username: admin Password: admin
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] mmDhrIvEIAUqOUFwD connected from 127.0.0.1
+[PLAYER] [mmDhrIvEIAUqOUFwD] Client Version okay! [de] [200708240]
+[DEBUG] [mmDhrIvEIAUqOUFwD] tried to login with Username: admin Password: admin
+[PLAYER] mmDhrIvEIAUqOUFwD connected from 127.0.0.1
+[PLAYER] mmDhrIvEIAUqOUFwD disconnected
+[PLAYER] mmDhrIvEIAUqOUFwD disconnected
+[PLAYER] 4U6Dy1FlfeT1wpuDy connected from 127.0.0.1
+[PLAYER] [4U6Dy1FlfeT1wpuDy] Client Version okay! [de] [200708240]
+[DEBUG] [4U6Dy1FlfeT1wpuDy] tried to login with Username: admin Password: admin
+[PLAYER] 4U6Dy1FlfeT1wpuDy disconnected
+[PLAYER] JfZKPmMxf3ldJ6kon connected from 127.0.0.1
+[PLAYER] [JfZKPmMxf3ldJ6kon] Client Version okay! [de] [200708240]
+[DEBUG] [JfZKPmMxf3ldJ6kon] tried to login with Username: admin Password: admin
+[PLAYER] JfZKPmMxf3ldJ6kon disconnected
+[PLAYER] Rn1BoeM99MiDHByzL connected from 127.0.0.1
+[PLAYER] [Rn1BoeM99MiDHByzL] Client Version okay! [de] [200708240]
+[DEBUG] [Rn1BoeM99MiDHByzL] tried to login with Username: admin Password: admin
+[PLAYER] Rn1BoeM99MiDHByzL disconnected
+[PLAYER] haiKpxLG1Ktw2jal2 connected from 127.0.0.1
+[PLAYER] [haiKpxLG1Ktw2jal2] Client Version okay! [de] [200708240]
+[DEBUG] [haiKpxLG1Ktw2jal2] tried to login with Username: admin Password: admin
+[PLAYER] haiKpxLG1Ktw2jal2 disconnected
+[PLAYER] mmDhrIvEIAUqOUFwD disconnected
+[PLAYER] mmDhrIvEIAUqOUFwD disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] UO0GsNmWWHmqvATFl connected from 127.0.0.1
+[PLAYER] [UO0GsNmWWHmqvATFl] Client Version okay! [de] [200708240]
+[DEBUG] [UO0GsNmWWHmqvATFl] tried to login with Username: admin Password: admin
+[PLAYER] UO0GsNmWWHmqvATFl connected from 127.0.0.1
+[PLAYER] UO0GsNmWWHmqvATFl disconnected
+[PLAYER] UO0GsNmWWHmqvATFl disconnected
+[PLAYER] lMPWWqRFGuBLt5y9H connected from 127.0.0.1
+[PLAYER] [lMPWWqRFGuBLt5y9H] Client Version okay! [de] [200708240]
+[DEBUG] [lMPWWqRFGuBLt5y9H] tried to login with Username: admin Password: admin
+[PLAYER] lMPWWqRFGuBLt5y9H disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[PLAYER] mGvfS12wWugyDaJuk connected from 127.0.0.1
+[PLAYER] [mGvfS12wWugyDaJuk] Client Version okay! [de] [200708240]
+[DEBUG] [mGvfS12wWugyDaJuk] tried to login with Username: admin Password: admin
+[PLAYER] mGvfS12wWugyDaJuk connected from 127.0.0.1
+[PLAYER] mGvfS12wWugyDaJuk disconnected
+[PLAYER] mGvfS12wWugyDaJuk disconnected
+[PLAYER] eqn8J7XrZ0QXhxazm connected from 127.0.0.1
+[PLAYER] [eqn8J7XrZ0QXhxazm] Client Version okay! [de] [200708240]
+[DEBUG] [eqn8J7XrZ0QXhxazm] tried to login with Username: admin Password: admin
+[PLAYER] eqn8J7XrZ0QXhxazm disconnected
+[PLAYER] mGvfS12wWugyDaJuk disconnected
+[PLAYER] n8R3w9G52ndOuBu8x connected from 127.0.0.1
+[PLAYER] [n8R3w9G52ndOuBu8x] Client Version okay! [de] [200708240]
+[DEBUG] [n8R3w9G52ndOuBu8x] tried to login with Username: admin Password: admin
+[PLAYER] mGvfS12wWugyDaJuk disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[Auth] QAkXPylm4IPSkDWLL connected from 127.0.0.1
+[PLAYER] [QAkXPylm4IPSkDWLL] Client Version okay! [de] [200708240]
+[DEBUG] [QAkXPylm4IPSkDWLL] tried to login with Username: admin Password: admin
+[MMO] QAkXPylm4IPSkDWLL connected from 127.0.0.1
+[MMO] QAkXPylm4IPSkDWLL disconnected
+[Auth] QAkXPylm4IPSkDWLL disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO] Auth Server started
+[INFO] MMO Server started
+[INFO] Lobby Server started
+[Auth] [ZXh40ee6OrJUj2d2o] connected from 127.0.0.1
+[PLAYER] [ZXh40ee6OrJUj2d2o] Client Version okay! [de] [200708240]
+[DEBUG] [ZXh40ee6OrJUj2d2o] tried to login with Username: admin Password: admin
+[MMO] [ZXh40ee6OrJUj2d2o] connected from 127.0.0.1
+[MMO] [ZXh40ee6OrJUj2d2o] disconnected
+[Auth] [ZXh40ee6OrJUj2d2o] disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[Auth    ] [eKwHt7nvDa6ZqkDAN] connected from 127.0.0.1
+[PLAYER  ] [eKwHt7nvDa6ZqkDAN] Client Version okay! [de] [200708240]
+[DEBUG   ] [eKwHt7nvDa6ZqkDAN] tried to login with Username: admin Password: admin
+[MMO     ] [eKwHt7nvDa6ZqkDAN] connected from 127.0.0.1
+[MMO     ] [eKwHt7nvDa6ZqkDAN] disconnected
+[Auth    ] [eKwHt7nvDa6ZqkDAN] disconnected

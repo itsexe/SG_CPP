@@ -26,3 +26,12 @@
 *.exe
 *.out
 *.app
+Source/Debug/
+Source/x64/
+Source/SG_Auth.opensdf
+*.sdf
+Source/SG_Auth.sln.DotSettings.user
+*.filters
+Source/SG_Auth.vcxproj.user
+Source/SG_Auth.sln
+*.vcxproj

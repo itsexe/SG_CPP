@@ -13,7 +13,11 @@ public:
 	static const std::string kLogLevelError;
 	static const std::string kLogLevelPacket;
 	static const std::string kLogLevelPlayer;
-	static const std::string SG_Logger::kLogLevelDatabase;
+	static const std::string kLogLevelDatabase;
+	static const std::string kLogLevelAuth;
+	static const std::string kLogLevelMMO;
+	static const std::string kLogLevelLobby;
+
 
 	// Returns a reference to the singleton Logger object
 	static SG_Logger& instance();
