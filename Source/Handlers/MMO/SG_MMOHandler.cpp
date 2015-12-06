@@ -151,3 +151,12 @@ void SG_MMOHandler::EnterChannel(const boost::shared_ptr<SG_ClientSession> Sessi
 	response.uk4 = 1;
 	Session->SendPacketStruct(&response);
 }
+
+void SG_MMOHandler::HandlePositionUpdate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_MMO_GAME_MESSAGE* packet)
+{
+	//TODO: send this to other players.
+	Session->m_Player->coord_x = packet->coord_x;
+	Session->m_Player->coord_y = packet->coord_y;
+	Session->m_Player->coord_angle_z = packet->coord_angle_z;
+	Session->m_Player->coord_z = packet->coord_z;
+}

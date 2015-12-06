@@ -74,6 +74,30 @@ struct BM_SC_ENTER_CHANNEL : public TS_MESSAGE
 	uint8_t channelid;
 	static const uint16_t packetID = 2007;
 };
+struct BM_SC_MMO_GAME_MESSAGE : public TS_MESSAGE
+{
+	uint32_t uk1;
+	uint16_t counter;
+	uint32_t keystate;
+
+	//coords
+	float coord_x;
+	float coord_y;
+	float coord_angle_z;
+	float coord_z;
+	static const uint16_t packetID = 2017;
+};
+struct BM_SC_MMO_TICK_MESSAGE : public TS_MESSAGE
+{
+	//This packet is quiete useless, maybe we should disable it later.
+	static const uint16_t packetID = 2019;
+};
+struct BM_SC_STATUS_MESSAGE : public TS_MESSAGE
+{
+	//This is some kind of update for the animations
+	//TODO: Analyze what this packet is for
+	static const uint16_t packetID = 2015;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

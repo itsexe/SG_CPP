@@ -34,6 +34,13 @@ public:
 	uint32_t coins;
 	uint32_t rupees;
 	uint32_t questpoints;
+
+	//Positionstuff
+	float coord_x;
+	float coord_y;
+	float coord_angle_z;
+	float coord_z;
+
 private:
 	const std::string strChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 

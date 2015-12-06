@@ -17,6 +17,7 @@ public:
 	static void SendBalanceInfo(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendChannellist(const boost::shared_ptr<SG_ClientSession> Session);
 	static void EnterChannel(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_CHANNEL* packet);
+	static void HandlePositionUpdate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_MMO_GAME_MESSAGE* packet);
 
 };
 
