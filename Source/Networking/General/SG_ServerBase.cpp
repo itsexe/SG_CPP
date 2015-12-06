@@ -81,6 +81,14 @@ bool SG_ServerBase::isError()
 
 // ------------------------------------------------------------------ //
 
+void SG_ServerBase::SendBroadcast(const TS_MESSAGE* packet)
+{
+	for(const auto& iter : Sessions)
+	{
+		iter->SendPacketStruct(packet);
+	}
+}
+
 void SG_ServerBase::WorkerThread()
 {
 	while (1)
@@ -113,6 +121,7 @@ void SG_ServerBase::WorkerThread()
 void SG_ServerBase::Listen()
 {
 	boost::shared_ptr<SG_ClientSession> pSession(new SG_ClientSession(m_Service, m_Strand, shared_from_this()));
+	Sessions.push_back(pSession);
 	m_Acceptor.async_accept(pSession->getSocket(), m_Strand.wrap(boost::bind(&SG_ServerBase::HandleConnect, shared_from_this(), pSession, boost::asio::placeholders::error)));
 }
 

@@ -5,6 +5,7 @@
 
 #pragma pack(push, 1)
 #include <Constructors/Trick.h>
+#include <Constructors/Item.h>
 
 struct BM_SC_LOGIN_RESP : public TS_MESSAGE
 {
@@ -113,8 +114,8 @@ struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE
 	uint64_t uk1;
 	uint64_t uk2;
 	uint8_t uk3;
-	uint16_t trickcount = 13;
-	Trickconstructor tricklist;
+	uint16_t trickcount;
+	std::vector<Trickconstructor> tricklist;
 	static const uint16_t packetID = 2105;
 };
 struct BM_SC_BALANCE_INFO_RESP : public TS_MESSAGE
@@ -151,6 +152,67 @@ struct BM_SC_ENTER_CHANNEL_RESP : public TS_MESSAGE
 	uint8_t uk3;
 	uint16_t uk4;
 	static const uint16_t packetID = 2008;
+};
+struct BM_SC_LEAVE_CHANNEL_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t uk3;
+	static const uint16_t packetID = 2010;
+};
+struct ID_BZ_SC_ENTER_LOBBY_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t uk3;
+	static const uint16_t packetID = 19019;
+};
+struct BM_SC_SET_SESSION_MESSAGE_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint16_t length;
+	char sessionmessage[21];
+	static const uint16_t packetID = 2119;
+};
+struct BM_SC_MMO_OX_ENTER_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2031;
+};
+struct BM_SC_MMO_OX_LEAVE_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2033;
+};
+struct BM_SC_MISSION_LIST_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint16_t count;
+	uint8_t uk3; //must be "1"
+	std::vector<uint64_t> missions;
+	static const uint16_t packetID = 2073;
+};
+struct BM_SC_START_MISSION_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t missionid;
+	static const uint16_t packetID = 2075;
+};
+struct BM_SC_INVENTORY_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint8_t uk3;
+	uint16_t count;
+	std::vector<Item> items;
+	static const uint16_t packetID = 2099;
 };
 #pragma pack(pop)
 

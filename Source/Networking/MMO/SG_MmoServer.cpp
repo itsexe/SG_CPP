@@ -51,12 +51,39 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_ENTER_CHANNEL::packetID:
 		SG_MMOHandler::EnterChannel(pSession, static_cast<const BM_SC_ENTER_CHANNEL*>(packet));
 		break;
+	case BM_SC_LEAVE_CHANNEL::packetID:
+		SG_MMOHandler::LeaveChannel(pSession);
+		break;
+	case ID_BZ_SC_ENTER_LOBBY::packetID:
+		SG_MMOHandler::EnterLobby(pSession);
+		break;
+	case BM_SC_SET_SESSION_MESSAGE::packetID:
+		SG_MMOHandler::SetSessionMessage(pSession, static_cast<const BM_SC_SET_SESSION_MESSAGE*>(packet));
+		break;
 	case BM_SC_MMO_GAME_MESSAGE::packetID:
 		SG_MMOHandler::HandlePositionUpdate(pSession, static_cast<const BM_SC_MMO_GAME_MESSAGE*>(packet));
 		break;
 	case BM_SC_MMO_TICK_MESSAGE::packetID:
 		break;
 	case BM_SC_STATUS_MESSAGE::packetID:
+		break;
+	case BM_SC_CHAT_MESSAGE::packetID:
+		SG_MMOHandler::HandleChatMessage(pSession, static_cast<const BM_SC_CHAT_MESSAGE*>(packet));
+		break;
+	case BM_SC_INVENTORY::packetID:
+		SG_MMOHandler::SendInventory(pSession);
+		break;
+	case BM_SC_MISSION_LIST::packetID:
+		SG_MMOHandler::SendMissionList(pSession);
+		break;
+	case BM_SC_START_MISSION::packetID:
+		SG_MMOHandler::StartMission(pSession);
+		break;
+	case BM_SC_MMO_OX_ENTER::packetID:
+		SG_MMOHandler::EnterOX(pSession);
+		break;
+	case BM_SC_MMO_OX_LEAVE::packetID:
+		SG_MMOHandler::LeaveOX(pSession);
 		break;
 	case BM_SC_CREATE_CHAR::packetID:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]", SG_Logger::kLogLevelPacket);

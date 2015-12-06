@@ -41,6 +41,8 @@ public:
 
 	bool isStopped();
 	bool isError();
+	std::vector<boost::shared_ptr<SG_ClientSession>> Sessions;
+	void SendBroadcast(const TS_MESSAGE* packet);
 private:
 	void WorkerThread();
 	void Listen();

@@ -35,6 +35,15 @@ SG_Client::SG_Client()
 	tricks.push_back(Trickconstructor(2200, 1));	// Power Jump
 	tricks.push_back(Trickconstructor(5000, 1));	// ???
 
+	for (auto i = 55001; i <= 55045; ++i)
+	{
+		missions.push_back(i);
+	}
+	items.push_back(Item(1, 2075, 0, 10, 0, 0, 0));
+	items.push_back(Item(2, 2042, 0, 10, 0, 0, 0));
+	items.push_back(Item(3, 1079, 0, 10, 0, 0, 0));
+	items.push_back(Item(4, 1070, 0, 10, 0, 0, 0));
+	items.push_back(Item(5, 2541, 0, 10, 0, 0, 0));
 	//Set current Time as last KeepAlive
 	UpdateLastKeepAlive();
 }

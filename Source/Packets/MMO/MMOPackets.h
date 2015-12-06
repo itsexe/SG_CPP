@@ -74,6 +74,11 @@ struct BM_SC_ENTER_CHANNEL : public TS_MESSAGE
 	uint8_t channelid;
 	static const uint16_t packetID = 2007;
 };
+struct BM_SC_LEAVE_CHANNEL : public TS_MESSAGE
+{
+	//Since we don't need this data, i just skip this
+	static const uint16_t packetID = 2009;
+};
 struct BM_SC_MMO_GAME_MESSAGE : public TS_MESSAGE
 {
 	uint32_t uk1;
@@ -97,6 +102,43 @@ struct BM_SC_STATUS_MESSAGE : public TS_MESSAGE
 	//This is some kind of update for the animations
 	//TODO: Analyze what this packet is for
 	static const uint16_t packetID = 2015;
+};
+struct BM_SC_MISSION_LIST : public TS_MESSAGE
+{
+	static const uint16_t packetID = 2072;
+};
+struct BM_SC_SET_SESSION_MESSAGE : public TS_MESSAGE
+{
+	uint8_t length;
+	char message[14];
+	static const uint16_t packetID = 2120;
+};
+struct BM_SC_CHAT_MESSAGE : public TS_MESSAGE
+{
+	uint8_t messagelength;
+	char msg[70];
+	static const uint16_t packetID = 2206;
+};
+struct ID_BZ_SC_ENTER_LOBBY : public TS_MESSAGE
+{
+
+	static const uint16_t packetID = 2275;
+};
+struct BM_SC_MMO_OX_ENTER: public TS_MESSAGE
+{
+	static const uint16_t packetID = 2030;
+};
+struct BM_SC_MMO_OX_LEAVE: public TS_MESSAGE
+{
+	static const uint16_t packetID = 2032;
+};
+struct BM_SC_START_MISSION: public TS_MESSAGE
+{
+	static const uint16_t packetID = 2074;
+};
+struct BM_SC_INVENTORY : public TS_MESSAGE
+{
+	static const uint16_t packetID = 2098;
 };
 #pragma pack(pop)
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Trick.h"
+#include "Item.h"
 
 class SG_Client
 {
@@ -28,7 +29,10 @@ public:
 	uint16_t firstlogin;
 	uint32_t chartype;
 	uint64_t charlevel;
+
+	std::vector<uint64_t> missions;
 	std::vector<Trickconstructor> tricks;
+	std::vector<Item> items;
 
 	uint32_t gpotatos;
 	uint32_t coins;
@@ -40,6 +44,10 @@ public:
 	float coord_y;
 	float coord_angle_z;
 	float coord_z;
+
+	//Quiz
+	bool IsInOX = false;
+
 
 private:
 	const std::string strChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

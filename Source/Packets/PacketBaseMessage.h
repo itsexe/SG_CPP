@@ -24,7 +24,11 @@ struct TS_MESSAGE {
 		msg->id = MessageType::packetID;
 		msg->msg_check_sum = checkMessage(msg);
 	}
-
+	template<typename MessageType>
+	static void recalcheader(MessageType* msg) {
+		msg->size = sizeof(MessageType);
+		msg->msg_check_sum = checkMessage(msg);
+	}
 	static int8_t checkMessage(const TS_MESSAGE* msg) {
 		char *p = (char*)&(msg->size);
 		char *end = (char*)&(msg->msg_check_sum);
