@@ -31,6 +31,9 @@ struct TS_CA_SELECT_SERVER : public TS_MESSAGE
 	uint16_t MMO_ID;
 	static const uint16_t packetID = 1006;
 };
+
+
+
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H
