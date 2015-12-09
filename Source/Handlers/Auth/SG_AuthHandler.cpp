@@ -40,7 +40,7 @@ void SG_AuthHandler::CheckClientCredentials(const boost::shared_ptr<SG_ClientSes
 	SG_Logger::instance().log("[" + Session->m_Player->SessionKey + "] tried to login with Username: " + Session->m_Player->Username + " Password: "+ Session->m_Player->Password, SG_Logger::kLogLevelDebug);
 	
 	//Check Login using MySQL
-	MySQLQuery qry(Session->SQLConn, "SELECT id, verified, banned FROM sg_account where user = ? and password = md5(?);");
+	MySQLQuery qry(Session->SQLConn, "SELECT id, verified, banned FROM Accounts where username = ? and password = md5(?);");
 	qry.setString(1, Session->m_Player->Username);
 	qry.setString(2, SG_Config::MD5Salt + Session->m_Player->Password);
 	qry.ExecuteQuery();
@@ -53,7 +53,7 @@ void SG_AuthHandler::CheckClientCredentials(const boost::shared_ptr<SG_ClientSes
 		{
 			if (!qry.getInt(1, "banned")) // everything is fine -> login
 			{
-				MySQLQuery updatesessionkey(Session->SQLConn, "UPDATE sg_account set auth_key = ? where id = ?");
+				MySQLQuery updatesessionkey(Session->SQLConn, "UPDATE Accounts set Sessionkey = ? where id = ?");
 				updatesessionkey.setString(1, Session->m_Player->SessionKey);
 				updatesessionkey.setInt(2, qry.getInt(1, "id"));
 				updatesessionkey.ExecuteUpdate();

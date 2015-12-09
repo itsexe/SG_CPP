@@ -10,6 +10,11 @@ struct BM_SC_LOGIN : public TS_MESSAGE
 	unsigned char sessionKey[33];
 	static const uint16_t packetID = 2144;
 };
+struct BM_SC_CHAR_LIST : public TS_MESSAGE
+{
+	unsigned char sessionKey[33];
+	static const uint16_t packetID = 2317;
+};
 struct BM_SC_SELECT_CHAR : public TS_MESSAGE
 {
 	//Since we don't need this data, i just skip this

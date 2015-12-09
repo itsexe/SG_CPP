@@ -10,7 +10,7 @@ class SG_MMOHandler
 public:
 	static void HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet);
 	static void HandleCharCreation(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_CHAR* packet);
-	static void SendCharList(const boost::shared_ptr<SG_ClientSession> Session);
+	static void SendCharList(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAR_LIST* packet);
 	static void SelectChar(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendTrickList(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Session);

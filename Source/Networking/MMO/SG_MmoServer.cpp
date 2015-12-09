@@ -28,7 +28,19 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		return true;
 	case BM_SC_LOGIN::packetID:
 		SG_MMOHandler::HandleLogin(pSession, static_cast<const BM_SC_LOGIN*>(packet));
-		SG_MMOHandler::SendCharList(pSession);
+		SG_MMOHandler::SendCharList(pSession, static_cast<const BM_SC_CHAR_LIST*>(packet));
+		break;
+	case BM_SC_CHAR_LIST::packetID:
+		if(pSession->m_Player->charcreated == 0)
+		{
+			SG_MMOHandler::SendCharList(pSession, static_cast<const BM_SC_CHAR_LIST*>(packet));
+			SG_MMOHandler::SendPlayerInfo(pSession);
+			SG_MMOHandler::SendTrickList(pSession);
+		}
+		else
+		{
+			SG_MMOHandler::SendCharList(pSession, static_cast<const BM_SC_CHAR_LIST*>(packet));
+		}
 		break;
 	case BM_SC_SELECT_CHAR::packetID:
 		SG_MMOHandler::SelectChar(pSession);
@@ -86,7 +98,6 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::LeaveOX(pSession);
 		break;
 	case BM_SC_CREATE_CHAR::packetID:
-		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]", SG_Logger::kLogLevelPacket);
 		SG_MMOHandler::HandleCharCreation(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
 		break;
 	default:

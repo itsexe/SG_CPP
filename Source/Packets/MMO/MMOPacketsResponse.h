@@ -14,7 +14,7 @@ struct BM_SC_LOGIN_RESP : public TS_MESSAGE
 };
 struct BM_SC_LOGIN_RESP_FAILURE : public TS_MESSAGE
 {
-	char resonse[8];
+	char resonse[16];
 	static const uint16_t packetID = 2144;
 };
 struct BM_SC_PLAYER_CHAR_LIST_RESP : public TS_MESSAGE
@@ -187,6 +187,11 @@ struct BM_SC_MMO_OX_LEAVE_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 2033;
+};
+struct BM_SC_CREATE_CHAR_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2069;
 };
 struct BM_SC_MISSION_LIST_RESP : public TS_MESSAGE
 {

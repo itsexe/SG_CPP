@@ -16,29 +16,39 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	Session->m_Player->SessionKey.resize(32);
 	SG_Logger::instance().log(Session->getSocket().remote_endpoint().address().to_string() + " has Sessionkey " + Session->m_Player->SessionKey, SG_Logger::kLogLevelMMO);	
 	
-	//Get playerdata
-	MySQLQuery qry(Session->SQLConn, "SELECT username, first_login, char_type, char_level, char_gpotatos, char_rupees, char_coins, char_questpoints FROM sg_account where auth_key = ?;");
-	qry.setString(1, Session->m_Player->SessionKey);
-	qry.ExecuteQuery();
-	if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
+	//Get Accountsettings
+	MySQLQuery accqry(Session->SQLConn, "Select id, ingamecash from Accounts where Sessionkey = ?;");
+	accqry.setString(1, Session->m_Player->SessionKey);
+	accqry.ExecuteQuery();
+	if (accqry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
 	{
-		Session->m_Player->charname = qry.getString(1, "username");
-		Session->m_Player->firstlogin = qry.getInt(1, "first_login");
-		Session->m_Player->chartype = qry.getInt(1, "char_type");
-		Session->m_Player->charlevel = qry.getInt(1, "char_level");
-		Session->m_Player->gpotatos = qry.getInt(1, "char_gpotatos");
-		Session->m_Player->rupees = qry.getInt(1, "char_rupees");
-		Session->m_Player->coins = qry.getInt(1, "char_coins");
-		Session->m_Player->questpoints = qry.getInt(1, "char_questpoints");
-
+		Session->m_Player->playerid = accqry.getInt(1, "id");
+		//Get Chars
+		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints from Chars where AccountID =  ?;");
+		qry.setInt(1, Session->m_Player->playerid);
+		qry.ExecuteQuery();
+		if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
+		{
+			Session->m_Player->charname = qry.getString(1, "Name");
+			Session->m_Player->chartype = qry.getInt(1, "CharType");
+			Session->m_Player->charlevel = qry.getInt(1, "Level");
+			Session->m_Player->gpotatos = qry.getInt(1, "Rupees");
+			Session->m_Player->rupees = qry.getInt(1, "Rupees");
+			Session->m_Player->coins = qry.getInt(1, "Coins");
+			Session->m_Player->questpoints = qry.getInt(1, "Questpoints");
+			Session->m_Player->charcreated = 1;
+		}
+		else
+		{
+			Session->m_Player->charcreated = 0;
+		}
 		//Send login successfull
 		BM_SC_LOGIN_RESP response;
 		BM_SC_LOGIN_RESP::initMessage<BM_SC_LOGIN_RESP>(&response);
 		strcpy_s(response.resonse, static_cast<std::string>("SUCCESS").c_str());
 		response.resonse[7] = static_cast<uint8_t>(0);
 		Session->SendPacketStruct(&response);
-	}
-	else
+	}else
 	{
 		//kick client
 		BM_SC_LOGIN_RESP_FAILURE response;
@@ -51,12 +61,25 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 
 void SG_MMOHandler::HandleCharCreation(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_CHAR* packet)
 {
+	BM_SC_CREATE_CHAR_RESP response;
+	BM_SC_CREATE_CHAR_RESP::initMessage<BM_SC_CREATE_CHAR_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+
+	//Insert everything in Database
+	MySQLQuery qry(Session->SQLConn, "INSERT INTO Chars (Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, AccountID) VALUES (?,0,1,0,0,0,10,10,0,?);");
+	qry.setString(1, packet->charname);
+	qry.setInt(2, Session->m_Player->playerid);
+	qry.ExecuteInsert();
+
 	//std::cout << packet << std::endl;
-	//TODO
+	Session->SendPacketStruct(&response);
 }
 
-void SG_MMOHandler::SendCharList(const boost::shared_ptr<SG_ClientSession> Session)
+void SG_MMOHandler::SendCharList(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAR_LIST* packet)
 {
+	std::cout << packet << std::endl;
+
 	BM_SC_PLAYER_CHAR_LIST_RESP response;
 	BM_SC_PLAYER_CHAR_LIST_RESP::initMessage<BM_SC_PLAYER_CHAR_LIST_RESP>(&response);
 	strcpy_s(response.resonse, static_cast<std::string>("SUCCESS").c_str());
@@ -66,7 +89,7 @@ void SG_MMOHandler::SendCharList(const boost::shared_ptr<SG_ClientSession> Sessi
 	{
 		response.charname[i] = static_cast<uint8_t>(0);
 	}
-	response.firstlogin = Session->m_Player->firstlogin; //0 will push the Player to the Charcreation
+	response.firstlogin = Session->m_Player->charcreated; //0 will push the Player to the Charcreation
 	response.chartype = Session->m_Player->chartype;
 	Session->SendPacketStruct(&response);
 }

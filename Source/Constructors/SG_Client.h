@@ -25,8 +25,9 @@ public:
 	unsigned char CryptedPassword[19];
 
 	//Playersettings
+	uint16_t playerid;
 	std::string charname;
-	uint16_t firstlogin;
+	uint16_t charcreated;
 	uint32_t chartype;
 	uint64_t charlevel;
 
