@@ -8,13 +8,13 @@
 
 bool SG_AuthServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
-	SG_Logger::instance().log(pSession->getSocket().remote_endpoint().address().to_string() + " connected!" , SG_Logger::kLogLevelAuth);
+	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] connected from: " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelAuth);
 	return true;
 }
 
 void SG_AuthServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
 {
-	SG_Logger::instance().log(pSession->m_Player->SessionKey + " disconnected", SG_Logger::kLogLevelAuth);
+	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] disconnected", SG_Logger::kLogLevelAuth);
 }
 
 bool SG_AuthServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pSession, const TS_MESSAGE* packet)

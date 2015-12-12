@@ -64,6 +64,7 @@ void SG_MMOHandler::HandleCharCreation(const boost::shared_ptr<SG_ClientSession>
 	qry.setString(1, packet->charname);
 	qry.setInt(2, Session->m_Player->playerid);
 	qry.ExecuteInsert();
+	SG_Logger::instance().log(Session->m_Player->SessionKey + " has charname " + Session->m_Player->charname, SG_Logger::kLogLevelMMO);
 
 	//std::cout << packet << std::endl;
 	Session->SendPacketStruct(&response);
@@ -208,7 +209,7 @@ void SG_MMOHandler::SendChannellist(const boost::shared_ptr<SG_ClientSession> Se
 
 void SG_MMOHandler::EnterChannel(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_CHANNEL* packet)
 {
-	SG_Logger::instance().log(Session->m_Player->Username + " is joining Channel " + std::to_string(packet->channelid),SG_Logger::kLogLevelMMO);
+	SG_Logger::instance().log(Session->m_Player->charname + " is joining Channel " + std::to_string(packet->channelid),SG_Logger::kLogLevelMMO);
 	BM_SC_ENTER_CHANNEL_RESP response;
 	BM_SC_ENTER_CHANNEL_RESP::initMessage<BM_SC_ENTER_CHANNEL_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
@@ -254,7 +255,7 @@ void SG_MMOHandler::EnterLobby(const boost::shared_ptr<SG_ClientSession> Session
 
 void SG_MMOHandler::SetSessionMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SET_SESSION_MESSAGE* packet)
 {
-	SG_Logger::instance().log(Session->m_Player->Username + "'s sessionmessage: " + packet->message, SG_Logger::kLogLevelMMO);
+	SG_Logger::instance().log(Session->m_Player->charname + "'s sessionmessage: " + packet->message, SG_Logger::kLogLevelMMO);
 	BM_SC_SET_SESSION_MESSAGE_RESP response;
 	BM_SC_SET_SESSION_MESSAGE_RESP::initMessage<BM_SC_SET_SESSION_MESSAGE_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());

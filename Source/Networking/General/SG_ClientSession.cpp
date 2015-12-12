@@ -112,7 +112,7 @@ void SG_ClientSession::HandleTimeout()
 		}
 		else
 		{
-			std::cout << "[" << __FUNCTION__ << "] Client socket timeout" << std::endl;
+			//std::cout << "[" << __FUNCTION__ << "] Client socket timeout" << std::endl;
 			return SG_ClientSession::DisconnectClient();
 		}
 
