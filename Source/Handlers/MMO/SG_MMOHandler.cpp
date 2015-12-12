@@ -7,7 +7,6 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	std::string skey(packet->sessionKey, packet->sessionKey + 33);
 	Session->m_Player->SessionKey = skey;
 	Session->m_Player->SessionKey.resize(32);
-	SG_Logger::instance().log(Session->getSocket().remote_endpoint().address().to_string() + " has Sessionkey " + Session->m_Player->SessionKey, SG_Logger::kLogLevelMMO);	
 	
 	//Get Accountsettings
 	MySQLQuery accqry(Session->SQLConn, "Select id, ingamecash from Accounts where Sessionkey = ?;");
