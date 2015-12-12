@@ -1,3 +1,7 @@
-install: make get-deps
-language: cpp
-compiler: gcc
+before_install:
+	- sudo apt-get update -qq
+	- sudo apt-get install -qq libboost-all-dev
+language:
+	- cpp
+compiler: 
+	- gcc
