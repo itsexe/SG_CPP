@@ -35,5 +35,4 @@ Source/SG_Auth.sln.DotSettings.user
 Source/SG_Auth.vcxproj.user
 Source/SG_Auth.sln
 *.vcxproj
-Source/Log.txt
-Source/Log.txt
+*.txt
