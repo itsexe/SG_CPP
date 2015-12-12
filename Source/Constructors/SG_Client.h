@@ -32,7 +32,7 @@ public:
 	uint64_t charlevel = 0;
 
 	std::vector<uint64_t> missions;
-	std::vector<Trickconstructor> tricks;
+	Trickconstructor tricks[13];
 	std::vector<Item> items;
 
 	uint32_t gpotatos;

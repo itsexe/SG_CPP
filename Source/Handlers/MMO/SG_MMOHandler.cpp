@@ -100,11 +100,10 @@ void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Sess
 	BM_SC_TRICK_LIST_RESP::initMessage<BM_SC_TRICK_LIST_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
-	response.trickcount = static_cast<uint16_t>(Session->m_Player->tricks.size());
-	for (const auto &iter : Session->m_Player->tricks)
-	{
-		response.tricklist.push_back(iter);
-	}
+
+	response.trickcount = 13;
+	std::copy(std::begin(Session->m_Player->tricks), std::end(Session->m_Player->tricks), std::begin(response.tricklist));
+
 	BM_SC_TRICK_LIST_RESP::recalcheader<BM_SC_TRICK_LIST_RESP>(&response);
 	Session->SendPacketStruct(&response);
 }
@@ -180,10 +179,10 @@ void SG_MMOHandler::SendInventory(const boost::shared_ptr<SG_ClientSession> Sess
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	
 	response.count = static_cast<uint16_t>(Session->m_Player->items.size());
-	for (const auto &iter : Session->m_Player->items)
+	/*for (const auto &iter : Session->m_Player->items)
 	{
 		response.items.push_back(iter);
-	}
+	}*/
 	BM_SC_INVENTORY_RESP::recalcheader<BM_SC_INVENTORY_RESP>(&response);
 	Session->SendPacketStruct(&response);
 }

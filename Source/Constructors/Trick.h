@@ -2,9 +2,10 @@
 #include <cstdint>
 	struct Trickconstructor
 	{
-		Trickconstructor(){ }
-		Trickconstructor(uint64_t ID, uint8_t uk_Flag) : TrickID(ID), unknown_flag(uk_Flag) { }
+		Trickconstructor() { }
+		Trickconstructor(uint64_t ID, uint32_t level, uint8_t apply) : TrickID(ID), Tricklvl(level), ApplyTrick(apply) { }
 
-		uint64_t TrickID;
-		uint8_t unknown_flag;
+		uint32_t TrickID;
+		uint32_t Tricklvl;
+		uint8_t ApplyTrick;
 	};

@@ -19,31 +19,31 @@ SG_Client::SG_Client()
 
 	//Update tricklist
 	// Basic tricks
-	tricks.push_back(Trickconstructor(1000, 1));	// Grind
-	tricks.push_back(Trickconstructor(1600, 1));	// Dash
-	tricks.push_back(Trickconstructor(1700, 1));	// Back Skating
-	tricks.push_back(Trickconstructor(1900, 1));	// Butting
-	tricks.push_back(Trickconstructor(2000, 1));	// Power Slide
+	tricks[0] = Trickconstructor(1000,5, 1);	// Grind
+	tricks[1] = Trickconstructor(1100,3, 1);	// Dash
+	tricks[2] = Trickconstructor(1200,2, 1);	// Back Skating
+	tricks[3] = Trickconstructor(1300,4, 1);	// Butting
+	tricks[4] = Trickconstructor(1400,0, 1);	// Power Slide
 
 	// Extended stuff
-	tricks.push_back(Trickconstructor(1100, 1));	// Back Flip
-	tricks.push_back(Trickconstructor(1200, 1));	// Front Flip
-	tricks.push_back(Trickconstructor(1300, 1));	// Air Twist
-	tricks.push_back(Trickconstructor(1400, 1));	// Power Swing
-	tricks.push_back(Trickconstructor(1500, 1));	// Grip Turn
-	tricks.push_back(Trickconstructor(1800, 1));	// Jumping Steer
-	tricks.push_back(Trickconstructor(2200, 1));	// Power Jump
-	tricks.push_back(Trickconstructor(5000, 1));	// ???
+	tricks[5] = Trickconstructor(1500,2, 1);	// Back Flip
+	tricks[6] = Trickconstructor(1600,2, 1);	// Front Flip
+	tricks[7] = Trickconstructor(1700,4, 1);	// Air Twist
+	tricks[8] = Trickconstructor(1800,2, 1);	// Power Swing
+	tricks[9] = Trickconstructor(1900,2, 1);	// Grip Turn
+	tricks[10] = Trickconstructor(2000,1, 1);	// Jumping Steer
+	tricks[11] = Trickconstructor(2100,1, 1);	// Power Jump
+	tricks[12] = Trickconstructor(5000,0, 1);	// Wallride
 
 	for (auto i = 55001; i <= 55045; ++i)
 	{
 		missions.push_back(i);
 	}
-	items.push_back(Item(1, 2075, 0, 10, 0, 0, 0));
+	/*items.push_back(Item(1, 2075, 0, 10, 0, 0, 0));
 	items.push_back(Item(2, 2042, 0, 10, 0, 0, 0));
 	items.push_back(Item(3, 1079, 0, 10, 0, 0, 0));
 	items.push_back(Item(4, 1070, 0, 10, 0, 0, 0));
-	items.push_back(Item(5, 2541, 0, 10, 0, 0, 0));
+	items.push_back(Item(5, 2541, 0, 10, 0, 0, 0));*/
 	//Set current Time as last KeepAlive
 	UpdateLastKeepAlive();
 }

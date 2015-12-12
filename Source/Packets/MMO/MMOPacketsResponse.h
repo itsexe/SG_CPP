@@ -114,8 +114,9 @@ struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE
 	uint64_t uk1;
 	uint64_t uk2;
 	uint8_t uk3;
-	uint16_t trickcount;
-	std::vector<Trickconstructor> tricklist;
+	uint16_t trickcount; //13	ad
+	Trickconstructor tricklist[13];
+
 	static const uint16_t packetID = 2105;
 };
 struct BM_SC_BALANCE_INFO_RESP : public TS_MESSAGE
