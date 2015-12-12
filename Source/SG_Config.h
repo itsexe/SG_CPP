@@ -8,13 +8,14 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/detail/ptree_implementation.hpp>
 
-namespace SG_Config
+class SG_Config
 	{
-		static const uint32_t MaxPacketSize = 1024;
-		static const uint32_t MinPacketSize = 5;
-		static const uint32_t SocketTimeout = 20000;
+	public:
+		const uint32_t MaxPacketSize = 1024;
+		const uint32_t MinPacketSize = 5;
+		const uint32_t SocketTimeout = 20000;
 
-		static const uint32_t MaxRoomCount = 100;
+		const uint32_t MaxRoomCount = 100;
 
 		const uint8_t PE_Header[16] =
 		{
@@ -25,48 +26,46 @@ namespace SG_Config
 		};
 
 		//Global config
-		static uint16_t MaximumUsersPerServer;
+		uint16_t MaximumUsersPerServer;
 
 		//Database
-		static std::string host;
-		static uint16_t port;
-		static std::string DBUser;
-		static std::string DBPass;
-		static std::string DBName;
+		std::string host;
+		uint16_t port;
+		std::string DBUser;
+		std::string DBPass;
+		std::string DBName;
 
 		//Auth configuration
-		static bool CheckClientVersion;
-		static bool CheckClientLanguage;
+		bool CheckClientVersion;
+		bool CheckClientLanguage;
 
 		//Ports
-		static short AuthPort;
-		static short MMOPort;
-		static short LobbyPort;
-		static short MsgPort;
+		short AuthPort;
+		short MMOPort;
+		short LobbyPort;
+		short MsgPort;
 
 		//IPs
-		static std::string AuthIP;
+		std::string AuthIP;
 		
-		static std::string MMOIP;
-		static std::string LobbyIP;
-		static std::string msgIP;
+		std::string MMOIP;
+		std::string LobbyIP;
+		std::string msgIP;
 
 		//Clientversion
-		static std::string ClientVersion;
-		static std::string ClientLanguage{
-
-		};
+		std::string ClientVersion;
+		std::string ClientLanguage;
 
 		//Encryption
-		static std::string DESPassword;
-		static std::string MD5Salt;
+		std::string DESPassword;
+		std::string MD5Salt;
 
-		static inline void init();
+		inline void init(std::string path);
 	};
 
-void SG_Config::init()
+void SG_Config::init(std::string path)
 {
-	std::fstream ifs("D:\\SG_Config.ini"); //maybe you'll have to specify your path here
+	std::fstream ifs(path); //maybe you'll have to specify your path here
 	boost::property_tree::ptree conf;
 	read_ini(ifs, conf);
 

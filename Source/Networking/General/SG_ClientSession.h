@@ -10,6 +10,7 @@
 #include <boost/asio/ip/address_v4.hpp>
 #include <Packets/PacketBaseMessage.h>
 #include <Tools/Database/Database.h>
+#include <SG_Config.h>
 
 /*++
 Class for handling client sessions.
@@ -31,7 +32,7 @@ public:
 	void SendPacketStruct(const TS_MESSAGE* packet);
 	boost::shared_ptr<SG_Client> m_Player;
 	static MySQLConnection* SQLConn;
-
+	static SG_Config* conf;
 
 private:
 	bool isStopped();

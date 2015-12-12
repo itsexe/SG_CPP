@@ -26,13 +26,13 @@ SG_Client::SG_Client()
 	tricks[4] = Trickconstructor(1400,0, 1);	// Power Slide
 
 	// Extended stuff
-	tricks[5] = Trickconstructor(1500,2, 1);	// Back Flip
-	tricks[6] = Trickconstructor(1600,2, 1);	// Front Flip
-	tricks[7] = Trickconstructor(1700,4, 1);	// Air Twist
-	tricks[8] = Trickconstructor(1800,2, 1);	// Power Swing
-	tricks[9] = Trickconstructor(1900,2, 1);	// Grip Turn
-	tricks[10] = Trickconstructor(2000,1, 1);	// Jumping Steer
-	tricks[11] = Trickconstructor(2100,1, 1);	// Power Jump
+	tricks[5] = Trickconstructor(1500,0, 1);	// Back Flip
+	tricks[6] = Trickconstructor(1600,0, 1);	// Front Flip
+	tricks[7] = Trickconstructor(1700,0, 1);	// Air Twist
+	tricks[8] = Trickconstructor(1800,0, 1);	// Power Swing
+	tricks[9] = Trickconstructor(1900,0, 1);	// Grip Turn
+	tricks[10] = Trickconstructor(2000,0, 1);	// Jumping Steer
+	tricks[11] = Trickconstructor(2100,0, 1);	// Power Jump
 	tricks[12] = Trickconstructor(5000,0, 1);	// Wallride
 
 	for (auto i = 55001; i <= 55045; ++i)

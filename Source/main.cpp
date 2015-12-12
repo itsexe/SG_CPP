@@ -31,30 +31,31 @@ int main()
 	boost::shared_ptr<SG_MmoServer> pMMO(new SG_MmoServer());
 	boost::shared_ptr<SG_LobbyServer> pLobby(new SG_LobbyServer());
 	boost::shared_ptr<MySQLConnection> pDatabase(new MySQLConnection());
-	SG_Config::init();
-	pDatabase->Connect(SG_Config::host, SG_Config::port, SG_Config::DBUser, SG_Config::DBPass, SG_Config::DBName);
+	boost::shared_ptr<SG_Config> conf(new SG_Config());
+	conf->init("D:\\SG_Config.ini");
+	pDatabase->Connect(conf->host, conf->port, conf->DBUser, conf->DBPass, conf->DBName);
 	SG_ClientSession::SQLConn = pDatabase.get();
-
+	SG_ClientSession::conf = conf.get();
 	switch(option)
 	{
 	case 1:
-		pAuth->InitServer(SG_Config::AuthIP, SG_Config::AuthPort, 1);
+		pAuth->InitServer(conf->AuthIP, conf->AuthPort, 1);
 		SG_Logger::instance().log("Auth Server started", SG_Logger::kLogLevelInfo);
 		break;
 	case 2:
-		pMMO->InitServer(SG_Config::MMOIP, SG_Config::MMOPort, 1);
+		pMMO->InitServer(conf->MMOIP, conf->MMOPort, 1);
 		SG_Logger::instance().log("MMO Server started", SG_Logger::kLogLevelInfo);
 		break;
 	case 3:
-		pLobby->InitServer(SG_Config::LobbyIP, SG_Config::LobbyPort, 1);
+		pLobby->InitServer(conf->LobbyIP, conf->LobbyPort, 1);
 		SG_Logger::instance().log("Lobby Server started", SG_Logger::kLogLevelInfo);
 		break;
 	case 99:
-		pAuth->InitServer(SG_Config::AuthIP, SG_Config::AuthPort, 1);
+		pAuth->InitServer(conf->AuthIP, conf->AuthPort, 1);
 		SG_Logger::instance().log("Auth Server started", SG_Logger::kLogLevelInfo);
-		pMMO->InitServer(SG_Config::MMOIP, SG_Config::MMOPort, 1);
+		pMMO->InitServer(conf->MMOIP, conf->MMOPort, 1);
 		SG_Logger::instance().log("MMO Server started", SG_Logger::kLogLevelInfo);
-		pLobby->InitServer(SG_Config::LobbyIP, SG_Config::LobbyPort, 1);
+		pLobby->InitServer(conf->LobbyIP, conf->LobbyPort, 1);
 		SG_Logger::instance().log("Lobby Server started", SG_Logger::kLogLevelInfo);
 		break;
 	default:

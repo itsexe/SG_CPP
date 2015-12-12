@@ -14,7 +14,7 @@
 
 #include "SG_ClientSession.h"
 #include "Packets/PacketBaseMessage.h"
-
+#include "SG_Config.h"
 #include "mysql_connection.h"
 
 #include <cppconn/driver.h>

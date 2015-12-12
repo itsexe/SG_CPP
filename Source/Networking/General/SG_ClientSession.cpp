@@ -10,6 +10,7 @@
 #include "Packets/PacketBaseMessage.h"
 
 MySQLConnection *SG_ClientSession::SQLConn = nullptr;
+SG_Config *SG_ClientSession::conf = nullptr;
 
 
 SG_ClientSession::SG_ClientSession(boost::asio::io_service &rService, boost::asio::strand &rStrand, boost::shared_ptr<SG_ServerBase> pServer): m_Socket(rService), m_Strand(rStrand), m_Server(pServer), m_SocketTimout(rService), m_Player(boost::make_shared<SG_Client>())
@@ -33,7 +34,7 @@ void SG_ClientSession::StartConnection()
 
 	m_Strand.post(boost::bind(&SG_ClientSession::Read, shared_from_this()));
 
-	m_SocketTimout.expires_from_now(boost::posix_time::milliseconds(SG_Config::SocketTimeout));
+	m_SocketTimout.expires_from_now(boost::posix_time::milliseconds(conf->SocketTimeout));
 	m_SocketTimout.async_wait(m_Strand.wrap(boost::bind(&SG_ClientSession::HandleTimeout, shared_from_this())));
 }
 
@@ -58,7 +59,7 @@ void SG_ClientSession::SendPacketStruct(const TS_MESSAGE* packet)
 void SG_ClientSession::Read()
 {
 	boost::shared_ptr<std::vector<uint8_t>> pBuffer(new std::vector<uint8_t>(sizeof(uint16_t)));
-	boost::asio::async_read(m_Socket, boost::asio::buffer(*pBuffer, SG_Config::MaxPacketSize), boost::asio::transfer_exactly(sizeof(uint16_t)), m_Strand.wrap(boost::bind(&SG_ClientSession::HandleRecvHeader, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred, pBuffer)));
+	boost::asio::async_read(m_Socket, boost::asio::buffer(*pBuffer, conf->MaxPacketSize), boost::asio::transfer_exactly(sizeof(uint16_t)), m_Strand.wrap(boost::bind(&SG_ClientSession::HandleRecvHeader, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred, pBuffer)));
 }
 
 void SG_ClientSession::HandleRecvHeader(const boost::system::error_code &rEC, std::size_t stSize, boost::shared_ptr<std::vector<uint8_t>> pBuffer)
@@ -67,10 +68,10 @@ void SG_ClientSession::HandleRecvHeader(const boost::system::error_code &rEC, st
 		return SG_ClientSession::DisconnectClient();
 
 	Socketstatus = true;
-	m_SocketTimout.expires_from_now(boost::posix_time::milliseconds(SG_Config::SocketTimeout));
+	m_SocketTimout.expires_from_now(boost::posix_time::milliseconds(conf->SocketTimeout));
 
 	uint16_t Packetsize = *reinterpret_cast<uint16_t *>(pBuffer->data());
-	if (Packetsize < SG_Config::MinPacketSize || Packetsize > SG_Config::MaxPacketSize)
+	if (Packetsize < conf->MinPacketSize || Packetsize > conf->MaxPacketSize)
 	{
 		std::cout << "Packetsize is not in valid space [" << Packetsize << "]" << std::endl;
 		//return SG_ClientSession::DisconnectClient();
@@ -116,7 +117,7 @@ void SG_ClientSession::HandleTimeout()
 			return SG_ClientSession::DisconnectClient();
 		}
 
-		m_SocketTimout.expires_from_now(boost::posix_time::milliseconds(SG_Config::SocketTimeout));
+		m_SocketTimout.expires_from_now(boost::posix_time::milliseconds(conf->SocketTimeout));
 	}
 
 	m_SocketTimout.async_wait(m_Strand.wrap(boost::bind(&SG_ClientSession::HandleTimeout, shared_from_this())));

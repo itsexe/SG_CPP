@@ -15,11 +15,11 @@ void SG_AuthHandler::CheckClientVersion(const boost::shared_ptr<SG_ClientSession
 {
 	Session->m_Player->ClientVersion = packet->szVersion;
 	Session->m_Player->ClientLang = packet->szLang;
-	if (SG_Config::CheckClientVersion == true)
+	if (SG_ClientSession::conf->CheckClientVersion == true)
 	{
-		if (Session->m_Player->ClientVersion != SG_Config::ClientVersion || Session->m_Player->ClientLang != SG_Config::ClientLanguage)
+		if (Session->m_Player->ClientVersion != SG_ClientSession::conf->ClientVersion || Session->m_Player->ClientLang != SG_ClientSession::conf->ClientLanguage)
 		{
-			SG_Logger::instance().log("[" + Session->m_Player->SessionKey + "]" + " Invalid Clientversion. [" + SG_Config::ClientLanguage + "] <--> [" + Session->m_Player->ClientLang + "] [" + SG_Config::ClientVersion + "] <--> [" + Session->m_Player->ClientVersion + "]", SG_Logger::kLogLevelPlayer);
+			SG_Logger::instance().log("[" + Session->m_Player->SessionKey + "]" + " Invalid Clientversion. [" + SG_ClientSession::conf->ClientLanguage + "] <--> [" + Session->m_Player->ClientLang + "] [" + SG_ClientSession::conf->ClientVersion + "] <--> [" + Session->m_Player->ClientVersion + "]", SG_Logger::kLogLevelPlayer);
 			return;
 		}
 	}
@@ -41,8 +41,7 @@ void SG_AuthHandler::CheckClientCredentials(const boost::shared_ptr<SG_ClientSes
 	//Check Login using MySQL
 	MySQLQuery qry(Session->SQLConn, "SELECT id, verified, banned FROM Accounts where username = ? and password = md5(?);");
 	qry.setString(1, Session->m_Player->Username);
-	SG_Config::init();
-	qry.setString(2, SG_Config::MD5Salt + Session->m_Player->Password);
+	qry.setString(2, SG_ClientSession::conf->MD5Salt + Session->m_Player->Password);
 	qry.ExecuteQuery();
 	if (!qry.GetResultRowCount()) // User or password wrong
 	{
@@ -94,33 +93,33 @@ void SG_AuthHandler::SendServerList(const boost::shared_ptr<SG_ClientSession> Se
 {
 	TS_CA_SERVER_LIST_RESP response;
 	TS_CA_SERVER_LIST_RESP::initMessage<TS_CA_SERVER_LIST_RESP>(&response);
-	SG_Config::init();
+
 	//TODO: Make this crap dynamic
 	response.uk1 = 1;
 	response.xID = 100;
 	response.Msg_ID = 2;
 	response.Lobby_ID = 3;
 	response.MMO_ID = 4;
-	strcpy_s(response.msg_IP, SG_Config::msgIP.c_str());
-	strcpy_s(response.mmo_IP, SG_Config::MMOIP.c_str());
-	strcpy_s(response.lobby_IP, SG_Config::LobbyIP.c_str());
-	for (auto i = SG_Config::msgIP.length(); i != 16; i++)
+	strcpy_s(response.msg_IP, SG_ClientSession::conf->msgIP.c_str());
+	strcpy_s(response.mmo_IP, SG_ClientSession::conf->MMOIP.c_str());
+	strcpy_s(response.lobby_IP, SG_ClientSession::conf->LobbyIP.c_str());
+	for (auto i = SG_ClientSession::conf->msgIP.length(); i != 16; i++)
 	{
 		response.msg_IP[i] = static_cast<uint8_t>(0);
 	}
-	for (auto i = SG_Config::MMOIP.length(); i != 16; i++)
+	for (auto i = SG_ClientSession::conf->MMOIP.length(); i != 16; i++)
 	{
 		response.mmo_IP[i] = static_cast<uint8_t>(0);
 	}
-	for (auto i = SG_Config::LobbyIP.length(); i != 16; i++)
+	for (auto i = SG_ClientSession::conf->LobbyIP.length(); i != 16; i++)
 	{
 		response.lobby_IP[i] = static_cast<uint8_t>(0);
 	}
-	response.Msg_Port = SG_Config::MsgPort;
-	response.Lobby_Port = SG_Config::LobbyPort;
-	response.MMO_Port = SG_Config::MMOPort;
+	response.Msg_Port = SG_ClientSession::conf->MsgPort;
+	response.Lobby_Port = SG_ClientSession::conf->LobbyPort;
+	response.MMO_Port = SG_ClientSession::conf->MMOPort;
 	response.CurrentUsers = 0;
-	response.MaximumUsers = SG_Config::MaximumUsersPerServer;
+	response.MaximumUsers = SG_ClientSession::conf->MaximumUsersPerServer;
 	Session->SendPacketStruct(&response);
 }
 
