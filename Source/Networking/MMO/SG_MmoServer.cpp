@@ -1,10 +1,8 @@
 #include "SG_MmoServer.h"
 #include <string>
-#include <random>
 #include "Constructors/SG_Packets.h"
 #include "Tools/SG_Logger.h"
 #include "Handlers/MMO/SG_MMOHandler.h"
-#include "Packets/Auth/LoginPackets.h"
 #include <Packets/MMO/MMOPackets.h>
 
 
@@ -16,7 +14,7 @@ bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> p
 
 void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
 {
-	SG_Logger::instance().log(pSession->getSocket().remote_endpoint().address().to_string() + " disconnected!", SG_Logger::kLogLevelMMO);
+	SG_Logger::instance().log(pSession->m_Player->SessionKey + " disconnected!", SG_Logger::kLogLevelMMO);
 }
 
 bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pSession, const TS_MESSAGE* packet)

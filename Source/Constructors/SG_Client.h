@@ -25,11 +25,11 @@ public:
 	unsigned char CryptedPassword[19];
 
 	//Playersettings
-	uint16_t playerid;
+	uint16_t playerid = 0;
 	std::string charname;
-	uint16_t charcreated;
-	uint32_t chartype;
-	uint64_t charlevel;
+	uint16_t charcreated = 0;
+	uint32_t chartype = 0;
+	uint64_t charlevel = 0;
 
 	std::vector<uint64_t> missions;
 	std::vector<Trickconstructor> tricks;

@@ -1,13 +1,6 @@
 #include "SG_MMOHandler.h"
-#include "SG_Config.h"
 #include "Tools/SG_Logger.h"
-#include "Tools/Encryption/DesPasswordCipher.h"
-#include "Tools/SG_DataConverter.h"
-#include "Packets/Auth/LoginPackets.h"
-#include "Packets/Auth/LoginPacketsResponse.h"
 #include <Packets/MMO/MMOPacketsResponse.h>
-
-
 void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet)
 {
 
@@ -78,8 +71,6 @@ void SG_MMOHandler::HandleCharCreation(const boost::shared_ptr<SG_ClientSession>
 
 void SG_MMOHandler::SendCharList(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAR_LIST* packet)
 {
-	std::cout << packet << std::endl;
-
 	BM_SC_PLAYER_CHAR_LIST_RESP response;
 	BM_SC_PLAYER_CHAR_LIST_RESP::initMessage<BM_SC_PLAYER_CHAR_LIST_RESP>(&response);
 	strcpy_s(response.resonse, static_cast<std::string>("SUCCESS").c_str());
@@ -132,6 +123,36 @@ void SG_MMOHandler::SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Ses
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	response.mapname1[11] = static_cast<uint8_t>(0);
 	response.mapname2[8] = static_cast<uint8_t>(0);
+	
+	response.uk8 = 5;
+	response.sp2id = 2;
+	response.sp2size = 12;
+	response.uk17 = 5;
+	response.uk18 = 5;
+
+	response.sp4id = 4;
+	response.sp4size = 12;
+	response.uk19 = 5;
+	response.uk20 = 6;
+	response.uk31 = 7;
+
+	response.sp64id = 64;
+	response.sp64size = 16;
+	response.uk32 = 7;
+	response.uk33 = 8;
+	response.uk34 = 9;
+	response.uk35 = 10;
+
+	response.sp512id = 512;
+	response.sp512size = 44;
+
+	response.sp1024id = 511;
+	response.sp1024size = 12;
+	response.count1 = 2;
+	response.count2 = 1;
+	response.count3 = 2;
+
+
 
 	//Playerstuff
 	response.level = Session->m_Player->charlevel;
@@ -230,6 +251,7 @@ void SG_MMOHandler::EnterLobby(const boost::shared_ptr<SG_ClientSession> Session
 	response.uk3 = 1;
 	Session->SendPacketStruct(&response);
 }
+
 void SG_MMOHandler::SetSessionMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SET_SESSION_MESSAGE* packet)
 {
 	SG_Logger::instance().log(Session->m_Player->Username + "'s sessionmessage: " + packet->message, SG_Logger::kLogLevelMMO);
