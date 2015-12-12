@@ -7,6 +7,12 @@
 
 SG_Client::SG_Client()
 {
+	strChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	playerid = 0;
+	charcreated = 0;
+	chartype = 0;
+	charlevel = 0;
+	IsInOX = false;
 	//Generate a new Sessionkey
 	const auto now = boost::posix_time::second_clock::local_time();
 	std::default_random_engine engine;

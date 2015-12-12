@@ -102,17 +102,6 @@ inline uint8_t getMessageChecksum(uint32_t size, uint16_t id) {
 
 #pragma pack(pop)
 
-//#include "MessageBuffer.h"
 
-template<class T, class U>
-void TS_MESSAGE::process(U* instance, void (U::*processFunction)(const T*), int version) const {
-	T packet;
-	MessageBuffer buffer((void*)this, this->size, version);
-
-	packet.deserialize(&buffer);
-	if (buffer.checkFinalSize()) {
-		(instance->*processFunction)(&packet);
-	}
-}
 
 #endif // PACKETS_PACKETBASEMESSAGE_H

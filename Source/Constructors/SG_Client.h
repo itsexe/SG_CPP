@@ -25,11 +25,11 @@ public:
 	unsigned char CryptedPassword[19];
 
 	//Playersettings
-	uint16_t playerid = 0;
+	uint16_t playerid;
 	std::string charname;
-	uint16_t charcreated = 0;
-	uint32_t chartype = 0;
-	uint64_t charlevel = 0;
+	uint16_t charcreated;
+	uint32_t chartype;
+	uint64_t charlevel;
 
 	std::vector<uint64_t> missions;
 	Trickconstructor tricks[13];
@@ -47,11 +47,11 @@ public:
 	float coord_z;
 
 	//Quiz
-	bool IsInOX = false;
+	bool IsInOX;
 
 
 private:
-	const std::string strChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	std::string strChars;
 
 };
 

@@ -15,7 +15,7 @@ SG_Config *SG_ClientSession::conf = nullptr;
 
 SG_ClientSession::SG_ClientSession(boost::asio::io_service &rService, boost::asio::strand &rStrand, boost::shared_ptr<SG_ServerBase> pServer): m_Socket(rService), m_Strand(rStrand), m_Server(pServer), m_SocketTimout(rService), m_Player(boost::make_shared<SG_Client>())
 {
-	
+	Socketstatus = false;
 }
 
 SG_ClientSession::~SG_ClientSession()

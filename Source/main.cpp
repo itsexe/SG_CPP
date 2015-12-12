@@ -8,7 +8,7 @@
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include "Networking/Lobby/SG_LobbyServer.h"
 
-int main()
+int main(int argc, char *argv[])
 {
 	int option;
 	std::cout << "Please select the Server" << std::endl;
