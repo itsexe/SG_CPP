@@ -1,12 +1,11 @@
 #include "SG_AuthHandler.h"
 #include "SG_Config.h"
 #include "Tools/SG_Logger.h"
-#include "Tools/Encryption/DesPasswordCipher.h"
-#include "Tools/SG_DataConverter.h"
 #include "Packets/Auth/LoginPackets.h"
 #include "Packets/Auth/LoginPacketsResponse.h"
 #include "Tools/Database/Database.h"
 #include <mysql.h>
+#include <Networking/General/SG_ClientSession.h>
 
 SG_AuthHandler::SG_AuthHandler()
 {
@@ -42,6 +41,7 @@ void SG_AuthHandler::CheckClientCredentials(const boost::shared_ptr<SG_ClientSes
 	//Check Login using MySQL
 	MySQLQuery qry(Session->SQLConn, "SELECT id, verified, banned FROM Accounts where username = ? and password = md5(?);");
 	qry.setString(1, Session->m_Player->Username);
+	SG_Config::init();
 	qry.setString(2, SG_Config::MD5Salt + Session->m_Player->Password);
 	qry.ExecuteQuery();
 	if (!qry.GetResultRowCount()) // User or password wrong
