@@ -7,7 +7,11 @@
 #include <WS2tcpip.h>
 #endif
 
-#include <mysql.h>
+#ifdef _WIN32
+#include "mysql.h"
+#else
+#include "/usr/include/mysql/mysql.h"
+#endif
 #include <stdint.h>
 #include <string>
 #include <algorithm>
