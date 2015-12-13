@@ -1,11 +1,12 @@
 #include "Database.h"
 #include "Tools/SG_logger.h"
+#include <sstream>
 #pragma comment(lib, "libmysql.lib")
 
 MySQLConnection::MySQLConnection()
 {
 	m_bIsConnected = false;
-	m_MySQLConn = NULL;
+	m_MySQLConn = nullptr;
 	m_sHostname = "";
 	m_sUsername = "";
 	m_sPassword = "";
@@ -15,7 +16,7 @@ MySQLConnection::MySQLConnection()
 
 MySQLConnection::~MySQLConnection()
 {
-	if (m_MySQLConn != NULL)
+	if (m_MySQLConn != nullptr)
 	{
 		SG_Logger::instance().log("Closing MySQL Connection", SG_Logger::kLogLevelDatabase);
 		mysql_close(m_MySQLConn);
@@ -24,7 +25,7 @@ MySQLConnection::~MySQLConnection()
 	delete m_MySQLConn;
 }
 
-bool MySQLConnection::Connect(const std::string &sHostname, const uint16_t &wPort, const std::string &sUsername, const std::string &sPassword, const std::string &sDB = NULL)
+bool MySQLConnection::Connect(const std::string &sHostname, const uint16_t &wPort, const std::string &sUsername, const std::string &sPassword, const std::string &sDB = nullptr)
 {
 	// If we're already connected, we should close the first connection
 	Disconnect();
@@ -36,13 +37,13 @@ bool MySQLConnection::Connect(const std::string &sHostname, const uint16_t &wPor
 	m_sSchemaName = sDB;
 	m_bIsConnected = false;
 
-	MYSQL *MySQLConnRet = NULL;
+	MYSQL *MySQLConnRet = nullptr;
 	m_MySQLConn = mysql_init(m_MySQLConn);
 	SG_Logger::instance().log("Connecting to " + m_sUsername + "@" + m_sHostname + ":" + std::to_string(wPort) + "...", SG_Logger::kLogLevelDatabase);
 
-	MySQLConnRet = mysql_real_connect(m_MySQLConn, m_sHostname.c_str(), m_sUsername.c_str(), m_sPassword.c_str(), m_sSchemaName.c_str(), m_wPort, NULL, 0);
+	MySQLConnRet = mysql_real_connect(m_MySQLConn, m_sHostname.c_str(), m_sUsername.c_str(), m_sPassword.c_str(), m_sSchemaName.c_str(), m_wPort, nullptr, 0);
 
-	if (MySQLConnRet == NULL)
+	if (MySQLConnRet == nullptr)
 	{
 		m_bIsConnected = false;
 		SG_Logger::instance().log("Connection failed! Please check your DB Settings!", SG_Logger::kLogLevelError);
@@ -88,7 +89,7 @@ bool MySQLConnection::SelectDB(const std::string &sSchemaName)
 	}
 }
 
-const std::string MySQLConnection::GetLastError() const
+std::string MySQLConnection::GetLastError() const
 {
 	if (!m_bIsConnected)
 	{
@@ -96,7 +97,7 @@ const std::string MySQLConnection::GetLastError() const
 		return "Not connected";
 	}
 
-	return (char*)mysql_error(m_MySQLConn);
+	return const_cast<char*>(mysql_error(m_MySQLConn));
 }
 
 MYSQL *MySQLConnection::getConn()
@@ -109,7 +110,7 @@ bool MySQLConnection::IsConnected()
 	return m_bIsConnected;
 }
 
-const std::string MySQLConnection::EscapeString(const std::string &value) const
+std::string MySQLConnection::EscapeString(const std::string &value) const
 {
 	if (!m_bIsConnected)
 	{
@@ -213,38 +214,38 @@ bool MySQLQuery::setNull(const unsigned int &idx)
 	return true;
 }
 
-const std::string MySQLQuery::getFieldName(const unsigned int &field)
+std::string MySQLQuery::getFieldName(const unsigned int &field)
 {
 	if (field < 1)
 	{
 		std::cerr << "The field index has to be over 1!" << std::endl;
-		return NULL;
+		return nullptr;
 	}
 	else if (m_mFieldMap.size() < field) {
 		std::cerr << "There are only " << m_mFieldMap.size() << " fields available!" << std::endl;
-		return NULL;
+		return nullptr;
 	}
 
 	std::string sFieldName = m_mFieldMap[field];
 	return sFieldName;
 }
 
-const std::string MySQLQuery::getString(const unsigned int &row, const unsigned int &field)
+std::string MySQLQuery::getString(const unsigned int &row, const unsigned int &field)
 {
 	if (GetResultRowCount() < 1)
 	{
 		std::cerr << "The query didn't return any rows!" << std::endl;
-		return NULL;
+		return nullptr;
 	}
 	else if (GetResultRowCount() < row)
 	{
 		std::cerr << "There are only " << GetResultRowCount() << " rows available!" << std::endl;
-		return NULL;
+		return nullptr;
 	}
 	else if (row < 1)
 	{
 		std::cerr << "The selected row has to be > 1" << std::endl;
-		return NULL;
+		return nullptr;
 	}
 
 	TResultRow rSelectedRow;
@@ -255,7 +256,7 @@ const std::string MySQLQuery::getString(const unsigned int &row, const unsigned 
 	return sValue;
 }
 
-const std::string MySQLQuery::getString(const unsigned int &row, const std::string &field)
+std::string MySQLQuery::getString(const unsigned int &row, const std::string &field)
 {
 	if (GetResultRowCount() < 1)
 	{
@@ -303,7 +304,7 @@ int MySQLQuery::getInt(const unsigned int &row, const unsigned int &field)
 	TResultRow rSelectedRow;
 	rSelectedRow = m_mResultMap[row - 1];
 
-	int iValue = atoi(rSelectedRow[field].c_str());
+	auto iValue = atoi(rSelectedRow[field].c_str());
 
 	return iValue;
 }
@@ -454,7 +455,7 @@ unsigned int MySQLQuery::GetFieldCount()
 	return iFieldCount;
 }
 
-const std::string MySQLQuery::BuildQueryString()
+std::string MySQLQuery::BuildQueryString()
 {
 	// replace each '?' with the corresponding value
 	int iLastFoundPos = 0;
@@ -482,7 +483,7 @@ bool MySQLQuery::ExecuteQuery()
 
 	MYSQL_RES *result = mysql_store_result(m_sqlConn->getConn());
 
-	if (result == NULL)
+	if (result == nullptr)
 	{
 		std::cout << "[" << __FUNCTION__ << "] MySQL Error: " << m_sqlConn->GetLastError() << std::endl;
 		return false;

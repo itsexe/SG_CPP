@@ -1,11 +1,4 @@
 #pragma once
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x501
-#endif
-
-#ifdef _WINDOWS
-#include <WS2tcpip.h>
-#endif
 
 #ifdef _WIN32
 #include "mysql.h"
@@ -14,10 +7,7 @@
 #endif
 #include <stdint.h>
 #include <string>
-#include <algorithm>
 #include <map>
-#include <iostream>
-#include <sstream>
 
 class MySQLConnection
 {
@@ -32,13 +22,13 @@ public:
 	// disconnects (huh, who guessed this?)
 	void Disconnect();
 	// returns the last error string
-	const std::string GetLastError() const;
+	std::string GetLastError() const;
 	// gets a pointer to the MySQL connection
 	MYSQL *getConn();
 	// returns true when connected
 	bool IsConnected();
 	// returns an escaped string
-	const std::string EscapeString(const std::string &value) const;
+	std::string EscapeString(const std::string &value) const;
 
 private:
 	MYSQL *m_MySQLConn;
@@ -77,13 +67,13 @@ public:
 	uint64_t ExecuteInsert();
 
 	// builds the query string with filled-in arguments and returns it
-	const std::string BuildQueryString();
+	std::string BuildQueryString();
 
 	// returns a field name
-	const std::string getFieldName(const unsigned int &field);
+	std::string getFieldName(const unsigned int &field);
 	// gets a string value from the given row and field
-	const std::string getString(const unsigned int &row, const unsigned int &field);
-	const std::string getString(const unsigned int &row, const std::string &field);
+	std::string getString(const unsigned int &row, const unsigned int &field);
+	std::string getString(const unsigned int &row, const std::string &field);
 	// gets an int value from the given row and field
 	int getInt(const unsigned int &row, const unsigned int &field);
 	int getInt(const unsigned int &row, const std::string &field);

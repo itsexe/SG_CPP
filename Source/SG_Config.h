@@ -3,10 +3,8 @@
 #pragma once
 #include <cstdint>
 #include <iostream>
-#include <boost/config.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
-#include <boost/property_tree/detail/ptree_implementation.hpp>
 
 class SG_Config
 	{
@@ -16,8 +14,6 @@ class SG_Config
 		static const uint32_t SocketTimeout = 20000;
 
 		static const uint32_t MaxRoomCount = 100;
-
-		uint8_t PE_Header[16];
 
 		//Global config
 		uint16_t MaximumUsersPerServer;
@@ -62,8 +58,6 @@ void SG_Config::init(std::string path)
 	std::fstream ifs(path); //maybe you'll have to specify your path here
 	boost::property_tree::ptree conf;
 	read_ini(ifs, conf);
-	uint8_t PH[16] = { 0xF6, 0x23, 0x42, 0xE5, 0xB1, 0x6A, 0xC0, 0x9F, 0xAB, 0x46, 0xA5, 0x2D,	0x07, 0x41, 0xD2, 0xA6 };
-	std::copy(std::begin(PH), std::end(PH), std::begin(SG_Config::PE_Header));
 
 	//Global config
 	MaximumUsersPerServer = conf.get<uint16_t>("Global.MaximumUsersPerServer");
