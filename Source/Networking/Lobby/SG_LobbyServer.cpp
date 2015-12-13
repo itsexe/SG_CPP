@@ -1,6 +1,5 @@
 #include "SG_LobbyServer.h"
 #include <string>
-#include "Constructors/SG_Packets.h"
 #include "Tools/SG_Logger.h"
 
 bool SG_LobbyServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
@@ -18,9 +17,6 @@ bool SG_LobbyServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> 
 {
 	switch (packet->id)
 	{
-	case SG_Packets::Recv::XX_SC_KEEP_ALIVE_recv:
-		pSession->m_Player->UpdateLastKeepAlive();
-		return true;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
 	}

@@ -4,7 +4,6 @@
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-
 struct BM_SC_LOGIN : public TS_MESSAGE
 {
 	unsigned char sessionKey[33];

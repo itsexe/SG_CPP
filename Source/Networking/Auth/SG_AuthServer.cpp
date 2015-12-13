@@ -1,7 +1,6 @@
 #include "SG_AuthServer.h"
 #include <string>
 #include <random>
-#include "Constructors/SG_Packets.h"
 #include "Tools/SG_Logger.h"
 #include "Handlers/Auth/SG_AuthHandler.h"
 #include "Packets/Auth/LoginPackets.h"
@@ -21,7 +20,7 @@ bool SG_AuthServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> p
 {
 	switch (packet->id)
 	{
-	case SG_Packets::Recv::XX_SC_KEEP_ALIVE_recv:
+	case  XX_SC_KEEP_ALIVE::packetID:
 		pSession->m_Player->UpdateLastKeepAlive();
 		return true;
 	case TS_CA_VERSION::packetID:

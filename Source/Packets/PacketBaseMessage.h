@@ -59,7 +59,10 @@ struct TS_MESSAGE {
 	template<class T, class U>
 	void process(U* instance, void (U::*processFunction)(const T*), int version) const;
 };
-
+struct XX_SC_KEEP_ALIVE : public TS_MESSAGE
+{
+	static const uint16_t packetID = 2000;
+};
 //Special struct to prevent copy of server->client packet structs
 //WNA stand for WITH NESTED ARRAY but shorter
 struct TS_MESSAGE_WNA : public TS_MESSAGE {

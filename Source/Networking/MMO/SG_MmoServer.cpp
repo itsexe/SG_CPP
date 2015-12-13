@@ -1,6 +1,5 @@
 #include "SG_MmoServer.h"
 #include <string>
-#include "Constructors/SG_Packets.h"
 #include "Tools/SG_Logger.h"
 #include "Handlers/MMO/SG_MMOHandler.h"
 #include <Packets/MMO/MMOPackets.h>
@@ -21,9 +20,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 {
 	switch (packet->id)
 	{
-	case SG_Packets::Recv::XX_SC_KEEP_ALIVE_recv:
+	case XX_SC_KEEP_ALIVE::packetID:
 		pSession->m_Player->UpdateLastKeepAlive();
-		return true;
+		break;
 	case BM_SC_LOGIN::packetID:
 		SG_MMOHandler::HandleLogin(pSession, static_cast<const BM_SC_LOGIN*>(packet));
 		SG_MMOHandler::SendCharList(pSession, static_cast<const BM_SC_CHAR_LIST*>(packet));
