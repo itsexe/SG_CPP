@@ -75,8 +75,8 @@ void SG_MMOHandler::SendCharList(const boost::shared_ptr<SG_ClientSession> Sessi
 	BM_SC_PLAYER_CHAR_LIST_RESP::initMessage<BM_SC_PLAYER_CHAR_LIST_RESP>(&response);
 	strcpy_s(response.resonse, static_cast<std::string>("SUCCESS").c_str());
 	response.resonse[7] = static_cast<uint8_t>(0);
-	strcpy_s(response.charname, Session->m_Player->Username.c_str());
-	for (auto i = Session->m_Player->Username.length(); i != 43; i++)
+	strcpy_s(response.charname, Session->m_Player->charname.c_str());
+	for (auto i = Session->m_Player->charname.length(); i != 43; i++)
 	{
 		response.charname[i] = static_cast<uint8_t>(0);
 	}
@@ -238,7 +238,13 @@ void SG_MMOHandler::HandlePositionUpdate(const boost::shared_ptr<SG_ClientSessio
 
 void SG_MMOHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
 {
-	//std::cout << packet << std::endl;
+	std::cout << packet << std::endl;
+	BM_SC_CHAT_MESSAGE_RESP response;
+	BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
+	SG_Logger::instance().log(Session->m_Player->charname + ": " + packet->msg, SG_Logger::kLogLevelChat);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
 }
 
 void SG_MMOHandler::EnterLobby(const boost::shared_ptr<SG_ClientSession> Session)

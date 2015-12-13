@@ -20,7 +20,6 @@ struct BM_SC_SELECT_CHAR : public TS_MESSAGE
 	//Since we don't need this data, i just skip this
 	static const uint16_t packetID = 2066;
 };
-
 struct BM_SC_CREATE_CHAR : public TS_MESSAGE
 {
 	//This packet will be sent from the char creation
@@ -120,7 +119,8 @@ struct BM_SC_SET_SESSION_MESSAGE : public TS_MESSAGE
 };
 struct BM_SC_CHAT_MESSAGE : public TS_MESSAGE
 {
-	uint8_t messagelength;
+	char uk[30];
+	uint16_t messagelength;
 	char msg[70];
 	static const uint16_t packetID = 2206;
 };

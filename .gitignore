@@ -20,7 +20,7 @@
 *.lai
 *.la
 *.a
-
+*.lib
 
 # Executables
 *.exe
@@ -34,4 +34,5 @@ Source/SG_Auth.sln.DotSettings.user
 *.filters
 Source/SG_Auth.vcxproj.user
 Source/SG_Auth.sln
+*.vcxproj
 *.txt

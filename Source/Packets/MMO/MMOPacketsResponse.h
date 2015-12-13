@@ -220,6 +220,11 @@ struct BM_SC_INVENTORY_RESP : public TS_MESSAGE
 	std::vector<Item> items;
 	static const uint16_t packetID = 2099;
 };
+struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2207;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H
