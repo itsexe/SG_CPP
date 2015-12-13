@@ -173,6 +173,10 @@ struct BM_SC_LEAVE_ROOM : public TS_MESSAGE
 {
 	static const uint16_t packetID = 2177;
 };
+struct MM_SC_MSN : public TS_MESSAGE
+{
+	static const uint16_t packetID = 5001;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

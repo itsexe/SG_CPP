@@ -302,6 +302,15 @@ struct BM_SC_LEVEL_INFO_RESP : public TS_MESSAGE
 	uint32_t license;
 	static const uint16_t packetID = 2097;
 };
+struct MM_SC_MSN_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t uk3; //1
+	uint32_t uk4; //1
+	static const uint16_t packetID = 5002;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

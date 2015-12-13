@@ -364,3 +364,14 @@ void SG_MMOHandler::RoomLeave(const boost::shared_ptr<SG_ClientSession> Session)
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
+
+void SG_MMOHandler::HandleMSN(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	MM_SC_MSN_RESP response;
+	MM_SC_MSN_RESP::initMessage<MM_SC_MSN_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	response.uk3 = 1;
+	response.uk4 = 1;
+	Session->SendPacketStruct(&response);
+}

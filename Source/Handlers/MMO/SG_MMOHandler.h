@@ -33,12 +33,14 @@ public:
 	static void EnterOX(const boost::shared_ptr<SG_ClientSession> Session);
 	static void LeaveOX(const boost::shared_ptr<SG_ClientSession> Session);
 
-	//rooms
+	//Rooms
 	static void SendRoomList(const boost::shared_ptr<SG_ClientSession> Session);
 	static void RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet);
 	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet);
 	static void RoomLeave(const boost::shared_ptr<SG_ClientSession> Session);
 
+	//Social stuff
+	static void HandleMSN(const boost::shared_ptr<SG_ClientSession> Session);
 
 };
 
