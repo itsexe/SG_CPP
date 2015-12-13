@@ -67,61 +67,7 @@ We will also use this method to create the packets we send to the client.
 
 
 ## Setup
-### How to compile
-Since this is a cross plattform project, i only included the cmake files.
-#### Depencencies
-This project needs some external libraries.
-* Boost Version 1.59.0 (You can get it at http://www.boost.org/or if you use Linux "sudo apt~get install libboost~all~dev")
-* OpenSSL (http://slproweb.com/products/Win32OpenSSL.html)
-* CMake (https://cmake.org/download/#latest)
-
-### Setup server
-At the moment the settings are hardcoded. (Will be moved to a ini file soon!)
-If you want to change the ports or MySQL~Connectionstrings you can do it in "SG~Config.h".
-
-#### Config File
-```
-[Global]
-MaximumUsersPerServer=1000
-[Database]
-Host=DATABASE HOST
-Port=DATABASE PORT
-User=DATABASE USER
-Password=YOUR-SQL-PASSWORD
-Database=DATABASENAME
-[Auth]
-ServerIP=127.0.0.1
-ServerPort=1800
-CheckVersion=0
-CheckLanguage=0
-ClientVersion=200708240
-ClientLanguage=de
-[MMO]
-ServerIP=127.0.0.1
-ServerPort=1801
-[Lobby]
-ServerIP=127.0.0.1
-ServerPort=1802
-[Message]
-ServerIP=127.0.0.1
-ServerPort=1803
-[Encryption]
-DESKey=!_a^Rc* | #][Ych$~'(M _!d4aUo^%${T!~}h*&X%
-MD5Salt=irgendwas
-```
-
-### Setup client
-If you want to start the client in german you can use following arguments:
-```
-StreetGear.exe /enc /locale:cp1141 /auth~ip:127.0.0.1 /auth~port:1337 /window /debug /log
-```
-To start it in french use:
-```
-StreetGear.exe /enc /locale:cp1147 /auth~ip:127.0.0.1 /auth~port:1337 /window /debug /log
-```
-(Apparently there is also a korean Version. To start the game in korean use "/locale:cp949")
-
-Before you login, you have to inject the DebugLibrary to disable the packetencryption.
+Please take a look at the wiki!
 
 ## Contribute
 Contributions are always welcome. Feel free to create pull requests (:
