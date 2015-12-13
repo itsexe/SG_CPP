@@ -67,7 +67,11 @@ struct BM_SC_BALANCE_INFO : public TS_MESSAGE
 	//Since we don't need this data, i just skip this
 	static const uint16_t packetID = 2094;
 };
-
+struct BM_SC_CASH_BALANCE_INFO : public TS_MESSAGE
+{
+	//Since we don't need this data, i just skip this
+	static const uint16_t packetID = 2271;
+};
 struct BM_SC_CHANNEL_LIST : public TS_MESSAGE
 {
 	//Since we don't need this data, i just skip this
@@ -144,6 +148,30 @@ struct BM_SC_START_MISSION: public TS_MESSAGE
 struct BM_SC_INVENTORY : public TS_MESSAGE
 {
 	static const uint16_t packetID = 2098;
+};
+struct BM_SC_GET_ROOMLIST : public TS_MESSAGE
+{
+	static const uint16_t packetID = 2303;
+};
+struct BM_SC_CREATE_ROOM : public TS_MESSAGE
+{
+	char Name[24];
+	char password[4];
+	char uk[48];
+	uint8_t Playercount;
+	uint32_t Mode;
+	uint8_t Level;
+	static const uint16_t packetID = 2173;
+};
+struct BM_SC_ENTER_ROOM : public TS_MESSAGE
+{
+	uint8_t uk1;
+	uint32_t roomid;
+	static const uint16_t packetID = 2175;
+};
+struct BM_SC_LEAVE_ROOM : public TS_MESSAGE
+{
+	static const uint16_t packetID = 2177;
 };
 #pragma pack(pop)
 

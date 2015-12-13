@@ -58,6 +58,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_BALANCE_INFO::packetID:
 		SG_MMOHandler::SendBalanceInfo(pSession);
 		break;
+	case BM_SC_CASH_BALANCE_INFO::packetID:
+		SG_MMOHandler::SendCashBalanceInfo(pSession);
+		break;
 	case BM_SC_ENTER_CHANNEL::packetID:
 		SG_MMOHandler::EnterChannel(pSession, static_cast<const BM_SC_ENTER_CHANNEL*>(packet));
 		break;
@@ -97,6 +100,18 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		break;
 	case BM_SC_CREATE_CHAR::packetID:
 		SG_MMOHandler::HandleCharCreation(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
+		break;
+	case BM_SC_GET_ROOMLIST::packetID:
+		SG_MMOHandler::SendRoomList(pSession);
+		break;
+	case BM_SC_CREATE_ROOM::packetID:
+		SG_MMOHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet));
+		break;
+	case BM_SC_ENTER_ROOM::packetID:
+		SG_MMOHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet));
+		break;
+	case BM_SC_LEAVE_ROOM::packetID:
+		SG_MMOHandler::RoomLeave(pSession);
 		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);

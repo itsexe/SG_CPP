@@ -225,6 +225,83 @@ struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2207;
 };
+
+struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
+{
+	//TODO
+	static const uint16_t packetID = 2304;
+};
+struct BM_SC_CREATE_ROOM_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t roomid;
+	char relayip[20];
+	uint16_t relayport;
+	uint8_t team; // 1 = red | 2 = Blue
+	uint8_t uk3;
+	uint8_t uk4;
+	uint32_t udpport; //default 5000
+	static const uint16_t packetID = 2174;
+};
+struct BM_SC_CREATE_FAILED_RESP : public TS_MESSAGE
+{
+	char errormessage[16];
+	static const uint16_t packetID = 2174;
+};
+struct BM_SC_CREATE_ROOM_ALREADYJOINED_RESP : public TS_MESSAGE
+{
+	char errormessage[21];
+	static const uint16_t packetID = 2174;
+};
+struct BM_SC_ENTER_ROOM_SUCCESS_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t roomid;
+	char relayip[20];
+	uint16_t relayport;
+	uint8_t team; // 1 = red | 2 = Blue
+	uint8_t uk3;
+	uint8_t uk4;
+	uint32_t udpport; //default 5000
+	static const uint16_t packetID = 2176;
+};
+struct BM_SC_ENTER_ROOM_FAILED_RESP : public TS_MESSAGE
+{
+	char errormessage[16];
+	static const uint16_t packetID = 2176;
+};
+struct BM_SC_ENTER_ROOM_ALREADYJOINED_RESP : public TS_MESSAGE
+{
+	char errormessage[21];
+	static const uint16_t packetID = 2176;
+};
+struct BM_SC_LEAVE_ROOM_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2178;
+};
+struct BM_SC_CASH_BALANCE_INFO_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t coin;
+	static const uint16_t packetID = 2272;
+};
+struct BM_SC_LEVEL_INFO_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t exp;
+	uint32_t level;
+	uint32_t license;
+	static const uint16_t packetID = 2097;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

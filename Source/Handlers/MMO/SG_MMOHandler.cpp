@@ -27,6 +27,8 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 			Session->m_Player->gpotatos = qry.getInt(1, "Rupees");
 			Session->m_Player->rupees = qry.getInt(1, "Rupees");
 			Session->m_Player->coins = qry.getInt(1, "Coins");
+			Session->m_Player->exp = qry.getInt(1, "XP");
+			Session->m_Player->license = qry.getInt(1, "License");
 			Session->m_Player->questpoints = qry.getInt(1, "Questpoints");
 			Session->m_Player->charcreated = 1;
 		}
@@ -171,6 +173,28 @@ void SG_MMOHandler::SendBalanceInfo(const boost::shared_ptr<SG_ClientSession> Se
 	Session->SendPacketStruct(&response);
 }
 
+void SG_MMOHandler::SendCashBalanceInfo(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_CASH_BALANCE_INFO_RESP response;
+	BM_SC_CASH_BALANCE_INFO_RESP::initMessage<BM_SC_CASH_BALANCE_INFO_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	response.coin = Session->m_Player->coins;
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::SendLevelInfo(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_LEVEL_INFO_RESP response;
+	BM_SC_LEVEL_INFO_RESP::initMessage<BM_SC_LEVEL_INFO_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	response.exp = Session->m_Player->exp;
+	response.level = Session->m_Player->charlevel;
+	response.license = Session->m_Player->license;
+	Session->SendPacketStruct(&response);
+}
+
 void SG_MMOHandler::SendInventory(const boost::shared_ptr<SG_ClientSession> Session)
 {
 	BM_SC_INVENTORY_RESP response;
@@ -238,7 +262,6 @@ void SG_MMOHandler::HandlePositionUpdate(const boost::shared_ptr<SG_ClientSessio
 
 void SG_MMOHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
 {
-	std::cout << packet << std::endl;
 	BM_SC_CHAT_MESSAGE_RESP response;
 	BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
 	SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + 70), SG_Logger::kLogLevelChat);
@@ -311,6 +334,32 @@ void SG_MMOHandler::LeaveOX(const boost::shared_ptr<SG_ClientSession> Session)
 	Session->m_Player->IsInOX = false;
 	BM_SC_MMO_OX_LEAVE_RESP response;
 	BM_SC_MMO_OX_LEAVE_RESP::initMessage<BM_SC_MMO_OX_LEAVE_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	//TODO
+}
+
+void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet)
+{
+	std::cout << packet << std::endl;
+
+}
+
+void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet)
+{
+	std::cout << packet << std::endl;
+
+}
+
+void SG_MMOHandler::RoomLeave(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_LEAVE_ROOM_RESP response;
+	BM_SC_LEAVE_ROOM_RESP::initMessage<BM_SC_LEAVE_ROOM_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);

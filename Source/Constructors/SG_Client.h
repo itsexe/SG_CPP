@@ -40,6 +40,9 @@ public:
 	uint32_t rupees;
 	uint32_t questpoints;
 
+	uint32_t exp;
+	uint32_t license;
+
 	//Positionstuff
 	float coord_x;
 	float coord_y;

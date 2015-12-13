@@ -15,6 +15,8 @@ public:
 	static void SendTrickList(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendBalanceInfo(const boost::shared_ptr<SG_ClientSession> Session);
+	static void SendCashBalanceInfo(const boost::shared_ptr<SG_ClientSession> Session);
+	static void SendLevelInfo(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendInventory(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendChannellist(const boost::shared_ptr<SG_ClientSession> Session);
 	static void EnterChannel(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_CHANNEL* packet);
@@ -24,9 +26,19 @@ public:
 	static void EnterLobby(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SetSessionMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SET_SESSION_MESSAGE* packet);
 	static void SendMissionList(const boost::shared_ptr<SG_ClientSession> Session);
+
+
+	//Minigames
 	static void StartMission(const boost::shared_ptr<SG_ClientSession> Session);
 	static void EnterOX(const boost::shared_ptr<SG_ClientSession> Session);
 	static void LeaveOX(const boost::shared_ptr<SG_ClientSession> Session);
+
+	//rooms
+	static void SendRoomList(const boost::shared_ptr<SG_ClientSession> Session);
+	static void RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet);
+	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet);
+	static void RoomLeave(const boost::shared_ptr<SG_ClientSession> Session);
+
 
 };
 
