@@ -116,6 +116,16 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		break;
 	case MM_SC_MSN::packetID:
 		SG_MMOHandler::HandleMSN(pSession);
+		break;
+	case BM_SC_QUEST_DAY_COIN2::packetID:
+		SG_MMOHandler::HandleDailyCoins(pSession);
+		break;
+	case MM_SC_MSN_FIND_USER::packetID:
+		SG_MMOHandler::FindUser(pSession, static_cast<const MM_SC_MSN_FIND_USER*>(packet));
+		break;
+	case MM_SC_FRIEND_REQUEST::packetID:
+		SG_MMOHandler::FriendRequest(pSession, static_cast<const MM_SC_FRIEND_REQUEST*>(packet));
+		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
 	}

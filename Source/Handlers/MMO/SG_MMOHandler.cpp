@@ -309,6 +309,17 @@ void SG_MMOHandler::SendMissionList(const boost::shared_ptr<SG_ClientSession> Se
 	Session->SendPacketStruct(&response);
 }
 
+void SG_MMOHandler::HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> Session)
+{
+
+	//TODO: ALLOW DAILY COIN ONLY ONCE PER DAY!
+	BM_SC_QUEST_DAY_COIN2_RESP response;
+	BM_SC_QUEST_DAY_COIN2_RESP::initMessage<BM_SC_QUEST_DAY_COIN2_RESP>(&response);
+	strcpy_s(response.message, static_cast<std::string>("ALREADY_GET_COIN").c_str());
+	response.message[16] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
 void SG_MMOHandler::StartMission(const boost::shared_ptr<SG_ClientSession> Session)
 {
 	BM_SC_START_MISSION_RESP response;
@@ -373,5 +384,41 @@ void SG_MMOHandler::HandleMSN(const boost::shared_ptr<SG_ClientSession> Session)
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	response.uk3 = 1;
 	response.uk4 = 1;
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::FindUser(const boost::shared_ptr<SG_ClientSession> Session, const MM_SC_MSN_FIND_USER* packet)
+{
+	MySQLQuery qry(Session->SQLConn, "Select id from Chars where Name =  ?;");
+	qry.setString(1, std::string(packet->username, packet->username + 42));
+	qry.ExecuteQuery();
+	if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
+	{
+		//User found
+		MM_SC_MSN_FIND_USER_RESP response;
+		MM_SC_MSN_FIND_USER_RESP::initMessage<MM_SC_MSN_FIND_USER_RESP>(&response);
+		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		response.successmessage[7] = static_cast<uint8_t>(0);
+		Session->SendPacketStruct(&response);
+	}
+	else
+	{
+		//User not found (Send packet just to test)
+		MM_SC_MSN_FIND_USER_RESP response;
+		MM_SC_MSN_FIND_USER_RESP::initMessage<MM_SC_MSN_FIND_USER_RESP>(&response);
+		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		response.successmessage[7] = static_cast<uint8_t>(0);
+		Session->SendPacketStruct(&response);
+	}
+
+}
+
+void SG_MMOHandler::FriendRequest(const boost::shared_ptr<SG_ClientSession> Session, const MM_SC_FRIEND_REQUEST* packet)
+{
+	//TODO: Add request to database
+	MM_SC_FRIEND_REQUEST_RESP response;
+	MM_SC_FRIEND_REQUEST_RESP::initMessage<MM_SC_FRIEND_REQUEST_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }

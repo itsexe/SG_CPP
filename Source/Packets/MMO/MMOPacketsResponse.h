@@ -311,6 +311,22 @@ struct MM_SC_MSN_RESP : public TS_MESSAGE
 	uint32_t uk4; //1
 	static const uint16_t packetID = 5002;
 };
+struct BM_SC_QUEST_DAY_COIN2_RESP : public TS_MESSAGE
+{
+	char message[17]; //ALREADY_GET_COIN
+	static const uint16_t packetID = 2298;
+};
+
+struct MM_SC_MSN_FIND_USER_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 5014;
+};
+struct MM_SC_FRIEND_REQUEST_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 5016;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H
