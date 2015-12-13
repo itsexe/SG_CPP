@@ -5,3 +5,4 @@ language:
  - cpp
 compiler: 
  - gcc
+script: gcc -c -I /home/travis/SG_CPP/Source main.cpp -std=c++0x
