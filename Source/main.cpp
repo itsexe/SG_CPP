@@ -3,7 +3,7 @@
 #include "Networking/MMO/SG_MmoServer.h"
 #include "Tools/Database/Database.h"
 
-#include "tools/SG_Logger.h"
+#include "Tools/SG_Logger.h"
 #include "SG_Config.h"
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include "Networking/Lobby/SG_LobbyServer.h"
