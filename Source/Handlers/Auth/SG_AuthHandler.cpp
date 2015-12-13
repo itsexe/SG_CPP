@@ -6,6 +6,7 @@
 #include "Tools/Database/Database.h"
 #include <mysql.h>
 #include <Networking/General/SG_ClientSession.h>
+#include <Tools/Encryption/DesPasswordCipher.h>
 
 SG_AuthHandler::SG_AuthHandler()
 {
@@ -32,9 +33,15 @@ void SG_AuthHandler::CheckClientCredentials(const boost::shared_ptr<SG_ClientSes
 
 	//Session->m_Player->Password = packet->password;
 
-	//Decrypt DES Password (currently not working)
-	//DesPasswordCipher("!_a^Rc*|#][Ych$~'(M _!d4aUo^%${T!~}h*&X%").decrypt(&cryptedPassword[0], (int)cryptedPassword.size());
-	Session->m_Player->Password = packet->password;
+	//Decrypt DES Password
+	DesPasswordCipher("MERONG").decrypt(&cryptedPassword[0], (int)cryptedPassword.size());
+	std::stringstream ss;
+	for (size_t i = 0; i < cryptedPassword.size(); ++i)
+	{
+		if(cryptedPassword[i] != 0)
+		ss << cryptedPassword[i];
+	}	
+	Session->m_Player->Password = ss.str();
 	
 	SG_Logger::instance().log("[" + Session->m_Player->SessionKey + "] tried to login with Username: " + Session->m_Player->Username + " Password: "+ Session->m_Player->Password, SG_Logger::kLogLevelDebug);
 	
