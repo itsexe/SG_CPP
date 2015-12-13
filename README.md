@@ -8,13 +8,15 @@ This is a very early stage of development.
 The only thing that works in most parts is the loginserver.
 
 ## State of the Emulator
-Auth Server: (80%)
+Auth Server: (90%)
 
-MMO Server (0%)
+MMO Server (20%)
 
 Lobby Server: (0%)
 
 Message Server: (0%)
+
+[![Build Status](https://travis-ci.org/itsexe/SG_CPP.svg)](https://travis-ci.org/itsexe/SG_CPP)
 
 ## Structure of the emulator
 The emulator has diffrent types to servers.
