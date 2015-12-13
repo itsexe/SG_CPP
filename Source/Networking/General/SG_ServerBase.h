@@ -14,13 +14,7 @@
 
 #include "SG_ClientSession.h"
 #include "Packets/PacketBaseMessage.h"
-#include "SG_Config.h"
 
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
-#include <Tools/Database/Database.h>
 /*++
 Class for setting up the server and checking for incoming connections.
 --*/
@@ -47,7 +41,6 @@ private:
 	void Listen();
 	void HandleConnect(const boost::shared_ptr<SG_ClientSession> Connection, const boost::system::error_code &Errorcode);
 
-private:
 	boost::asio::io_service m_Service;
 	boost::asio::ip::tcp::acceptor m_Acceptor;
 	boost::thread_group m_Threadpool;

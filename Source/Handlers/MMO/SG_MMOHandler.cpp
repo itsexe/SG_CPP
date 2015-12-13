@@ -190,7 +190,7 @@ void SG_MMOHandler::SendLevelInfo(const boost::shared_ptr<SG_ClientSession> Sess
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	response.exp = Session->m_Player->exp;
-	response.level = Session->m_Player->charlevel;
+	response.level = static_cast<uint32_t>(Session->m_Player->charlevel);
 	response.license = Session->m_Player->license;
 	Session->SendPacketStruct(&response);
 }
