@@ -241,7 +241,7 @@ void SG_MMOHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> 
 	std::cout << packet << std::endl;
 	BM_SC_CHAT_MESSAGE_RESP response;
 	BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
-	SG_Logger::instance().log(Session->m_Player->charname + ": " + packet->msg, SG_Logger::kLogLevelChat);
+	SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + 70), SG_Logger::kLogLevelChat);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
@@ -259,7 +259,7 @@ void SG_MMOHandler::EnterLobby(const boost::shared_ptr<SG_ClientSession> Session
 
 void SG_MMOHandler::SetSessionMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SET_SESSION_MESSAGE* packet)
 {
-	SG_Logger::instance().log(Session->m_Player->charname + "'s sessionmessage: " + packet->message, SG_Logger::kLogLevelMMO);
+	SG_Logger::instance().log(Session->m_Player->charname + "'s sessionmessage: " + std::string(packet->message, packet->message + 14), SG_Logger::kLogLevelMMO);
 	BM_SC_SET_SESSION_MESSAGE_RESP response;
 	BM_SC_SET_SESSION_MESSAGE_RESP::initMessage<BM_SC_SET_SESSION_MESSAGE_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
