@@ -2,7 +2,6 @@
 # Streetgears Serveremulator
 This is a emulator for the serverside the StreetGears.
 StreetGears is a mmo that was discontinued mid 2012.
-[![Build Status](https://travis-ci.org/itsexe/SG_CPP.svg)](https://travis-ci.org/itsexe/SG_CPP)
 
 Please note:
 This is a very early stage of development.
