@@ -26,6 +26,7 @@
 *.exe
 *.out
 *.app
+Debug Library/Debug/
 Source/Debug/
 Source/x64/
 Source/SG_Auth.opensdf
@@ -36,3 +37,4 @@ Source/SG_Auth.vcxproj.user
 Source/SG_Auth.sln
 *.vcxproj
 *.txt
+Debug Library/Debug/DebugLib.ilk
