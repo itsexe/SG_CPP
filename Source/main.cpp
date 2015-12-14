@@ -10,6 +10,10 @@
 
 int main(int argc, char *argv[])
 {
+	if (argc < 2) {
+		std::cerr << "Usage: " << argv[0] << " <Config path>" << std::endl;
+		return 1;
+	}
 	int option;
 	std::cout << "Please select the Server" << std::endl;
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
@@ -32,7 +36,7 @@ int main(int argc, char *argv[])
 	boost::shared_ptr<SG_LobbyServer> pLobby(new SG_LobbyServer());
 	boost::shared_ptr<MySQLConnection> pDatabase(new MySQLConnection());
 	boost::shared_ptr<SG_Config> conf(new SG_Config());
-	conf->init("D:\\SG_Config.ini");
+	conf->init(argv[1]);
 	pDatabase->Connect(conf->host, conf->port, conf->DBUser, conf->DBPass, conf->DBName);
 	SG_ClientSession::SQLConn = pDatabase.get();
 	SG_ClientSession::conf = conf.get();
