@@ -1,6 +1,8 @@
 #include "SG_MMOHandler.h"
 #include "Tools/SG_Logger.h"
 #include <Packets/MMO/MMOPacketsResponse.h>
+#include <boost/make_shared.hpp>
+
 void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet)
 {
 
@@ -355,9 +357,51 @@ void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sessi
 	//TODO
 }
 
-void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet)
+void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id)
 {
-	std::cout << packet << std::endl;
+	
+	
+	if(!packet->MaxPlayers < 2 || !packet->MaxPlayers > 8 || packet->Level || !packet->Level > 45)
+	{
+		//Add room to list
+		boost::shared_ptr<sg_constructor::Room> RoomPtr(new sg_constructor::Room(packet->Name, packet->password, packet->Mode, packet->MaxPlayers, packet->Level, id));
+		roomlist_ptr->push_front(RoomPtr);
+		SG_Logger::instance().log(Session->m_Player->charname + " created room " + packet->Name, SG_Logger::kLogLevelMMO);
+		
+		//if (Session->m_Player->roomptr != nullptr){
+		//	if (Session->m_Player->roomptr->get()->RoomID == id)
+		//	{
+		//		//User already joined the room for some reason
+		//		BM_SC_CREATE_ROOM_ALREADYJOINED_RESP response;
+		//		BM_SC_CREATE_ROOM_ALREADYJOINED_RESP::initMessage<BM_SC_CREATE_ROOM_ALREADYJOINED_RESP>(&response);
+		//		strcpy_s(response.errormessage, static_cast<std::string>("ALREADY_ENTERED_ROOM").c_str());
+		//		response.errormessage[20] = static_cast<uint8_t>(0);
+		//		Session->SendPacketStruct(&response);
+		//		return;
+		//	}
+		//}
+			//Send successmessage
+			BM_SC_CREATE_ROOM_RESP response;
+			BM_SC_CREATE_ROOM_RESP::initMessage<BM_SC_CREATE_ROOM_RESP>(&response);
+			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+			response.successmessage[7] = static_cast<uint8_t>(0);
+			response.roomid = RoomPtr->RoomID;
+			response.relayport = Session->conf->RelayPort;
+			strcpy_s(response.relayip, SG_ClientSession::conf->relayIP.c_str());
+			for (auto i = SG_ClientSession::conf->relayIP.length(); i != 16; i++)
+			{
+				response.relayip[i] = static_cast<uint8_t>(0);
+			}
+			Session->SendPacketStruct(&response);
+			Session->m_Player->roomptr = &RoomPtr;
+	}else{
+		//Something is wrong with the parameters
+		BM_SC_CREATE_FAILED_RESP response;
+		BM_SC_CREATE_FAILED_RESP::initMessage<BM_SC_CREATE_FAILED_RESP>(&response);
+		strcpy_s(response.errormessage, static_cast<std::string>("INVALID_REQUEST").c_str());
+		response.errormessage[15] = static_cast<uint8_t>(0);
+		Session->SendPacketStruct(&response);
+	}
 
 }
 
