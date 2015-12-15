@@ -9,7 +9,11 @@ struct NM_SC_KEEP_ALIVE : public TS_MESSAGE
 {
 	static const uint16_t packetID = 6000;
 };
-
+struct NM_SC_LOGIN : public TS_MESSAGE
+{
+	uint8_t status;
+	static const uint16_t packetID = 6001;
+};
 
 #pragma pack(pop)
 

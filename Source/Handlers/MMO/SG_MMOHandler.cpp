@@ -30,6 +30,7 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 			Session->m_Player->rupees = qry.getInt(1, "Rupees");
 			Session->m_Player->coins = qry.getInt(1, "Coins");
 			Session->m_Player->exp = qry.getInt(1, "XP");
+			Session->m_Player->rank = qry.getInt(1, "Rank");
 			Session->m_Player->license = qry.getInt(1, "License");
 			Session->m_Player->questpoints = qry.getInt(1, "Questpoints");
 			Session->m_Player->charcreated = 1;
@@ -241,6 +242,10 @@ void SG_MMOHandler::EnterChannel(const boost::shared_ptr<SG_ClientSession> Sessi
 	response.uk3 = 1;
 	response.uk4 = 1;
 	Session->SendPacketStruct(&response);
+	if(Session->m_Player->rank == 3)
+	{
+		UnlockDebugAccess(Session);
+	}
 }
 
 void SG_MMOHandler::LeaveChannel(const boost::shared_ptr<SG_ClientSession> Session)
@@ -266,7 +271,7 @@ void SG_MMOHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> 
 {
 	BM_SC_CHAT_MESSAGE_RESP response;
 	BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
-	SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + 70), SG_Logger::kLogLevelChat);
+	SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
@@ -462,6 +467,22 @@ void SG_MMOHandler::FriendRequest(const boost::shared_ptr<SG_ClientSession> Sess
 	//TODO: Add request to database
 	MM_SC_FRIEND_REQUEST_RESP response;
 	MM_SC_FRIEND_REQUEST_RESP::initMessage<MM_SC_FRIEND_REQUEST_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+void SG_MMOHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_START_GAME* packet)
+{
+	BM_SC_START_GAME_RESP response;
+	BM_SC_START_GAME_RESP::initMessage<BM_SC_START_GAME_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+void SG_MMOHandler::UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_DEBUG_ACCESS response;
+	BM_SC_DEBUG_ACCESS::initMessage<BM_SC_DEBUG_ACCESS>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);

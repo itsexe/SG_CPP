@@ -43,6 +43,8 @@ public:
 	uint32_t exp;
 	uint32_t license;
 
+	uint8_t rank; // 0 = normal user, 1 = Mod, 2 = GM, 3 = Dev
+
 	//Positionstuff
 	float coord_x;
 	float coord_y;

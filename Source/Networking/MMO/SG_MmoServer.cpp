@@ -128,6 +128,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case MM_SC_FRIEND_REQUEST::packetID:
 		SG_MMOHandler::FriendRequest(pSession, static_cast<const MM_SC_FRIEND_REQUEST*>(packet));
 		break;
+	case BM_SC_START_GAME::packetID:
+		SG_MMOHandler::StartGame(pSession, static_cast<const BM_SC_START_GAME*>(packet));
+		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
 	}

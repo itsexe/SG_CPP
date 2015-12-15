@@ -192,6 +192,11 @@ struct MM_SC_FRIEND_REQUEST : public TS_MESSAGE
 	char username[402];
 	static const uint16_t packetID = 5015;
 };
+struct BM_SC_START_GAME : public TS_MESSAGE
+{
+	//has some data
+	static const uint16_t packetID = 2189;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

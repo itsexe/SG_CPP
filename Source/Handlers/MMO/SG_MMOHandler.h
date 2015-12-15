@@ -52,12 +52,16 @@ public:
 	static void RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id);
 	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet);
 	static void RoomLeave(const boost::shared_ptr<SG_ClientSession> Session);
+	static void StartGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_START_GAME* packet);
 
 
 	//Social stuff
 	static void HandleMSN(const boost::shared_ptr<SG_ClientSession> Session);
 	static void FindUser(const boost::shared_ptr<SG_ClientSession> Session, const MM_SC_MSN_FIND_USER* packet);
 	static void FriendRequest(const boost::shared_ptr<SG_ClientSession> Session, const MM_SC_FRIEND_REQUEST* packet);
+
+	//Scipts and Debug
+	static void UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> Session);
 
 };
 

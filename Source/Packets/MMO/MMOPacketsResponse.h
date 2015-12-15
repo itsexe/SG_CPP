@@ -324,6 +324,16 @@ struct MM_SC_FRIEND_REQUEST_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 5016;
+}; 
+struct BM_SC_DEBUG_ACCESS : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2274;
+};
+struct BM_SC_START_GAME_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2190;
 };
 #pragma pack(pop)
 
