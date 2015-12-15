@@ -235,7 +235,7 @@ struct BM_SC_CREATE_ROOM_RESP : public TS_MESSAGE
 	uint64_t uk1;
 	uint64_t uk2;
 	uint32_t roomid;
-	char relayip[20];
+	char relayip[20]; //Yes, this is 20 for whatever reason
 	uint16_t relayport;
 	uint8_t team; // 1 = red | 2 = Blue
 	uint8_t uk3;

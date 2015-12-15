@@ -33,8 +33,8 @@ namespace sg_constructor
 	struct Room
 	{
 		Room(){}
-		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player, uint8_t level)
-			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level), Actual_Player(0), State (0), RoomID(0) { }
+		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player, uint8_t level, uint32_t RoomID)
+			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level), Actual_Player(0), State (0), RoomID(RoomID) { }
 
 		uint32_t RoomID;
 		std::string Name;

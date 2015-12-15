@@ -49,7 +49,7 @@ public:
 
 	//Rooms
 	static void SendRoomList(const boost::shared_ptr<SG_ClientSession> Session);
-	static void RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet);
+	static void RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id);
 	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet);
 	static void RoomLeave(const boost::shared_ptr<SG_ClientSession> Session);
 

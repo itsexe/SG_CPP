@@ -17,6 +17,7 @@ public:
 	static const std::string kLogLevelAuth;
 	static const std::string kLogLevelMMO;
 	static const std::string kLogLevelLobby;
+	static const std::string kLogLevelRelay;
 	static const std::string kLogLevelChat;
 
 	// Returns a reference to the singleton Logger object

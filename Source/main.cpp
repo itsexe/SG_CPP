@@ -1,12 +1,14 @@
 #include <iostream>
 #include "Networking/Auth/SG_AuthServer.h"
 #include "Networking/MMO/SG_MmoServer.h"
+#include "Networking/Lobby/SG_LobbyServer.h"
+#include "Networking/Relay/SG_RelayServer.h"
+
 #include "Tools/Database/Database.h"
 
 #include "Tools/SG_Logger.h"
 #include "SG_Config.h"
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include "Networking/Lobby/SG_LobbyServer.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
 	std::cout << "1.	Auth" << std::endl;
 	std::cout << "2.	MMO" << std::endl;
 	std::cout << "3.	Lobby" << std::endl;
+	std::cout << "4.	Relay" << std::endl;
 	std::cout << "99.	All in one" << std::endl;
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	std::cout << ">> ";
@@ -34,6 +37,7 @@ int main(int argc, char *argv[])
 	boost::shared_ptr<SG_AuthServer> pAuth(new SG_AuthServer());
 	boost::shared_ptr<SG_MmoServer> pMMO(new SG_MmoServer());
 	boost::shared_ptr<SG_LobbyServer> pLobby(new SG_LobbyServer());
+	boost::shared_ptr<SG_RelayServer> pRelay(new SG_RelayServer());
 	boost::shared_ptr<MySQLConnection> pDatabase(new MySQLConnection());
 	boost::shared_ptr<SG_Config> conf(new SG_Config());
 	conf->init(argv[1]);
@@ -54,6 +58,10 @@ int main(int argc, char *argv[])
 		pLobby->InitServer(conf->LobbyIP, conf->LobbyPort, 1);
 		SG_Logger::instance().log("Lobby Server started", SG_Logger::kLogLevelInfo);
 		break;
+	case 4:
+		pRelay->InitServer(conf->relayIP, conf->RelayPort, 1);
+		SG_Logger::instance().log("Relay Server started", SG_Logger::kLogLevelInfo);
+		break;
 	case 99:
 		pAuth->InitServer(conf->AuthIP, conf->AuthPort, 1);
 		SG_Logger::instance().log("Auth Server started", SG_Logger::kLogLevelInfo);
@@ -61,9 +69,11 @@ int main(int argc, char *argv[])
 		SG_Logger::instance().log("MMO Server started", SG_Logger::kLogLevelInfo);
 		pLobby->InitServer(conf->LobbyIP, conf->LobbyPort, 1);
 		SG_Logger::instance().log("Lobby Server started", SG_Logger::kLogLevelInfo);
+		pRelay->InitServer(conf->relayIP, conf->RelayPort, 1);
+		SG_Logger::instance().log("Relay Server started", SG_Logger::kLogLevelInfo);
 		break;
 	default:
-		std::cout << std::endl << "INVALID SERVER" << std::endl;
+		std::cout << std::endl << "INVALID NUMBER" << std::endl;
 		break;
 	}
 	while(1)

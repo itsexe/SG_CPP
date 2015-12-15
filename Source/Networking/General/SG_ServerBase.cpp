@@ -29,7 +29,7 @@ bool SG_ServerBase::InitServer(const std::string &strIP, uint32_t uiPort, int32_
 	}
 	std::stringstream ss_Port;
 	ss_Port << uiPort;
-
+	lastroomid = 0;
 	boost::asio::ip::tcp::resolver resolver(m_Service);
 	boost::asio::ip::tcp::resolver::query query(strIP, ss_Port.str());
 	boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);

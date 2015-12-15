@@ -157,7 +157,7 @@ struct BM_SC_CREATE_ROOM : public TS_MESSAGE
 	char Name[24];
 	char password[4];
 	char uk[48];
-	uint8_t Playercount;
+	uint8_t MaxPlayers;
 	uint32_t Mode;
 	uint8_t Level;
 	static const uint16_t packetID = 2173;

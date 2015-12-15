@@ -11,7 +11,8 @@ const std::string SG_Logger::kLogLevelPlayer = "PLAYER  ";
 const std::string SG_Logger::kLogLevelDatabase = "DATABASE";
 const std::string SG_Logger::kLogLevelAuth = "Auth    ";
 const std::string SG_Logger::kLogLevelMMO = "MMO     ";
-const std::string SG_Logger::kLogLevelLobby = "Lobby   ";
+const std::string SG_Logger::kLogLevelLobby = "Lobby   "; 
+const std::string SG_Logger::kLogLevelRelay = "Relay   ";
 const std::string SG_Logger::kLogLevelChat = "Chat    ";
 
 const char* const SG_Logger::kLogFileName = "Log.txt";

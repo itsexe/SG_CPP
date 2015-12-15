@@ -34,6 +34,7 @@ class SG_Config
 		short MMOPort;
 		short LobbyPort;
 		short MsgPort;
+		short RelayPort;
 
 		//IPs
 		std::string AuthIP;
@@ -41,6 +42,7 @@ class SG_Config
 		std::string MMOIP;
 		std::string LobbyIP;
 		std::string msgIP;
+		std::string relayIP;
 
 		//Clientversion
 		std::string ClientVersion;
@@ -88,6 +90,10 @@ void SG_Config::init(std::string path)
 	//Message Configuration
 	msgIP = conf.get<std::string>("Message.ServerIP");
 	MsgPort = conf.get<short>("Message.ServerPort");
+
+	//Message Configuration
+	relayIP = conf.get<std::string>("Relay.ServerIP");
+	RelayPort = conf.get<short>("Relay.ServerPort");
 
 	//Encryption
 	DESPassword = conf.get<std::string>("Encryption.DESKey");
