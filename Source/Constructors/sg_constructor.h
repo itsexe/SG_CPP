@@ -34,7 +34,7 @@ namespace sg_constructor
 	{
 		Room(){}
 		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player, uint8_t level)
-			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level) { }
+			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level), Actual_Player(0), State (0) { }
 
 		uint32_t RoomID = 0;
 		std::string Name;
@@ -43,9 +43,9 @@ namespace sg_constructor
 		// 0/1 = free item-mode	| 2/3 = password item-mode
 		// 4/5 = free speed-mode	| 6/7 = password speed-mode
 		uint32_t Mode;
-		uint8_t Actual_Player = 0;
+		uint8_t Actual_Player;
 		uint8_t Max_Player;
-		uint8_t State = 0; // enter state -> 0 = can enter | 1 = no enter
+		uint8_t State; // enter state -> 0 = can enter | 1 = no enter
 		uint8_t Level; // level -> 0 = all | 1 = anfaenger | 2 = profi | 3 = profi II | 4 = meister | 5 = superstar
 	};
 }
