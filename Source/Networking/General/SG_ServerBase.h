@@ -34,7 +34,9 @@ public:
 
 	bool isStopped();
 	bool isError();
-	std::vector<boost::shared_ptr<SG_ClientSession>> Sessions;
+	std::list<boost::shared_ptr<SG_ClientSession>> Sessions;
+	std::list<boost::shared_ptr<sg_constructor::Room>> Rooms;
+
 	void SendBroadcast(const TS_MESSAGE* packet);
 private:
 	void WorkerThread();

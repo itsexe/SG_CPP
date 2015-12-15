@@ -2,7 +2,6 @@
 #include <boost/date_time/posix_time/ptime.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <random>
-#include "Trick.h"
 
 
 SG_Client::SG_Client()
@@ -25,21 +24,21 @@ SG_Client::SG_Client()
 
 	//Update tricklist
 	// Basic tricks
-	tricks[0] = Trickconstructor(1000,5, 1);	// Grind
-	tricks[1] = Trickconstructor(1100,3, 1);	// Dash
-	tricks[2] = Trickconstructor(1200,2, 1);	// Back Skating
-	tricks[3] = Trickconstructor(1300,4, 1);	// Butting
-	tricks[4] = Trickconstructor(1400,0, 1);	// Power Slide
+	tricks[0] = sg_constructor::Trickconstructor(1000,5, 1);	// Grind
+	tricks[1] = sg_constructor::Trickconstructor(1100,3, 1);	// Dash
+	tricks[2] = sg_constructor::Trickconstructor(1200,2, 1);	// Back Skating
+	tricks[3] = sg_constructor::Trickconstructor(1300,4, 1);	// Butting
+	tricks[4] = sg_constructor::Trickconstructor(1400,0, 1);	// Power Slide
 
 	// Extended stuff
-	tricks[5] = Trickconstructor(1500,0, 1);	// Back Flip
-	tricks[6] = Trickconstructor(1600,0, 1);	// Front Flip
-	tricks[7] = Trickconstructor(1700,0, 1);	// Air Twist
-	tricks[8] = Trickconstructor(1800,0, 1);	// Power Swing
-	tricks[9] = Trickconstructor(1900,0, 1);	// Grip Turn
-	tricks[10] = Trickconstructor(2000,0, 1);	// Jumping Steer
-	tricks[11] = Trickconstructor(2100,0, 1);	// Power Jump
-	tricks[12] = Trickconstructor(5000,0, 1);	// Wallride
+	tricks[5] = sg_constructor::Trickconstructor(1500,0, 1);	// Back Flip
+	tricks[6] = sg_constructor::Trickconstructor(1600,0, 1);	// Front Flip
+	tricks[7] = sg_constructor::Trickconstructor(1700,0, 1);	// Air Twist
+	tricks[8] = sg_constructor::Trickconstructor(1800,0, 1);	// Power Swing
+	tricks[9] = sg_constructor::Trickconstructor(1900,0, 1);	// Grip Turn
+	tricks[10] = sg_constructor::Trickconstructor(2000,0, 1);	// Jumping Steer
+	tricks[11] = sg_constructor::Trickconstructor(2100,0, 1);	// Power Jump
+	tricks[12] = sg_constructor::Trickconstructor(5000,0, 1);	// Wallride
 
 	for (auto i = 55001; i <= 55045; ++i)
 	{

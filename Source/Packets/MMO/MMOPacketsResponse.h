@@ -4,8 +4,6 @@
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-#include <Constructors/Trick.h>
-#include <Constructors/Item.h>
 
 struct BM_SC_LOGIN_RESP : public TS_MESSAGE
 {
@@ -115,7 +113,7 @@ struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE
 	uint64_t uk2;
 	uint8_t uk3;
 	uint16_t trickcount; //13	ad
-	Trickconstructor tricklist[13];
+	sg_constructor::Trickconstructor tricklist[13];
 
 	static const uint16_t packetID = 2105;
 };
@@ -217,7 +215,7 @@ struct BM_SC_INVENTORY_RESP : public TS_MESSAGE
 	uint64_t uk2;
 	uint8_t uk3;
 	uint16_t count;
-	std::vector<Item> items;
+	std::vector<sg_constructor::Item> items;
 	static const uint16_t packetID = 2099;
 };
 struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE

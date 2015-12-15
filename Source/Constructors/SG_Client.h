@@ -3,8 +3,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Trick.h"
-#include "Item.h"
+#include "sg_constructor.h"
+#include <boost/smart_ptr/shared_ptr.hpp>
 
 class SG_Client
 {
@@ -32,8 +32,8 @@ public:
 	uint64_t charlevel;
 
 	std::vector<uint64_t> missions;
-	Trickconstructor tricks[13];
-	std::vector<Item> items;
+	sg_constructor::Trickconstructor tricks[13];
+	std::vector<sg_constructor::Item> items;
 
 	uint32_t gpotatos;
 	uint32_t coins;
@@ -52,6 +52,10 @@ public:
 	//Quiz
 	bool IsInOX;
 
+
+	//Rooms
+	bool IsInRoom;
+	boost::shared_ptr<sg_constructor::Room> roomptr;
 
 private:
 	std::string strChars;
