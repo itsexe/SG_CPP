@@ -1,9 +1,12 @@
 #ifndef PACKETS_MMO_RESPONSE
 #define PACKETS_MMO_RESPONSE
-
+#include <iterator>
+#include <cstdint>
+#include <iostream>
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
+#include <Constructors/sg_constructor.h>
 
 struct BM_SC_LOGIN_RESP : public TS_MESSAGE
 {
@@ -30,7 +33,7 @@ struct BM_SC_PLAYER_CHAR_LIST_RESP : public TS_MESSAGE
 };
 struct BM_SC_SELECT_CHAR_RESP : public TS_MESSAGE
 {
-	char resonse[8];
+	char successmessage[8];
 	static const uint16_t packetID = 2067;
 };
 struct BM_SC_PLAYER_INFO_RESP : public TS_MESSAGE
@@ -226,7 +229,15 @@ struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
 
 struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
 {
-	//TODO
+	BM_SC_GET_ROOMLIST_RESP(){}
+	BM_SC_GET_ROOMLIST_RESP(uint16_t count, sg_constructor::rooms_packet roomlist[]) : roomcount(count)
+	{
+		//std::copy(std::begin(roomlist), std::end(roomlist), std::begin(rooms));
+	}
+	uint16_t roomcount;
+	uint16_t uk1;
+	uint16_t uk2;
+	static sg_constructor::rooms_packet rooms[];
 	static const uint16_t packetID = 2304;
 };
 struct BM_SC_CREATE_ROOM_RESP : public TS_MESSAGE

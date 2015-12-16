@@ -94,8 +94,8 @@ void SG_MMOHandler::SelectChar(const boost::shared_ptr<SG_ClientSession> Session
 {
 	BM_SC_SELECT_CHAR_RESP response;
 	BM_SC_SELECT_CHAR_RESP::initMessage<BM_SC_SELECT_CHAR_RESP>(&response);
-	strcpy_s(response.resonse, static_cast<std::string>("SUCCESS").c_str());
-	response.resonse[7] = static_cast<uint8_t>(0);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
 
@@ -357,9 +357,21 @@ void SG_MMOHandler::LeaveOX(const boost::shared_ptr<SG_ClientSession> Session)
 	Session->SendPacketStruct(&response);
 }
 
-void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session)
+void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
-	//TODO
+	sg_constructor::rooms_packet rooms[sizeof(roomlist_ptr)];
+	int i = 0;
+	for (const auto& iter : *roomlist_ptr)
+	{
+		rooms[i] = sg_constructor::rooms_packet(iter->RoomID, iter->Name, iter->Mode, 2, iter->Max_Player, iter->State, iter->Level);
+		i++;
+	}
+
+	BM_SC_GET_ROOMLIST_RESP response;
+	BM_SC_GET_ROOMLIST_RESP::initMessage<BM_SC_GET_ROOMLIST_RESP>(&response);
+	response.roomcount = sizeof(roomlist_ptr);
+
+	Session->SendPacketStruct(&response);
 }
 
 void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id)
@@ -400,6 +412,7 @@ void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session
 			Session->SendPacketStruct(&response);
 			for (const auto& iter : *roomlist_ptr)
 			{
+				
 				if(iter->RoomID == id)
 				{
 					Session->m_Player->roomptr = iter;

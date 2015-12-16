@@ -45,7 +45,7 @@ namespace sg_constructor
 		uint32_t Tricklvl;
 		uint8_t ApplyTrick;
 	};
-	struct Room
+	struct Room //internal room structure
 	{
 		Room(){}
 		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player, uint8_t level, uint32_t RoomID)
@@ -64,5 +64,20 @@ namespace sg_constructor
 		uint8_t Level; // level -> 0 = all | 1 = anfaenger | 2 = profi | 3 = profi II | 4 = meister | 5 = superstar
 		sg_map currentmap;
 	};
+	struct rooms_packet //This will be sent as a packet
+	{
+		rooms_packet(){}
+		rooms_packet(uint32_t _roomid, std::string _name, uint32_t _mode, uint8_t _currentplayers, uint8_t _maxplayers, uint8_t _state, uint8_t _level) : RoomID(_roomid), mode(_mode), currentplayers(_currentplayers), maxplayers(_maxplayers), state(_state), level(_level)
+		{
+			strcpy_s(name, _name.c_str());
+		}
 
+		uint32_t RoomID;
+		char name[24];
+		uint32_t mode;
+		uint8_t currentplayers;
+		uint8_t maxplayers;
+		uint8_t state;
+		uint8_t level;
+	};
 }

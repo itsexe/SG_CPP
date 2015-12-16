@@ -102,7 +102,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::HandleCharCreation(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
 		break;
 	case BM_SC_GET_ROOMLIST::packetID:
-		SG_MMOHandler::SendRoomList(pSession);
+		SG_MMOHandler::SendRoomList(pSession,&Rooms);
 		break;
 	case BM_SC_CREATE_ROOM::packetID:
 		if (lastroomid > 1000)
