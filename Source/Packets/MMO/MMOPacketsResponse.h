@@ -1,8 +1,6 @@
 #ifndef PACKETS_MMO_RESPONSE
 #define PACKETS_MMO_RESPONSE
-#include <iterator>
 #include <cstdint>
-#include <iostream>
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
@@ -226,7 +224,6 @@ struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2207;
 };
-
 struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
 {
 	BM_SC_GET_ROOMLIST_RESP(){}
@@ -325,7 +322,6 @@ struct BM_SC_QUEST_DAY_COIN2_RESP : public TS_MESSAGE
 	char message[17]; //ALREADY_GET_COIN
 	static const uint16_t packetID = 2298;
 };
-
 struct MM_SC_MSN_FIND_USER_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
@@ -351,6 +347,16 @@ struct BM_SC_SELECT_MAP_RESP : public TS_MESSAGE
 	char successmessage[8];
 	uint16_t mapid;
 	static const uint16_t packetID = 2199;
+};
+struct BM_SC_MINIGAME_START_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2049;
+};
+struct BM_SC_MINIGAME_FINISH_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2051;
 };
 #pragma pack(pop)
 

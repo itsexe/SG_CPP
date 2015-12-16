@@ -54,13 +54,11 @@ struct BM_SC_PLAYER_INFO : public TS_MESSAGE
 	//Since we don't need this data, i just skip this
 	static const uint16_t packetID = 2313;
 };
-
 struct BM_SC_TRICK_LIST : public TS_MESSAGE
 {
 	//Since we don't need this data, i just skip this
 	static const uint16_t packetID = 2104;
 };
-
 struct BM_SC_BALANCE_INFO : public TS_MESSAGE
 {
 	//Since we don't need this data, i just skip this
@@ -201,6 +199,20 @@ struct BM_SC_SELECT_MAP : public TS_MESSAGE
 {
 	uint16_t mapid;
 	static const uint16_t packetID = 2198;
+};
+struct BM_SC_MINIGAME_START : public TS_MESSAGE
+{
+	uint8_t uk1;
+	uint8_t uk2;
+	uint8_t uk3;
+	uint8_t uk4;
+	char gameid[4];
+	static const uint16_t packetID = 2048;
+};
+struct BM_SC_MINIGAME_FINISH : public TS_MESSAGE
+{
+	char gameid[30];
+	static const uint16_t packetID = 2050;
 };
 #pragma pack(pop)
 

@@ -56,7 +56,7 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	}
 }
 
-void SG_MMOHandler::HandleCharCreation(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_CHAR* packet)
+void SG_MMOHandler::CreateChar(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_CHAR* packet)
 {
 	BM_SC_CREATE_CHAR_RESP response;
 	BM_SC_CREATE_CHAR_RESP::initMessage<BM_SC_CREATE_CHAR_RESP>(&response);
@@ -334,6 +334,24 @@ void SG_MMOHandler::StartMission(const boost::shared_ptr<SG_ClientSession> Sessi
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	response.missionid = 55002;
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::StartMinigame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_MINIGAME_START* packet)
+{
+	BM_SC_MINIGAME_START_RESP response;
+	BM_SC_MINIGAME_START_RESP::initMessage<BM_SC_MINIGAME_START_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::FinishMinigame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_MINIGAME_FINISH* packet)
+{
+	BM_SC_MINIGAME_FINISH_RESP response;
+	BM_SC_MINIGAME_FINISH_RESP::initMessage<BM_SC_MINIGAME_FINISH_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
 

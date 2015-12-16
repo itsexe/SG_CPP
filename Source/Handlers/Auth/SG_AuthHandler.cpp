@@ -4,7 +4,6 @@
 #include "Packets/Auth/LoginPackets.h"
 #include "Packets/Auth/LoginPacketsResponse.h"
 #include "Tools/Database/Database.h"
-#include <mysql.h>
 #include <Networking/General/SG_ClientSession.h>
 #include <Tools/Encryption/DesPasswordCipher.h>
 
@@ -30,8 +29,6 @@ void SG_AuthHandler::CheckClientCredentials(const boost::shared_ptr<SG_ClientSes
 {
 	Session->m_Player->Username = packet->account;
 	std::vector<unsigned char> cryptedPassword (std::begin(packet->password), std::end(packet->password));
-
-	//Session->m_Player->Password = packet->password;
 
 	//Decrypt DES Password
 	DesPasswordCipher("MERONG").decrypt(&cryptedPassword[0], (int)cryptedPassword.size());

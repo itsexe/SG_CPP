@@ -99,7 +99,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::LeaveOX(pSession);
 		break;
 	case BM_SC_CREATE_CHAR::packetID:
-		SG_MMOHandler::HandleCharCreation(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
+		SG_MMOHandler::CreateChar(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
 		break;
 	case BM_SC_GET_ROOMLIST::packetID:
 		SG_MMOHandler::SendRoomList(pSession,&Rooms);
@@ -133,6 +133,12 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		break;
 	case BM_SC_SELECT_MAP::packetID:
 		SG_MMOHandler::SelectMap(pSession, static_cast<const BM_SC_SELECT_MAP*>(packet));
+		break;
+	case BM_SC_MINIGAME_START::packetID:
+		SG_MMOHandler::StartMinigame(pSession, static_cast<const BM_SC_MINIGAME_START*>(packet));
+		break;
+	case BM_SC_MINIGAME_FINISH::packetID:
+		SG_MMOHandler::FinishMinigame(pSession, static_cast<const BM_SC_MINIGAME_FINISH*>(packet));
 		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);

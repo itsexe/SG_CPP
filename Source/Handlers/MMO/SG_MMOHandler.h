@@ -8,22 +8,28 @@
 class SG_MMOHandler
 {
 public:
-
-
-
 	//Loginstuff
 	static void EnterLobby(const boost::shared_ptr<SG_ClientSession> Session);
 	static void HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet);
-	static void HandleCharCreation(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_CHAR* packet);
+	static void SetSessionMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SET_SESSION_MESSAGE* packet);
+
+	//Gameinfo
+	static void SendLevelInfo(const boost::shared_ptr<SG_ClientSession> Session);
+
+
+	//Charlist
 	static void SendCharList(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAR_LIST* packet);
 	static void SelectChar(const boost::shared_ptr<SG_ClientSession> Session);
+
+	//Charinfo
 	static void SendTrickList(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendBalanceInfo(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendCashBalanceInfo(const boost::shared_ptr<SG_ClientSession> Session);
-	static void SendLevelInfo(const boost::shared_ptr<SG_ClientSession> Session);
 	static void SendInventory(const boost::shared_ptr<SG_ClientSession> Session);
-	static void SetSessionMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SET_SESSION_MESSAGE* packet);
+
+	//Charcreation
+	static void CreateChar(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_CHAR* packet);
 
 	//Multiplayer
 	static void HandlePositionUpdate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_MMO_GAME_MESSAGE* packet);
@@ -39,10 +45,14 @@ public:
 	//Quests
 	static void SendMissionList(const boost::shared_ptr<SG_ClientSession> Session);
 	static void HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> Session);
+	static void StartMission(const boost::shared_ptr<SG_ClientSession> Session);
 
 
 	//Minigames
-	static void StartMission(const boost::shared_ptr<SG_ClientSession> Session);
+	static void StartMinigame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_MINIGAME_START* packet);
+	static void FinishMinigame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_MINIGAME_FINISH* packet);
+
+	//OX
 	static void EnterOX(const boost::shared_ptr<SG_ClientSession> Session);
 	static void LeaveOX(const boost::shared_ptr<SG_ClientSession> Session);
 
