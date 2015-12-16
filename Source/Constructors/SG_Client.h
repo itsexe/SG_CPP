@@ -57,7 +57,7 @@ public:
 
 	//Rooms
 	bool IsInRoom;
-	boost::shared_ptr<sg_constructor::Room>* roomptr;
+	boost::shared_ptr<sg_constructor::Room> roomptr;
 
 private:
 	std::string strChars;

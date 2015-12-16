@@ -131,6 +131,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_START_GAME::packetID:
 		SG_MMOHandler::StartGame(pSession, static_cast<const BM_SC_START_GAME*>(packet));
 		break;
+	case BM_SC_SELECT_MAP::packetID:
+		SG_MMOHandler::SelectMap(pSession, static_cast<const BM_SC_SELECT_MAP*>(packet));
+		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
 	}

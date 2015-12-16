@@ -4,6 +4,21 @@
 
 namespace sg_constructor
 {
+	const enum sg_map : uint16_t
+	{
+		RANDOM = 0,
+		GRIND_ROLLER = 57,
+		CROSS_LINK = 59,
+		GRIND_CROSS = 61,
+		TRIESTE_EASY = 119,
+		ROLLER_STADIUM = 67,
+		FORBIDDEN_CITY = 107,
+		STAR_TRACK = 63,
+		MIRACLE_EASY = 120,
+		PARAKA_EASY = 121,
+		TRIANGLE_FARM = 122,
+		LOST_ISLAND = 123,
+	};
 	struct Item
 	{
 		Item() {}
@@ -34,7 +49,7 @@ namespace sg_constructor
 	{
 		Room(){}
 		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player, uint8_t level, uint32_t RoomID)
-			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level), Actual_Player(0), State (0), RoomID(RoomID) { }
+			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level), Actual_Player(0), State (0), RoomID(RoomID), currentmap(sg_map::RANDOM) { }
 
 		uint32_t RoomID;
 		std::string Name;
@@ -47,5 +62,7 @@ namespace sg_constructor
 		uint8_t Max_Player;
 		uint8_t State; // enter state -> 0 = can enter | 1 = no enter
 		uint8_t Level; // level -> 0 = all | 1 = anfaenger | 2 = profi | 3 = profi II | 4 = meister | 5 = superstar
+		sg_map currentmap;
 	};
+
 }

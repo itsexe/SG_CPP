@@ -53,6 +53,8 @@ public:
 	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet);
 	static void RoomLeave(const boost::shared_ptr<SG_ClientSession> Session);
 	static void StartGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_START_GAME* packet);
+	static void SelectMap(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SELECT_MAP* packet);
+	static void UpdateMap(const boost::shared_ptr<SG_ClientSession> Session);
 
 
 	//Social stuff

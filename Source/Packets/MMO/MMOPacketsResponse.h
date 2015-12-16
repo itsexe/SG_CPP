@@ -335,6 +335,12 @@ struct BM_SC_START_GAME_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2190;
 };
+struct BM_SC_SELECT_MAP_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint16_t mapid;
+	static const uint16_t packetID = 2199;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

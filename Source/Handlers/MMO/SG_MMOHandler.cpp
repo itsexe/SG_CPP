@@ -370,7 +370,7 @@ void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session
 	{
 		//Add room to list
 		boost::shared_ptr<sg_constructor::Room> RoomPtr(new sg_constructor::Room(packet->Name, packet->password, packet->Mode, packet->MaxPlayers, packet->Level, id));
-		roomlist_ptr->push_front(RoomPtr);
+		roomlist_ptr->push_back(RoomPtr);
 		SG_Logger::instance().log(Session->m_Player->charname + " created room " + packet->Name, SG_Logger::kLogLevelMMO);
 		
 		//if (Session->m_Player->roomptr != nullptr){
@@ -398,7 +398,14 @@ void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session
 				response.relayip[i] = static_cast<uint8_t>(0);
 			}
 			Session->SendPacketStruct(&response);
-			Session->m_Player->roomptr = &RoomPtr;
+			for (const auto& iter : *roomlist_ptr)
+			{
+				if(iter->RoomID == id)
+				{
+					Session->m_Player->roomptr = iter;
+				}
+			}
+
 	}else{
 		//Something is wrong with the parameters
 		BM_SC_CREATE_FAILED_RESP response;
@@ -473,12 +480,79 @@ void SG_MMOHandler::FriendRequest(const boost::shared_ptr<SG_ClientSession> Sess
 }
 void SG_MMOHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_START_GAME* packet)
 {
+	UpdateMap(Session);
 	BM_SC_START_GAME_RESP response;
 	BM_SC_START_GAME_RESP::initMessage<BM_SC_START_GAME_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
+
 }
+
+void SG_MMOHandler::SelectMap(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SELECT_MAP* packet)
+{
+	if(Session->m_Player->roomptr != nullptr)
+	{
+		switch(packet->mapid)
+		{
+		case sg_constructor::sg_map::RANDOM:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::RANDOM;
+			break;
+		case sg_constructor::sg_map::GRIND_ROLLER:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::GRIND_ROLLER;
+			break;
+		case sg_constructor::sg_map::CROSS_LINK:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::CROSS_LINK;
+			break;
+		case sg_constructor::sg_map::GRIND_CROSS:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::GRIND_CROSS;
+			break;
+		case sg_constructor::sg_map::TRIESTE_EASY:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::TRIESTE_EASY;
+			break;
+		case sg_constructor::sg_map::ROLLER_STADIUM:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::ROLLER_STADIUM;
+			break;
+		case sg_constructor::sg_map::FORBIDDEN_CITY:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::FORBIDDEN_CITY;
+			break;
+		case sg_constructor::sg_map::STAR_TRACK:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::STAR_TRACK;
+			break;
+		case sg_constructor::sg_map::MIRACLE_EASY:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::MIRACLE_EASY;
+			break;
+		case sg_constructor::sg_map::PARAKA_EASY:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::PARAKA_EASY;
+			break;
+		case sg_constructor::sg_map::TRIANGLE_FARM:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::TRIANGLE_FARM;
+			break;
+		case sg_constructor::sg_map::LOST_ISLAND:
+			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::LOST_ISLAND;
+			break;
+		default:
+			SG_Logger::instance().log("Unknown map selected: " + packet->mapid, SG_Logger::kLogLevelMMO);
+			return;
+		}
+	}
+	UpdateMap(Session);
+}
+
+void SG_MMOHandler::UpdateMap(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	if (Session->m_Player->roomptr != nullptr)
+	{
+		BM_SC_SELECT_MAP_RESP response;
+		BM_SC_SELECT_MAP_RESP::initMessage<BM_SC_SELECT_MAP_RESP>(&response);
+		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		response.successmessage[7] = static_cast<uint8_t>(0);
+		response.mapid = Session->m_Player->roomptr->currentmap;
+		Session->SendPacketStruct(&response);
+	}
+}
+
+
 void SG_MMOHandler::UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> Session)
 {
 	BM_SC_DEBUG_ACCESS response;

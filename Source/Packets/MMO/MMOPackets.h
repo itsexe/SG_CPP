@@ -197,6 +197,11 @@ struct BM_SC_START_GAME : public TS_MESSAGE
 	//has some data
 	static const uint16_t packetID = 2189;
 };
+struct BM_SC_SELECT_MAP : public TS_MESSAGE
+{
+	uint16_t mapid;
+	static const uint16_t packetID = 2198;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

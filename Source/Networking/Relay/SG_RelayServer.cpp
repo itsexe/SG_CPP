@@ -2,6 +2,7 @@
 #include <string>
 #include "Tools/SG_Logger.h"
 #include <Packets/Relay/RelayPackets.h>
+#include <Handlers/Relay/SG_RelayHandler.h>
 
 bool SG_RelayServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
@@ -20,6 +21,9 @@ bool SG_RelayServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> 
 	{
 	case NM_SC_KEEP_ALIVE::packetID:
 		//do nothing
+		break;
+	case NM_SC_LOGIN::packetID:
+		SG_RelayHandler::HandleLogin(pSession, static_cast<const NM_SC_LOGIN*>(packet));
 		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);

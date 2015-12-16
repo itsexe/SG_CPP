@@ -3,12 +3,13 @@
 #pragma once
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include "Networking/General/SG_ClientSession.h"
-#include "Packets/MMO/MMOPackets.h"
+#include "Packets/Relay/RelayPackets.h"
 
 class SG_RelayHandler
 {
 public:
-	//Nothing here yet c:
-};
+	static void HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const NM_SC_LOGIN* packet);
 
+};
+ 
 #endif
