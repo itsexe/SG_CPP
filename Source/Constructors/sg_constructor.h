@@ -69,7 +69,7 @@ namespace sg_constructor
 		rooms_packet(){}
 		rooms_packet(uint32_t _roomid, std::string _name, uint32_t _mode, uint8_t _currentplayers, uint8_t _maxplayers, uint8_t _state, uint8_t _level) : RoomID(_roomid), mode(_mode), currentplayers(_currentplayers), maxplayers(_maxplayers), state(_state), level(_level)
 		{
-			strcpy_s(name, _name.c_str());
+			strcpy(name, _name.c_str());
 			for (auto i = _name.length(); i != 24; i++)
 			{
 				name[i] = static_cast<uint8_t>(0);
