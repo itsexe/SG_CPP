@@ -4,7 +4,7 @@
 
 namespace sg_constructor
 {
-	const enum sg_map : uint16_t
+	enum sg_map : uint16_t
 	{
 		RANDOM = 0,
 		GRIND_ROLLER = 57,
