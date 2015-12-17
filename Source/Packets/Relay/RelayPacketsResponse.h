@@ -14,7 +14,8 @@ struct NM_SC_READY_GAME_RESP : public TS_MESSAGE
 struct NM_SC_START_GAME_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
-	static const uint16_t packetID = 6013;
+	static const uint16_t packetID = 6028;
+	//static const uint16_t packetID = 6013;
 };
 struct NM_SC_START_GAME2_RESP : public TS_MESSAGE
 {
@@ -30,5 +31,10 @@ struct NM_SC_GET_SERVER_TICK_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 6029;
+};
+struct Playerinfo_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 6009;
 };
 #endif 

@@ -55,7 +55,7 @@ public:
 	bool IsInOX;
 
 
-	//Rooms
+	//Rooms_internal
 	bool IsInRoom;
 	boost::shared_ptr<sg_constructor::Room> roomptr;
 

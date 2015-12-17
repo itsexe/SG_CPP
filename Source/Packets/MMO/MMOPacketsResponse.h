@@ -229,12 +229,11 @@ struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
 	BM_SC_GET_ROOMLIST_RESP(){}
 	BM_SC_GET_ROOMLIST_RESP(uint16_t count, sg_constructor::rooms_packet roomlist[]) : roomcount(count)
 	{
-		//std::copy(std::begin(roomlist), std::end(roomlist), std::begin(rooms));
 	}
 	uint16_t roomcount;
 	uint16_t uk1;
 	uint16_t uk2;
-	static sg_constructor::rooms_packet rooms[];
+	std::vector<sg_constructor::rooms_packet> rooms;
 	static const uint16_t packetID = 2304;
 };
 struct BM_SC_CREATE_ROOM_RESP : public TS_MESSAGE
@@ -337,11 +336,6 @@ struct BM_SC_DEBUG_ACCESS : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2274;
 };
-struct BM_SC_START_GAME_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2190;
-};
 struct BM_SC_SELECT_MAP_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
@@ -357,6 +351,21 @@ struct BM_SC_MINIGAME_FINISH_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 2051;
+};
+struct BM_SC_RUN_CLIENT_SIDE_SCRIPT : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2353;
+};
+struct BM_SC_START_GAME_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2190;
+};
+struct BM_SC_END_GAME : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2192;
 };
 #pragma pack(pop)
 

@@ -5,6 +5,8 @@
 #include "Networking/General/SG_ClientSession.h"
 #include "Packets/MMO/MMOPackets.h"
 
+struct BM_SC_END_GAME;
+
 class SG_MMOHandler
 {
 public:
@@ -57,12 +59,13 @@ public:
 	static void LeaveOX(const boost::shared_ptr<SG_ClientSession> Session);
 
 
-	//Rooms
+	//Rooms_internal
 	static void SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr);
 	static void RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id);
 	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet);
 	static void RoomLeave(const boost::shared_ptr<SG_ClientSession> Session);
 	static void StartGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_START_GAME* packet);
+	static void EndGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_FINISH_RACE* packet);
 	static void SelectMap(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SELECT_MAP* packet);
 	static void UpdateMap(const boost::shared_ptr<SG_ClientSession> Session);
 
@@ -74,6 +77,7 @@ public:
 
 	//Scipts and Debug
 	static void UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> Session);
+	static void RunClientSideScript(const boost::shared_ptr<SG_ClientSession> Session);
 
 };
 

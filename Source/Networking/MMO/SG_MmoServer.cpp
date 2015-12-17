@@ -102,13 +102,13 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::CreateChar(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
 		break;
 	case BM_SC_GET_ROOMLIST::packetID:
-		SG_MMOHandler::SendRoomList(pSession,&Rooms);
+		SG_MMOHandler::SendRoomList(pSession,&Rooms_internal);
 		break;
 	case BM_SC_CREATE_ROOM::packetID:
 		if (lastroomid > 1000)
 			lastroomid = 0;
 		lastroomid++;
-		SG_MMOHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet),&Rooms, lastroomid);
+		SG_MMOHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet),&Rooms_internal, lastroomid);
 		break;
 	case BM_SC_ENTER_ROOM::packetID:
 		SG_MMOHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet));
@@ -131,10 +131,14 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_START_GAME::packetID:
 		SG_MMOHandler::StartGame(pSession, static_cast<const BM_SC_START_GAME*>(packet));
 		break;
+	case BM_SC_FINISH_RACE::packetID:
+		SG_MMOHandler::EndGame(pSession, static_cast<const BM_SC_FINISH_RACE*>(packet));
+		break;
 	case BM_SC_SELECT_MAP::packetID:
 		SG_MMOHandler::SelectMap(pSession, static_cast<const BM_SC_SELECT_MAP*>(packet));
 		break;
 	case BM_SC_MINIGAME_START::packetID:
+		SG_MMOHandler::RunClientSideScript(pSession);
 		SG_MMOHandler::StartMinigame(pSession, static_cast<const BM_SC_MINIGAME_START*>(packet));
 		break;
 	case BM_SC_MINIGAME_FINISH::packetID:

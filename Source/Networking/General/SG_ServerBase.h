@@ -34,8 +34,10 @@ public:
 
 	bool isStopped();
 	bool isError();
-	std::list<boost::shared_ptr<SG_ClientSession>> Sessions;
-	std::list<boost::shared_ptr<sg_constructor::Room>> Rooms;
+	std::list<boost::shared_ptr<SG_ClientSession> > Sessions;
+	std::list<boost::shared_ptr<sg_constructor::Room> > Rooms_internal;
+	std::list<boost::shared_ptr<sg_constructor::rooms_packet> > Rooms_packet;
+
 	uint32_t lastroomid;
 	void SendBroadcast(const TS_MESSAGE* packet);
 private:

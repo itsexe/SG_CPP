@@ -22,8 +22,20 @@ bool SG_RelayServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> 
 	case NM_SC_KEEP_ALIVE::packetID:
 		//do nothing
 		break;
+	case NM_SC_KEEP_ALIVE_INGAME::packetID:
+		//do nothing
+		break;
 	case NM_SC_LOGIN::packetID:
 		SG_RelayHandler::HandleLogin(pSession, static_cast<const NM_SC_LOGIN*>(packet));
+		break;
+	case NM_SC_EXPIRE::packetID: //Client finished loading
+		SG_RelayHandler::SendServerTick(pSession);
+		SG_RelayHandler::ReadyGame(pSession);
+
+		SG_RelayHandler::StartGame(pSession);
+		break;
+	case Playerinfo::packetID:
+		SG_RelayHandler::handleplayerinfo(pSession, static_cast<const Playerinfo*>(packet));
 		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);

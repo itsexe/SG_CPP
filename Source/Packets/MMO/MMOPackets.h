@@ -214,6 +214,16 @@ struct BM_SC_MINIGAME_FINISH : public TS_MESSAGE
 	char gameid[30];
 	static const uint16_t packetID = 2050;
 };
+struct BM_SC_UPDATE_ROUND : public TS_MESSAGE
+{
+	uint16_t uk1;
+	static const uint16_t packetID = 2204;
+};
+struct BM_SC_FINISH_RACE : public TS_MESSAGE
+{
+	char gameid[16];
+	static const uint16_t packetID = 2191;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

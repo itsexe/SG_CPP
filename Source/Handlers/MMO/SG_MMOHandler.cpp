@@ -377,18 +377,19 @@ void SG_MMOHandler::LeaveOX(const boost::shared_ptr<SG_ClientSession> Session)
 
 void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
-	sg_constructor::rooms_packet rooms[sizeof(roomlist_ptr)];
+	std::vector<sg_constructor::rooms_packet> rooms;
+	//sg_constructor::rooms_packet rooms[100];
 	int i = 0;
 	for (const auto& iter : *roomlist_ptr)
 	{
-		rooms[i] = sg_constructor::rooms_packet(iter->RoomID, iter->Name, iter->Mode, 2, iter->Max_Player, iter->State, iter->Level);
+		rooms.push_back(sg_constructor::rooms_packet(iter->RoomID, iter->Name, iter->Mode, 2, iter->Max_Player, iter->State, iter->Level));
 		i++;
 	}
-
+	
 	BM_SC_GET_ROOMLIST_RESP response;
 	BM_SC_GET_ROOMLIST_RESP::initMessage<BM_SC_GET_ROOMLIST_RESP>(&response);
-	response.roomcount = sizeof(roomlist_ptr);
-
+	response.roomcount = i;
+	response.rooms = rooms;
 	Session->SendPacketStruct(&response);
 }
 
@@ -520,6 +521,15 @@ void SG_MMOHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session,
 
 }
 
+void SG_MMOHandler::EndGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_FINISH_RACE* packet)
+{
+	BM_SC_END_GAME response;
+	BM_SC_END_GAME::initMessage<BM_SC_END_GAME>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
 void SG_MMOHandler::SelectMap(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SELECT_MAP* packet)
 {
 	if(Session->m_Player->roomptr != nullptr)
@@ -588,6 +598,15 @@ void SG_MMOHandler::UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> 
 {
 	BM_SC_DEBUG_ACCESS response;
 	BM_SC_DEBUG_ACCESS::initMessage<BM_SC_DEBUG_ACCESS>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::RunClientSideScript(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_RUN_CLIENT_SIDE_SCRIPT response;
+	BM_SC_RUN_CLIENT_SIDE_SCRIPT::initMessage<BM_SC_RUN_CLIENT_SIDE_SCRIPT>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
