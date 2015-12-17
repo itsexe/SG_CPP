@@ -19,7 +19,7 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	{
 		Session->m_Player->playerid = accqry.getInt(1, "id");
 		//Get Chars
-		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints from Chars where AccountID =  ?;");
+		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins from Chars where AccountID =  ?;");
 		qry.setInt(1, Session->m_Player->playerid);
 		qry.ExecuteQuery();
 		if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
@@ -34,6 +34,7 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 			Session->m_Player->rank = qry.getInt(1, "Rank");
 			Session->m_Player->license = qry.getInt(1, "License");
 			Session->m_Player->questpoints = qry.getInt(1, "Questpoints");
+			Session->m_Player->LastBonusCoin = qry.getTime(1, "LastDailyCoins");
 			Session->m_Player->charcreated = 1;
 		}
 		else
@@ -65,7 +66,7 @@ void SG_MMOHandler::CreateChar(const boost::shared_ptr<SG_ClientSession> Session
 	response.successmessage[7] = static_cast<uint8_t>(0);
 
 	//Insert everything in Database
-	MySQLQuery qry(Session->SQLConn, "INSERT INTO Chars (Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, AccountID) VALUES (?,0,1,0,0,0,10,10,0,?);");
+	MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins from Chars where AccountID =  ?;");//Added CanGetBonusCoins
 	qry.setString(1, packet->charname);
 	qry.setInt(2, Session->m_Player->playerid);
 	qry.ExecuteInsert();
@@ -317,15 +318,34 @@ void SG_MMOHandler::SendMissionList(const boost::shared_ptr<SG_ClientSession> Se
 	Session->SendPacketStruct(&response);
 }
 
-void SG_MMOHandler::HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> Session)
+void SG_MMOHandler::CheckDailyCoins(const boost::shared_ptr<SG_ClientSession> Session)
 {
+	time_t currenttime = time(0);
+	if (currenttime < (Session->m_Player->LastBonusCoin += 86400))
+	{
+		BM_SC_QUEST_DAY_COIN2_RESP response;
+		BM_SC_QUEST_DAY_COIN2_RESP::initMessage<BM_SC_QUEST_DAY_COIN2_RESP>(&response);
+		strcpy_s(response.message, static_cast<std::string>("ALREADY_GET_COIN").c_str());
+		response.message[16] = static_cast<uint8_t>(0);
+		Session->SendPacketStruct(&response);
+	}
+}
 
-	//TODO: ALLOW DAILY COIN ONLY ONCE PER DAY!
-	BM_SC_QUEST_DAY_COIN2_RESP response;
-	BM_SC_QUEST_DAY_COIN2_RESP::initMessage<BM_SC_QUEST_DAY_COIN2_RESP>(&response);
-	strcpy_s(response.message, static_cast<std::string>("ALREADY_GET_COIN").c_str());
-	response.message[16] = static_cast<uint8_t>(0);
+void SG_MMOHandler::HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_QUEST_DAY_COIN* packet)
+{
+	BM_SC_QUEST_DAY_COIN_RESP response;
+	BM_SC_QUEST_DAY_COIN_RESP::initMessage<BM_SC_QUEST_DAY_COIN_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
+
+	//Add 50 Coins
+	Session->m_Player->coins += 50;
+	SendBalanceInfo(Session);
+	SendCashBalanceInfo(Session);
+
+	Session->m_Player->LastBonusCoin = time_t(0);
+	Session->m_Server->SaveChar(Session);
 }
 
 void SG_MMOHandler::StartMission(const boost::shared_ptr<SG_ClientSession> Session)
@@ -437,6 +457,7 @@ void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session
 			response.successmessage[7] = static_cast<uint8_t>(0);
 			response.roomid = RoomPtr->RoomID;
 			response.relayport = Session->conf->RelayPort;
+			response.udpport = 5000;
 			strcpy_s(response.relayip, SG_ClientSession::conf->relayIP.c_str());
 			for (auto i = SG_ClientSession::conf->relayIP.length(); i != 16; i++)
 			{
@@ -475,8 +496,8 @@ void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session,
 			BM_SC_ENTER_ROOM_SUCCESS_RESP::initMessage<BM_SC_ENTER_ROOM_SUCCESS_RESP>(&response);
 			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 			response.successmessage[7] = static_cast<uint8_t>(0);
-			response.roomid = iter->RoomID;
-			response.team = 2;
+			//response.roomid = iter->RoomID;
+			response.team = 0;
 			response.relayport = Session->conf->RelayPort;
 			response.udpport = 5000;
 			strcpy_s(response.relayip, SG_ClientSession::conf->relayIP.c_str());
@@ -487,11 +508,66 @@ void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session,
 			Session->SendPacketStruct(&response);
 			for (const auto& iter : *roomlist_ptr)
 			{
-
-				if (iter->RoomID == packet->id +1)
+				if (iter->RoomID == packet->roomid +1)
 				{
-					//iter->Sessions.push_back(Session);
 					Session->m_Player->roomptr = iter;
+				}
+			}
+
+			//inform other players about the new room member
+			BM_SC_ROOM_MULTI_INFO_RESP response2;
+			BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response2);
+			strcpy_s(response2.remoteendpoint, static_cast<std::string>(Session->getSocket().remote_endpoint().address().to_string()).c_str());
+			for (auto i = Session->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
+			{
+				response2.remoteendpoint[i] = static_cast<uint8_t>(0);
+			}
+			strcpy_s(response2.charname, static_cast<std::string>(Session->m_Player->charname).c_str());
+			for (auto i = Session->m_Player->charname.length(); i != 40; ++i)
+			{
+				response2.charname[i] = static_cast<uint8_t>(0);
+			}
+			response2.slotdisplay = 2;
+			response2.chartype = Session->m_Player->chartype;
+			response2.enterinfo = 3;
+			if(Session->m_Player->rank > 1)
+			{
+				response2.isadmin = 1;
+			}
+			response2.slotdisplay = 2;
+			response2.uk3 = 1;
+			Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session);
+
+			//inform new player about current players
+			for (const auto& iter : Session->m_Server->Sessions)
+			{
+				if (iter->m_Player->roomptr != nullptr)
+				{
+					if (iter->m_Player->roomptr->RoomID == packet->roomid + 1)
+					{
+						BM_SC_ROOM_MULTI_INFO_RESP response3;
+						BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response3);
+						strcpy_s(response3.remoteendpoint, static_cast<std::string>(iter->getSocket().remote_endpoint().address().to_string()).c_str());
+						for (auto i = iter->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
+						{
+							response3.remoteendpoint[i] = static_cast<uint8_t>(0);
+						}
+						strcpy_s(response3.charname, static_cast<std::string>(iter->m_Player->charname).c_str());
+						for (auto i = iter->m_Player->charname.length(); i != 40; ++i)
+						{
+							response3.charname[i] = static_cast<uint8_t>(0);
+						}
+						response3.slotdisplay = 1;
+						response3.chartype = iter->m_Player->chartype;
+						response3.enterinfo = 3;
+						if (iter->m_Player->rank > 1)
+						{
+							response3.isadmin = 1;
+						}
+						response3.slotdisplay = 1;
+						response3.uk3 = 1;
+						Session->SendPacketStruct(&response3);
+					}
 				}
 			}
 			return;
@@ -640,7 +716,8 @@ void SG_MMOHandler::UpdateMap(const boost::shared_ptr<SG_ClientSession> Session)
 		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 		response.successmessage[7] = static_cast<uint8_t>(0);
 		response.mapid = Session->m_Player->roomptr->currentmap;
-		Session->SendPacketStruct(&response);
+		//Send to everyone in the room
+		Session->m_Server->SendRoomBroadcast(&response,Session->m_Player->roomptr->RoomID, Session,true);
 	}
 }
 

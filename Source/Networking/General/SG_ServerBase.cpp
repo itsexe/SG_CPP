@@ -93,17 +93,21 @@ void SG_ServerBase::SendRoomBroadcast(const TS_MESSAGE* packet, uint32_t roomid,
 {
 	for (const auto& iter : Sessions)
 	{
-		if (iter->m_Player->roomptr->RoomID == roomid)
+		if (iter->m_Player->roomptr != nullptr)
 		{
-			if(iter->m_Player->charname == sender->m_Player->charname)
+			if (iter->m_Player->roomptr->RoomID == roomid)
 			{
-				if(sendtosender == true)
+				if (iter->m_Player->charname == sender->m_Player->charname)
+				{
+					if (sendtosender == true)
+					{
+						iter->SendPacketStruct(packet);
+					}
+				}
+				else
 				{
 					iter->SendPacketStruct(packet);
 				}
-			}else
-			{
-				iter->SendPacketStruct(packet);
 			}
 		}
 	}
@@ -124,6 +128,27 @@ uint8_t SG_ServerBase::GetPlayersInRoom(uint32_t roomid)
 
 	}
 	return count;
+}
+
+void SG_ServerBase::SaveChar(const boost::shared_ptr<SG_ClientSession> Session)
+{
+		//name, rank, level, xp, license, rupees, coins, questpoints, clanid, accid, chartype, cangetbonuscoins, char_id
+		MySQLQuery mysql_query(Session->SQLConn, "UPDATE `chars` SET `Name` = ?, `Rank` = ?, `Level` = ?, `XP` = ?, `License` = ?, `Rupees` = ?, `Coins` = ?, `Questpoints` = ?, `ClanID` = ?, `AccountID` = ?, `CharType` = ?, `LastDailyCoins` = ? WHERE `chars`.`Name` = ?");
+		mysql_query.setString(1, Session->m_Player->charname);
+		mysql_query.setInt(2, Session->m_Player->rank);
+		mysql_query.setInt(3, static_cast<uint16_t>(Session->m_Player->charlevel));
+		mysql_query.setInt(4, Session->m_Player->exp);
+		mysql_query.setInt(5, Session->m_Player->license);
+		mysql_query.setInt(6, Session->m_Player->rupees);
+		mysql_query.setInt(7, Session->m_Player->coins);
+		mysql_query.setInt(8, Session->m_Player->questpoints);
+		mysql_query.setInt(9, NULL);//clan id
+		mysql_query.setInt(10, Session->m_Player->playerid);
+		mysql_query.setInt(11, Session->m_Player->chartype);
+		mysql_query.setTime(12, Session->m_Player->LastBonusCoin);
+		mysql_query.setString(13, Session->m_Player->charname);
+
+		mysql_query.ExecuteQuery();
 }
 
 void SG_ServerBase::WorkerThread()

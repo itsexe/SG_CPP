@@ -264,7 +264,6 @@ struct BM_SC_ENTER_ROOM_SUCCESS_RESP : public TS_MESSAGE
 	char successmessage[8];
 	uint64_t uk1;
 	uint64_t uk2;
-	uint32_t roomid;
 	char relayip[20];
 	uint16_t relayport;
 	uint8_t team; // 1 = red | 2 = Blue
@@ -287,6 +286,22 @@ struct BM_SC_LEAVE_ROOM_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 2178;
+};
+struct BM_SC_ROOM_MULTI_INFO_RESP : public TS_MESSAGE
+{
+	char remoteendpoint[33];
+	char charname[40];
+	uint8_t lobbyposition;
+	uint8_t chartype;
+	uint8_t enterinfo; //has to be 3 BM_SC_USER_INFO:USER_ENTER
+	uint8_t isadmin;
+	uint8_t slotdisplay;
+	uint8_t ready;
+	uint8_t status;
+	uint16_t uk1;
+	uint8_t uk2;
+	uint8_t uk3;
+	static const uint16_t packetID = 2165;
 };
 struct BM_SC_CASH_BALANCE_INFO_RESP : public TS_MESSAGE
 {
@@ -365,6 +380,11 @@ struct BM_SC_END_GAME : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 2192;
+};
+struct BM_SC_QUEST_DAY_COIN_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2296;
 };
 #pragma pack(pop)
 

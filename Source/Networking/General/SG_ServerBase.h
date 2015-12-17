@@ -42,6 +42,8 @@ public:
 	void SendBroadcast(const TS_MESSAGE* packet);
 	void SendRoomBroadcast(const TS_MESSAGE* packet, uint32_t roomid, const boost::shared_ptr<SG_ClientSession> sender, bool sendtosender = false);
 	uint8_t GetPlayersInRoom(uint32_t roomid);
+	void SaveChar(const boost::shared_ptr<SG_ClientSession> Session);
+
 private:
 	void WorkerThread();
 	void Listen();

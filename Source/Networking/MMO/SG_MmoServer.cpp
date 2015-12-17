@@ -120,7 +120,10 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::HandleMSN(pSession);
 		break;
 	case BM_SC_QUEST_DAY_COIN2::packetID:
-		SG_MMOHandler::HandleDailyCoins(pSession);
+		SG_MMOHandler::CheckDailyCoins(pSession);
+		break;
+	case BM_SC_QUEST_DAY_COIN::packetID:
+		SG_MMOHandler::HandleDailyCoins(pSession, static_cast<const BM_SC_QUEST_DAY_COIN*>(packet));
 		break;
 	case MM_SC_MSN_FIND_USER::packetID:
 		SG_MMOHandler::FindUser(pSession, static_cast<const MM_SC_MSN_FIND_USER*>(packet));

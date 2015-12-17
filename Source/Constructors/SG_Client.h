@@ -54,6 +54,8 @@ public:
 	//Quiz
 	bool IsInOX;
 
+	time_t LastBonusCoin;
+
 
 	//Rooms_internal
 	bool IsInRoom;

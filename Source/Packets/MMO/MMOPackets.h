@@ -224,6 +224,11 @@ struct BM_SC_FINISH_RACE : public TS_MESSAGE
 	char gameid[16];
 	static const uint16_t packetID = 2191;
 };
+struct BM_SC_QUEST_DAY_COIN : public TS_MESSAGE
+{
+	uint16_t uk1;
+	static const uint16_t packetID = 2295;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H
