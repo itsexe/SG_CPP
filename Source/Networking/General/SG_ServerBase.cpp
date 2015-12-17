@@ -114,10 +114,14 @@ uint8_t SG_ServerBase::GetPlayersInRoom(uint32_t roomid)
 	int count = 0;
 	for (const auto& iter : Sessions)
 	{
-		if(iter->m_Player->roomptr->RoomID == roomid)
+		if(iter->m_Player->roomptr != nullptr)
 		{
-			count++;
+			if (iter->m_Player->roomptr->RoomID == roomid)
+			{
+				count++;
+			}
 		}
+
 	}
 	return count;
 }
