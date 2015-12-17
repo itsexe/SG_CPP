@@ -1,9 +1,9 @@
-#include "../../Packets/Relay/RelayPackets.h"
-#include "../../Networking/General/SG_ClientSession.h"
+#include "Packets/Relay/RelayPackets.h"
+#include "Networking/General/SG_ClientSession.h"
 #include "SG_RelayHandler.h"
-#include "../../Tools/SG_Logger.h"
-#include "../../Packets/Relay/RelayPacketsResponse.h"
-#include "../../Packets/MMO/MMOPacketsResponse.h"
+#include "Tools/SG_Logger.h"
+#include "Packets/Relay/RelayPacketsResponse.h"
+#include "Packets/MMO/MMOPacketsResponse.h"
 
 void SG_RelayHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const NM_SC_LOGIN* packet)
 {

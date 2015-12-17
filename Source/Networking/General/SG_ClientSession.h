@@ -6,11 +6,11 @@
 #include <cstdint>
 #include "boost/asio.hpp"
 #include "boost/enable_shared_from_this.hpp"
-#include "../../Constructors/SG_Client.h"
+#include "Constructors/SG_Client.h"
 #include "boost/asio/ip/address_v4.hpp"
-#include "../../Packets/PacketBaseMessage.h"
-#include "../../Tools/Database/Database.h"
-#include "../../SG_Config.h"
+#include "Packets/PacketBaseMessage.h"
+#include "Tools/Database/Database.h"
+#include "SG_Config.h"
 
 /*++
 Class for handling client sessions.

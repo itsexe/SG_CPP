@@ -1,10 +1,10 @@
 #ifndef PACKETS_MMO_RESPONSE
 #define PACKETS_MMO_RESPONSE
 #include <cstdint>
-#include "../../Packets/PacketBaseMessage.h"
+#include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-#include "../../Constructors/sg_constructor.h"
+#include "Constructors/sg_constructor.h"
 
 struct BM_SC_LOGIN_RESP : public TS_MESSAGE
 {
@@ -227,9 +227,7 @@ struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
 struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
 {
 	BM_SC_GET_ROOMLIST_RESP(){}
-	BM_SC_GET_ROOMLIST_RESP(uint16_t count, sg_constructor::rooms_packet roomlist[]) : roomcount(count)
-	{
-	}
+	BM_SC_GET_ROOMLIST_RESP(uint16_t count, sg_constructor::rooms_packet roomlist[]) : roomcount(count)	{}
 	uint16_t roomcount;
 	uint16_t uk1;
 	uint16_t uk2;

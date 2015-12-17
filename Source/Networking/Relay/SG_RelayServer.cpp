@@ -1,8 +1,8 @@
 #include "SG_RelayServer.h"
 #include <string>
-#include "../../Tools/SG_Logger.h"
-#include "../../Packets/Relay/RelayPackets.h"
-#include "../../Handlers/Relay/SG_RelayHandler.h"
+#include "Tools/SG_Logger.h"
+#include "Packets/Relay/RelayPackets.h"
+#include "Handlers/Relay/SG_RelayHandler.h"
 
 bool SG_RelayServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {

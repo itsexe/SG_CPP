@@ -2,8 +2,8 @@
 #define SG_MMOHandler_H
 #pragma once
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include "../../Networking/General/SG_ClientSession.h"
-#include "../../Packets/MMO/MMOPackets.h"
+#include "Networking/General/SG_ClientSession.h"
+#include "Packets/MMO/MMOPackets.h"
 
 struct BM_SC_END_GAME;
 
@@ -62,7 +62,7 @@ public:
 	//Rooms_internal
 	static void SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr);
 	static void RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id);
-	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet);
+	static void RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr);
 	static void RoomLeave(const boost::shared_ptr<SG_ClientSession> Session);
 	static void StartGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_START_GAME* packet);
 	static void EndGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_FINISH_RACE* packet);

@@ -1,6 +1,6 @@
 #include "SG_MMOHandler.h"
-#include "../../Tools/SG_Logger.h"
-#include "../../Packets/MMO/MMOPacketsResponse.h"
+#include "Tools/SG_Logger.h"
+#include "Packets/MMO/MMOPacketsResponse.h"
 #include <boost/make_shared.hpp>
 
 void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet)
@@ -390,6 +390,8 @@ void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sessi
 	BM_SC_GET_ROOMLIST_RESP::initMessage<BM_SC_GET_ROOMLIST_RESP>(&response);
 	response.roomcount = i;
 	response.rooms = rooms;
+	response.size = sizeof(BM_SC_GET_ROOMLIST_RESP ) + (i * sizeof(sg_constructor::rooms_packet));
+	response.msg_check_sum = response.checkMessage(&response);
 	Session->SendPacketStruct(&response);
 }
 
@@ -447,10 +449,34 @@ void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session
 
 }
 
-void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet)
+void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
-	std::cout << packet << std::endl;
-
+	for (const auto& iter : *roomlist_ptr)
+	{
+		if (iter->RoomID == packet->roomid)
+		{
+			Session->m_Player->roomptr = iter;
+			BM_SC_ENTER_ROOM_SUCCESS_RESP response;
+			BM_SC_ENTER_ROOM_SUCCESS_RESP::initMessage<BM_SC_ENTER_ROOM_SUCCESS_RESP>(&response);
+			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+			response.successmessage[7] = static_cast<uint8_t>(0);
+			response.roomid = iter->RoomID;
+			response.relayport = Session->conf->RelayPort;
+			strcpy_s(response.relayip, SG_ClientSession::conf->relayIP.c_str());
+			for (auto i = SG_ClientSession::conf->relayIP.length(); i != 16; i++)
+			{
+				response.relayip[i] = static_cast<uint8_t>(0);
+			}
+			Session->SendPacketStruct(&response);
+			return;
+		}
+	}
+	//Room not found, or is full or something
+	BM_SC_ENTER_ROOM_FAILED_RESP response;
+	BM_SC_ENTER_ROOM_FAILED_RESP::initMessage<BM_SC_ENTER_ROOM_FAILED_RESP>(&response);
+	strcpy_s(response.errormessage, static_cast<std::string>("INVALID_REQUEST").c_str());
+	response.errormessage[15] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
 }
 
 void SG_MMOHandler::RoomLeave(const boost::shared_ptr<SG_ClientSession> Session)

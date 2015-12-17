@@ -1,5 +1,5 @@
 #include "Database.h"
-#include "../../Tools/SG_Logger.h"
+#include "Tools/SG_Logger.h"
 #include <sstream>
 #pragma comment(lib, "libmysql.lib")
 

@@ -1,11 +1,11 @@
 #include "SG_AuthHandler.h"
-#include "../../SG_Config.h"
-#include "../../Tools/SG_Logger.h"
-#include "../../Packets/Auth/LoginPackets.h"
-#include "../../Packets/Auth/LoginPacketsResponse.h"
-#include "../../Tools/Database/Database.h"
-#include "../../Networking/General/SG_ClientSession.h"
-#include "../../Tools/Encryption/DesPasswordCipher.h"
+#include "SG_Config.h"
+#include "Tools/SG_Logger.h"
+#include "Packets/Auth/LoginPackets.h"
+#include "Packets/Auth/LoginPacketsResponse.h"
+#include "Tools/Database/Database.h"
+#include "Networking/General/SG_ClientSession.h"
+#include "Tools/Encryption/DesPasswordCipher.h"
 
 SG_AuthHandler::SG_AuthHandler()
 {

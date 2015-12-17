@@ -1,8 +1,8 @@
 #include "SG_MmoServer.h"
 #include <string>
-#include "../../Tools/SG_Logger.h"
-#include "../../Handlers/MMO/SG_MMOHandler.h"
-#include "../../Packets/MMO/MMOPackets.h"
+#include "Tools/SG_Logger.h"
+#include "Handlers/MMO/SG_MMOHandler.h"
+#include "Packets/MMO/MMOPackets.h"
 
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
@@ -111,7 +111,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet),&Rooms_internal, lastroomid);
 		break;
 	case BM_SC_ENTER_ROOM::packetID:
-		SG_MMOHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet));
+		SG_MMOHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet),&Rooms_internal);
 		break;
 	case BM_SC_LEAVE_ROOM::packetID:
 		SG_MMOHandler::RoomLeave(pSession);

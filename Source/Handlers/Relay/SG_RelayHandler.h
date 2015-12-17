@@ -2,8 +2,8 @@
 #define SG_RelayHandler_H
 #pragma once
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include "../../Networking/General/SG_ClientSession.h"
-#include "../../Packets/Relay/RelayPackets.h"
+#include "Networking/General/SG_ClientSession.h"
+#include "Packets/Relay/RelayPackets.h"
 
 class SG_RelayHandler
 {

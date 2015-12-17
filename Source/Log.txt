@@ -9424,3 +9424,565 @@
 [INFO    ] MMO Server started
 [INFO    ] Lobby Server started
 [INFO    ] Relay Server started
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [ChQsKkJryJkdqC7TVqVZUkzyHVR6AWS2] connected from: 192.168.2.107
+[PLAYER  ] [ChQsKkJryJkdqC7TVqVZUkzyHVR6AWS2] Client Version okay! [de] [200708240]
+[DEBUG   ] [ChQsKkJryJkdqC7TVqVZUkzyHVR6AWS2] tried to login with Username: simon Password: admin
+[MMO     ] [ChQsKkJryJkdqC7TVqVZUkzyHVR6AWS2] connected from: 192.168.2.107
+[Auth    ] [ChQsKkJryJkdqC7TVqVZUkzyHVR6AWS2] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] ChQsKkJryJkdqC7TVqVZUkzyHVR6AWS2 has charname 
+[Auth    ] [ChQsKkJryJkdqC7TVqVZUkzyHVR6AWS2] disconnected
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] connected from: 192.168.2.107
+[PLAYER  ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] Client Version okay! [de] [200708240]
+[DEBUG   ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] tried to login with Username: simon Password: admin
+[MMO     ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] connected from: 192.168.2.107
+[MMO     ] Simon is joining Channel 1
+[Auth    ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] disconnected
+[Auth    ] [atU1g1w3p9wKtr9RRzG3kij0sinWrqpq] connected from: 192.168.2.107
+[PLAYER  ] [atU1g1w3p9wKtr9RRzG3kij0sinWrqpq] Client Version okay! [de] [200708240]
+[DEBUG   ] [atU1g1w3p9wKtr9RRzG3kij0sinWrqpq] tried to login with Username: admin Password: admin
+[MMO     ] [atU1g1w3p9wKtr9RRzG3kij0sinWrqpq] connected from: 192.168.2.107
+[MMO     ] Test is joining Channel 1
+[Auth    ] [atU1g1w3p9wKtr9RRzG3kij0sinWrqpq] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[Auth    ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] disconnected
+[Auth    ] [atU1g1w3p9wKtr9RRzG3kij0sinWrqpq] disconnected
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[Lobby   ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [hQaqrNZJVL3SxTaFXecSBbnWM0BCizb5] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Simon created room Let's Fly~
+[Relay   ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] disconnected!
+[Lobby   ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] disconnected!
+[Lobby   ] [hQaqrNZJVL3SxTaFXecSBbnWM0BCizb5] disconnected!
+[Lobby   ] [hQaqrNZJVL3SxTaFXecSBbnWM0BCizb5] disconnected!
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room !! We are SG !!
+[Relay   ] [cmHFPXQMC9ucKeoNgPdRwu6CawZp9TnT] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [Izx4hnmqoQXxLsLL5dM103x22hnL7cKM] disconnected!
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [cmHFPXQMC9ucKeoNgPdRwu6CawZp9TnT] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room !! We are SG !!
+[Relay   ] [VGVDEddx9hYpNjYPCMYkBOdPBCcu9VEo] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [cmHFPXQMC9ucKeoNgPdRwu6CawZp9TnT] disconnected!
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] connected from: 192.168.2.107
+[PLAYER  ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] Client Version okay! [de] [200708240]
+[DEBUG   ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] tried to login with Username: admin Password: admin
+[MMO     ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] connected from: 192.168.2.107
+[MMO     ] Test is joining Channel 1
+[Auth    ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] disconnected
+[Auth    ] [bapFZchw3sOXCpTDxVKsHOlv5UnA06qU] connected from: 192.168.2.107
+[PLAYER  ] [bapFZchw3sOXCpTDxVKsHOlv5UnA06qU] Client Version okay! [de] [200708240]
+[DEBUG   ] [bapFZchw3sOXCpTDxVKsHOlv5UnA06qU] tried to login with Username: simon Password: admin
+[MMO     ] [bapFZchw3sOXCpTDxVKsHOlv5UnA06qU] connected from: 192.168.2.107
+[MMO     ] Simon is joining Channel 1
+[Auth    ] [bapFZchw3sOXCpTDxVKsHOlv5UnA06qU] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[Lobby   ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [V7zayIpADbXkSCzgAe0aVo1wlZlVf6Sk] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Simon created room R U Ready ?
+[Relay   ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] disconnected!
+[Lobby   ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] disconnected!
+[Auth    ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] disconnected
+[Auth    ] [bapFZchw3sOXCpTDxVKsHOlv5UnA06qU] disconnected
+[Lobby   ] [V7zayIpADbXkSCzgAe0aVo1wlZlVf6Sk] disconnected!
+[Lobby   ] [V7zayIpADbXkSCzgAe0aVo1wlZlVf6Sk] disconnected!
+[MMO     ] [DOE2OrYU0paXax5mOkWgh3wZOywe7O7v] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2078] Size[3]
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2082] Size[19]
+[PACKET  ] Unknown Packet ID[2249] Size[3]
+[PACKET  ] Unknown Packet ID[2080] Size[3]
+[MMO     ] [DOE2OrYU0paXax5mOkWgh3wZOywe7O7v] disconnected!
+[MMO     ] [DOE2OrYU0paXax5mOkWgh3wZOywe7O7v] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[Relay   ] [Ywczcrv2DcwkYIX7ohvUrkyZpMN2pQJR] disconnected!
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] connected from: 192.168.2.107
+[PLAYER  ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] Client Version okay! [de] [200708240]
+[DEBUG   ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] tried to login with Username: admin Password: admin
+[MMO     ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] connected from: 192.168.2.107
+[MMO     ] Test is joining Channel 1
+[Auth    ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[Auth    ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] connected from: 192.168.2.107
+[PLAYER  ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] Client Version okay! [de] [200708240]
+[DEBUG   ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] tried to login with Username: simon Password: admin
+[MMO     ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] connected from: 192.168.2.107
+[MMO     ] Simon is joining Channel 1
+[Auth    ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[Lobby   ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Simon created room You can Fly ^^*
+[Relay   ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected!
+[Lobby   ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected!
+[Auth    ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected
+[Lobby   ] [kkF65jfLCkGJy9JIOsp3gly5ylDGi5BE] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[Auth    ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] disconnected
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2340] Size[7]
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected!
+[Lobby   ] [kkF65jfLCkGJy9JIOsp3gly5ylDGi5BE] disconnected!
+[Lobby   ] [kkF65jfLCkGJy9JIOsp3gly5ylDGi5BE] disconnected!
+[MMO     ] Test created room GO GO SG!!!!!
+[Relay   ] [I8VYBG9B6zwOgBQIafEmoitsCZ5cCbqj] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [I8VYBG9B6zwOgBQIafEmoitsCZ5cCbqj] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room !! We are SG !!
+[Relay   ] [RrHmlrjN0sMKK7KamPmGRNDuGCBun9JZ] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [I8VYBG9B6zwOgBQIafEmoitsCZ5cCbqj] disconnected!
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [RrHmlrjN0sMKK7KamPmGRNDuGCBun9JZ] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room Let's SG!!!!!
+[Relay   ] [m17qsH2bR1NTEwjDELpocmOJB5glTqc2] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [m17qsH2bR1NTEwjDELpocmOJB5glTqc2] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room !! We are SG !!
+[Relay   ] [EeVF4reJNmu8HdpXM1iZQtsr4xSpz4pE] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [RrHmlrjN0sMKK7KamPmGRNDuGCBun9JZ] disconnected!
+[Relay   ] [m17qsH2bR1NTEwjDELpocmOJB5glTqc2] disconnected!
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [EeVF4reJNmu8HdpXM1iZQtsr4xSpz4pE] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [EeVF4reJNmu8HdpXM1iZQtsr4xSpz4pE] disconnected!
+[MMO     ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] disconnected!
+[MMO     ] [q91BjogLmGcGh4Pjkib5wlW5sJ82lb3g] connected from: 192.168.2.107
+[MMO     ] [q91BjogLmGcGh4Pjkib5wlW5sJ82lb3g] disconnected!
+[MMO     ] [q91BjogLmGcGh4Pjkib5wlW5sJ82lb3g] disconnected!
+[MMO     ] [9VRv8e0sGn5w34Kd5MnARGt9HPIiYK6S] disconnected!
+[MMO     ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected!
+[MMO     ] [9w3NjQk5408P05CYEOy3UFpjww7adfbJ] disconnected!
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] connected from: 192.168.2.107
+[PLAYER  ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] Client Version okay! [de] [200708240]
+[DEBUG   ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] tried to login with Username: admin Password: admin
+[MMO     ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] connected from: 192.168.2.107
+[MMO     ] Test is joining Channel 1
+[Auth    ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[Lobby   ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room GO GO SG!!!!!
+[Relay   ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Auth    ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] disconnected
+[Lobby   ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] disconnected!
+[Lobby   ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] disconnected!
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2181] Size[4]
+[MMO     ] Test created room GO GO SG!!!!!
+[Relay   ] [dxrCHZA65XSmI55pllwv0wdsAQEJ2Xin] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [dxrCHZA65XSmI55pllwv0wdsAQEJ2Xin] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room You can Fly ^^*
+[Relay   ] [YCzO32QQjK4vTePRDBw5LSQDcWLNBmgF] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [YCzO32QQjK4vTePRDBw5LSQDcWLNBmgF] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [wD2ck3uKYWVLI6ZFizxGlHZdzZWwW0Lb] disconnected!
+[Relay   ] [dxrCHZA65XSmI55pllwv0wdsAQEJ2Xin] disconnected!
+[Relay   ] [YCzO32QQjK4vTePRDBw5LSQDcWLNBmgF] disconnected!
+[Auth    ] [PJJEtwPo3kTJ2hgOH9s99hLRxy7cN3NU] connected from: 192.168.2.107
+[PLAYER  ] [PJJEtwPo3kTJ2hgOH9s99hLRxy7cN3NU] Client Version okay! [de] [200708240]
+[DEBUG   ] [PJJEtwPo3kTJ2hgOH9s99hLRxy7cN3NU] tried to login with Username: simon Password: admin
+[MMO     ] [PJJEtwPo3kTJ2hgOH9s99hLRxy7cN3NU] connected from: 192.168.2.107
+[MMO     ] Simon is joining Channel 1
+[Auth    ] [PJJEtwPo3kTJ2hgOH9s99hLRxy7cN3NU] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[PACKET  ] Unknown Packet ID[2011] Size[3]
+[Auth    ] [PJJEtwPo3kTJ2hgOH9s99hLRxy7cN3NU] disconnected
+[Lobby   ] [OPKMd6KbMAqAS9qzm0EtBuJsTziVq5ip] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Simon's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [OPKMd6KbMAqAS9qzm0EtBuJsTziVq5ip] disconnected!
+[Lobby   ] [OPKMd6KbMAqAS9qzm0EtBuJsTziVq5ip] disconnected!
+[MMO     ] Test created room R U Ready ?
+[Relay   ] [n7BWbgwkdNIvNdCxE2kAAEVTPV2UVpjt] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] connected from: 192.168.2.107
+[PLAYER  ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] Client Version okay! [de] [200708240]
+[DEBUG   ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] tried to login with Username: admin Password: admin
+[MMO     ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] connected from: 192.168.2.107
+[MMO     ] Test is joining Channel 1
+[Auth    ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[Lobby   ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room Let's SG!!!!!
+[Relay   ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room Welcome SG~ *^^*
+[Relay   ] [1lQ6P0O4PZpVxtGhDsBeueUxHvnxLzAI] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [1lQ6P0O4PZpVxtGhDsBeueUxHvnxLzAI] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] disconnected!
+[Lobby   ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] disconnected!
+[Auth    ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] disconnected
+[Relay   ] [Gr9NP0gGVBLKunUrVUqXnUqpy6yrU8wx] disconnected!
+[Relay   ] [1lQ6P0O4PZpVxtGhDsBeueUxHvnxLzAI] disconnected!
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] connected from: 192.168.2.107
+[PLAYER  ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] Client Version okay! [de] [200708240]
+[DEBUG   ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] tried to login with Username: admin Password: admin
+[MMO     ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] connected from: 192.168.2.107
+[MMO     ] Test is joining Channel 1
+[Auth    ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[Lobby   ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room You can Fly ^^*
+[Relay   ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Lobby   ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected!
+[Lobby   ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected!
+[MMO     ] Test created room !! We are SG !!
+[Relay   ] [1dBhs1Dx8R82AOxUuyCFePnXDHvT7ulc] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [1dBhs1Dx8R82AOxUuyCFePnXDHvT7ulc] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room Can You Feel?
+[Relay   ] [fAnutQjdyGnkvvZbudrdHAH0es86ubKa] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [fAnutQjdyGnkvvZbudrdHAH0es86ubKa] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Auth    ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected
+[MMO     ] Test created room You can Fly ^^*
+[Relay   ] [unM8XX4WoVPWBJJLGnBaZ9PnIePnkwt6] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [unM8XX4WoVPWBJJLGnBaZ9PnIePnkwt6] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room Let's Fly~
+[Relay   ] [ngWqXEkzRaEpASTIrm2Jb9OefD0QF0jW] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [ngWqXEkzRaEpASTIrm2Jb9OefD0QF0jW] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] Test created room GO GO SG!!!!!
+[Relay   ] [o7M9fXysuJs8VjtYNcZH8sxrlxpCdFXF] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [o7M9fXysuJs8VjtYNcZH8sxrlxpCdFXF] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected!
+[MMO     ] Test created room You can Fly ^^*
+[Relay   ] [Z9TlVNDlUDrJXC7XbMrgtCg24nPyzArU] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[6006] Size[3]
+[Relay   ] [Z9TlVNDlUDrJXC7XbMrgtCg24nPyzArU] disconnected!
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[Relay   ] [1dBhs1Dx8R82AOxUuyCFePnXDHvT7ulc] disconnected!
+[MMO     ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected!
+[Relay   ] [fAnutQjdyGnkvvZbudrdHAH0es86ubKa] disconnected!
+[Relay   ] [unM8XX4WoVPWBJJLGnBaZ9PnIePnkwt6] disconnected!
+[Relay   ] [ngWqXEkzRaEpASTIrm2Jb9OefD0QF0jW] disconnected!
+[Relay   ] [o7M9fXysuJs8VjtYNcZH8sxrlxpCdFXF] disconnected!
+[Relay   ] [Z9TlVNDlUDrJXC7XbMrgtCg24nPyzArU] disconnected!
+[MMO     ] [UmvHPk23UVLyrmuzSDx2GftxVRjU51tE] disconnected!
+[DATABASE] Connecting to clickbait@89.163.208.5:3306...
+[DATABASE] Connected!
+[INFO    ] Auth Server started
+[INFO    ] MMO Server started
+[INFO    ] Lobby Server started
+[INFO    ] Relay Server started
+[Auth    ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] connected from: 192.168.2.107
+[PLAYER  ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] Client Version okay! [de] [200708240]
+[DEBUG   ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] tried to login with Username: admin Password: admin
+[MMO     ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] connected from: 192.168.2.107
+[MMO     ] Test is joining Channel 1
+[Auth    ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] disconnected
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[PACKET  ] Unknown Packet ID[2329] Size[11]
+[PACKET  ] Unknown Packet ID[2106] Size[3]
+[PACKET  ] Unknown Packet ID[2362] Size[7]
+[PACKET  ] Unknown Packet ID[2337] Size[3]
+[Lobby   ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] connected from: 192.168.2.107
+[PACKET  ] Unknown Packet ID[2360] Size[7]
+[MMO     ] Test's sessionmessage:  select_slot=0
+[PACKET  ] Unknown Packet ID[2358] Size[7]
+[MMO     ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] disconnected!
+[Lobby   ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] disconnected!
+[Lobby   ] [MYIDB2WDZWMShSoIeAofllFQX3Vg8eJT] disconnected!

@@ -13,7 +13,7 @@
 #include <boost/enable_shared_from_this.hpp>
 
 #include "SG_ClientSession.h"
-#include "../../Packets/PacketBaseMessage.h"
+#include "Packets/PacketBaseMessage.h"
 
 /*++
 Class for setting up the server and checking for incoming connections.
