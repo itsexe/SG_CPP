@@ -563,17 +563,9 @@ void SG_MMOHandler::HandlePlayerReady(const boost::shared_ptr<SG_ClientSession> 
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
-	for (const auto& iter2 : Session->m_Server->Sessions)
-	{
-		if (iter2->m_Player->roomptr != nullptr)
-		{
-			if (iter2->m_Player->roomptr->RoomID == Session->m_Player->roomptr->RoomID)
-			{
-				BM_SC_ROOM_MULTI_INFO_RESP response3 = GeneratePlayerRoomUpdate(Session);
-				Session->SendPacketStruct(&response3);
-			}
-		}
-	}
+	BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session);
+	Session->SendPacketStruct(&response2);
+	Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID,Session, true);
 }
 
 void SG_MMOHandler::HandlePlayerRoomInfo(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHARACTER_INFO* packet)
@@ -702,7 +694,48 @@ void SG_MMOHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session,
 	BM_SC_START_GAME_RESP::initMessage<BM_SC_START_GAME_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
-	Session->SendPacketStruct(&response);
+	strcpy_s(response.encryptionkey, static_cast<std::string>("encryptionbla<3").c_str());
+	response.encryptionkey[15] = static_cast<uint8_t>(0);
+
+	int i = 0;
+	for (const auto& iter : Session->m_Server->Sessions)
+	{
+		if (iter->m_Player->roomptr != nullptr)
+		{
+			if (iter->m_Player->roomptr->RoomID == Session->m_Player->roomptr->RoomID)
+			{
+				sg_constructor::room_players player;
+				strcpy_s(player.charname, static_cast<std::string>(iter->m_Player->charname).c_str());
+				for (auto i = iter->m_Player->charname.length(); i != 40; ++i)
+				{
+					player.charname[i] = static_cast<uint8_t>(0);
+				}
+				player.uk10 = 15;
+				strcpy_s(player.remoteendpoint, static_cast<std::string>(iter->getSocket().remote_endpoint().address().to_string()).c_str());
+				for (auto i = iter->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
+				{
+					player.remoteendpoint[i] = static_cast<uint8_t>(0);
+				}
+				player.uk11 = 1;
+				player.uk12 = 1;
+				player.index_p = i + 100;
+				if(i == 0)
+				{
+					player.ismaster = 1;
+				}else
+				{
+					player.ismaster = 0;
+				}
+				player.uk14 = 11;
+
+				response.players[i] = player;
+				i++;
+			}
+		}
+	}
+
+	response.playercount = i;
+	Session->m_Server->SendRoomBroadcast(&response, Session->m_Player->roomptr->RoomID, Session, true);
 
 }
 

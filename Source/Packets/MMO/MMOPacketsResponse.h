@@ -374,6 +374,13 @@ struct BM_SC_RUN_CLIENT_SIDE_SCRIPT : public TS_MESSAGE
 struct BM_SC_START_GAME_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	char encryptionkey[16];
+	uint16_t playercount;
+	
+	//Playerlist
+	sg_constructor::room_players players[2];
 	static const uint16_t packetID = 2190;
 };
 struct BM_SC_END_GAME : public TS_MESSAGE

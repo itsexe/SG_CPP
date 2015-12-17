@@ -85,4 +85,23 @@ namespace sg_constructor
 		uint8_t state;
 		uint8_t level;
 	};
+	struct room_players{
+		uint32_t uk1;
+		uint32_t uk2;
+		uint32_t uk3;
+		uint32_t uk4;
+		uint32_t uk5;
+		uint32_t uk6;
+		uint32_t uk7;
+		uint32_t uk8;
+		uint8_t uk9;
+		char charname[40];
+		uint16_t uk10; //15
+		char remoteendpoint[16];
+		uint32_t uk11; //1
+		uint16_t uk12; //1
+		uint16_t index_p;
+		uint8_t uk14; //1
+		uint8_t ismaster;
+	};
 }
