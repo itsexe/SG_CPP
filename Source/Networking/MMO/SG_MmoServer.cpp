@@ -153,6 +153,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_MINIGAME_FINISH::packetID:
 		SG_MMOHandler::FinishMinigame(pSession, static_cast<const BM_SC_MINIGAME_FINISH*>(packet));
 		break;
+	case BM_SC_UNKNOWN_INFO::packetID:
+		SG_MMOHandler::HandleUnknownInfo(pSession, static_cast<const BM_SC_UNKNOWN_INFO*>(packet));
+		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
 	}

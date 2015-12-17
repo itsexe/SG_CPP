@@ -224,6 +224,16 @@ struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2207;
 };
+struct BM_SC_CHAT_MESSAGE_RESP2 : public TS_MESSAGE
+{
+	//not working atm
+	char sender[33];
+	unsigned short len;
+	unsigned char type;
+	char message[70];
+
+	static const uint16_t packetID = 2208;
+};
 struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
 {
 	BM_SC_GET_ROOMLIST_RESP(){}
@@ -358,9 +368,14 @@ struct BM_SC_SELECT_MAP_RESP : public TS_MESSAGE
 };
 struct BM_SC_MAP_INFO_RESP : public TS_MESSAGE
 {
-	char successmessage[8];
+	//char successmessage[8];
 	uint16_t mapid;
 	static const uint16_t packetID = 2164;
+};
+struct BM_SC_UNKNOWN_INFO_RESP : public TS_MESSAGE
+{
+	char name[40];
+	static const uint16_t packetID = 2184;
 };
 struct BM_SC_MINIGAME_START_RESP : public TS_MESSAGE
 {

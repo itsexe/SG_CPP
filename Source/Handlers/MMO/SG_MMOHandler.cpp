@@ -813,11 +813,23 @@ void SG_MMOHandler::UpdateMap(const boost::shared_ptr<SG_ClientSession> Session)
 
 		BM_SC_MAP_INFO_RESP response2;
 		BM_SC_MAP_INFO_RESP::initMessage<BM_SC_MAP_INFO_RESP>(&response2);
-		strcpy_s(response2.successmessage, static_cast<std::string>("SUCCESS").c_str());
-		response2.successmessage[7] = static_cast<uint8_t>(0);
+		//strcpy_s(response2.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		//response2.successmessage[7] = static_cast<uint8_t>(0);
 		response2.mapid = Session->m_Player->roomptr->currentmap;
 		Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session, true);
 	}
+}
+
+void SG_MMOHandler::HandleUnknownInfo(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_UNKNOWN_INFO* packet)
+{
+	BM_SC_UNKNOWN_INFO_RESP response;
+	BM_SC_UNKNOWN_INFO_RESP::initMessage<BM_SC_UNKNOWN_INFO_RESP>(&response);
+	strcpy_s(response.name, static_cast<std::string>("irgendwastest").c_str());
+	for (auto i = static_cast<std::string>("irgendwastest").length(); i != 33; ++i)
+	{
+		response.name[i] = static_cast<uint8_t>(0);
+	}
+	Session->SendPacketStruct(&response);
 }
 
 BM_SC_ROOM_MULTI_INFO_RESP &SG_MMOHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session)

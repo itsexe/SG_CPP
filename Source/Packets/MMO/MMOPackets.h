@@ -120,7 +120,8 @@ struct BM_SC_SET_SESSION_MESSAGE : public TS_MESSAGE
 };
 struct BM_SC_CHAT_MESSAGE : public TS_MESSAGE
 {
-	char uk[30];
+	char sender[33];
+	uint8_t type; // 0 = normal chat; 3 = whisper; 5 = shout
 	uint16_t messagelength;
 	char msg[70];
 	static const uint16_t packetID = 2206;
@@ -237,6 +238,12 @@ struct BM_SC_CHARACTER_INFO : public TS_MESSAGE
 {
 	char charname[40];
 	static const uint16_t packetID = 2146;
+};
+struct BM_SC_UNKNOWN_INFO : public TS_MESSAGE
+{
+	uint8_t uk1;
+	uint32_t id;
+	static const uint16_t packetID = 2183;
 };
 #pragma pack(pop)
 
