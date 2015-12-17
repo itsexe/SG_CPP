@@ -49,7 +49,7 @@ namespace sg_constructor
 	{
 		Room(){}
 		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player, uint8_t level, uint32_t RoomID)
-			: Name(name), Password(pw), Mode(1), Max_Player(max_player), Level(level), Actual_Player(2), State (1), RoomID(RoomID), currentmap(sg_map::RANDOM) { }
+			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level),  State (1), RoomID(RoomID), currentmap(sg_map::RANDOM) { }
 
 		uint32_t RoomID;
 		std::string Name;
@@ -58,7 +58,6 @@ namespace sg_constructor
 		// 0/1 = free item-mode	| 2/3 = password item-mode
 		// 4/5 = free speed-mode	| 6/7 = password speed-mode
 		uint32_t Mode;
-		uint8_t Actual_Player;
 		uint8_t Max_Player;
 		uint8_t State; // enter state -> 0 = can enter | 1 = no enter
 		uint8_t Level; // level -> 0 = all | 1 = anfaenger | 2 = profi | 3 = profi II | 4 = meister | 5 = superstar
@@ -67,14 +66,8 @@ namespace sg_constructor
 	struct rooms_packet //This will be sent as a packet
 	{
 		rooms_packet(){}
-		rooms_packet(uint32_t _roomid, std::string _name, uint32_t _mode, uint8_t _currentplayers, uint8_t _maxplayers, uint8_t _state, uint8_t _level) : RoomID(_roomid), mode(_mode), currentplayers(_currentplayers), maxplayers(_maxplayers), state(_state), level(_level)
-		{
-			strcpy_s(name, _name.c_str());
-			for (auto i = _name.length(); i != 24; i++)
-			{
-				name[i] = static_cast<uint8_t>(0);
-			}
-		}
+		rooms_packet(uint32_t _roomid, std::string _name, uint32_t _mode, uint8_t _currentplayers, uint8_t _maxplayers, uint8_t _state, uint8_t _level) : RoomID(_roomid), mode(_mode), currentplayers(_currentplayers), maxplayers(_maxplayers), state(_state), level(_level){}
+
 
 		uint32_t RoomID;
 		char name[24];

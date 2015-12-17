@@ -231,7 +231,8 @@ struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
 	uint16_t roomcount;
 	uint16_t uk1;
 	uint16_t uk2;
-	std::vector<sg_constructor::rooms_packet> rooms;
+	sg_constructor::rooms_packet rooms[100];
+	//std::vector<sg_constructor::rooms_packet> rooms;
 	static const uint16_t packetID = 2304;
 };
 struct BM_SC_CREATE_ROOM_RESP : public TS_MESSAGE

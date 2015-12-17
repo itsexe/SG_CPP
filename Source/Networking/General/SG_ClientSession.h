@@ -35,8 +35,8 @@ public:
 	static SG_Config* conf;
 
 private:
-	bool isStopped();
-	bool isError();
+	bool isStopped;
+	bool isError;
 
 	void Read();
 	void HandleRecvHeader(const boost::system::error_code &Errorcode, std::size_t Packetsize, boost::shared_ptr<std::vector<uint8_t>> Buffer);

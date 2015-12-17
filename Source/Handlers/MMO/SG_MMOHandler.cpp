@@ -377,19 +377,31 @@ void SG_MMOHandler::LeaveOX(const boost::shared_ptr<SG_ClientSession> Session)
 
 void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
-	std::vector<sg_constructor::rooms_packet> rooms;
+	BM_SC_GET_ROOMLIST_RESP response;
+	BM_SC_GET_ROOMLIST_RESP::initMessage<BM_SC_GET_ROOMLIST_RESP>(&response);
+	//std::vector<sg_constructor::rooms_packet> rooms;
 	//sg_constructor::rooms_packet rooms[100];
 	int i = 0;
 	for (const auto& iter : *roomlist_ptr)
 	{
-		rooms.push_back(sg_constructor::rooms_packet(iter->RoomID, iter->Name, iter->Mode, 2, iter->Max_Player, iter->State, iter->Level));
+		sg_constructor::rooms_packet room;
+		room.RoomID = iter->RoomID;
+		strcpy_s(room.name, iter->Name.c_str());
+		for (auto i = iter->Name.length(); i != 24; i++)
+		{
+			room.name[i] = static_cast<uint8_t>(0);
+		}
+		room.mode = iter->Mode;
+		room.level = iter->Level;
+		//room.currentplayers = iter->Sessions.size;
+		room.maxplayers = iter->Max_Player;
+		room.state = iter->State;
+		response.rooms[i] = room;
 		i++;
+		if(i > 99)
+			break;
 	}
-	
-	BM_SC_GET_ROOMLIST_RESP response;
-	BM_SC_GET_ROOMLIST_RESP::initMessage<BM_SC_GET_ROOMLIST_RESP>(&response);
 	response.roomcount = i;
-	response.rooms = rooms;
 	response.size = sizeof(BM_SC_GET_ROOMLIST_RESP ) + (i * sizeof(sg_constructor::rooms_packet));
 	response.msg_check_sum = response.checkMessage(&response);
 	Session->SendPacketStruct(&response);
@@ -434,6 +446,7 @@ void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session
 				
 				if(iter->RoomID == id)
 				{
+					//iter->Sessions.push_back(Session);
 					Session->m_Player->roomptr = iter;
 				}
 			}
@@ -453,7 +466,7 @@ void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session,
 {
 	for (const auto& iter : *roomlist_ptr)
 	{
-		if (iter->RoomID == packet->roomid)
+		if (iter->RoomID == packet->roomid +1 )
 		{
 			Session->m_Player->roomptr = iter;
 			BM_SC_ENTER_ROOM_SUCCESS_RESP response;
@@ -461,13 +474,24 @@ void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session,
 			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 			response.successmessage[7] = static_cast<uint8_t>(0);
 			response.roomid = iter->RoomID;
+			response.team = 2;
 			response.relayport = Session->conf->RelayPort;
+			response.udpport = 5000;
 			strcpy_s(response.relayip, SG_ClientSession::conf->relayIP.c_str());
-			for (auto i = SG_ClientSession::conf->relayIP.length(); i != 16; i++)
+			for (auto i = SG_ClientSession::conf->relayIP.length(); i != 20; i++)
 			{
 				response.relayip[i] = static_cast<uint8_t>(0);
 			}
 			Session->SendPacketStruct(&response);
+			for (const auto& iter : *roomlist_ptr)
+			{
+
+				if (iter->RoomID == packet->id +1)
+				{
+					//iter->Sessions.push_back(Session);
+					Session->m_Player->roomptr = iter;
+				}
+			}
 			return;
 		}
 	}
