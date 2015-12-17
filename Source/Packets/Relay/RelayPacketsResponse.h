@@ -1,7 +1,7 @@
 #ifndef PACKETS_RELAY_RESPONSE
 #define PACKETS_RELAY_RESPONSE
 
-#include "Packets/PacketBaseMessage.h"
+#include "../../Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
 

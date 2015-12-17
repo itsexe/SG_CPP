@@ -1,10 +1,10 @@
 #ifndef PACKETS_MMO_RESPONSE
 #define PACKETS_MMO_RESPONSE
 #include <cstdint>
-#include "Packets/PacketBaseMessage.h"
+#include "../../Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-#include <Constructors/sg_constructor.h>
+#include "../../Constructors/sg_constructor.h"
 
 struct BM_SC_LOGIN_RESP : public TS_MESSAGE
 {

@@ -2,10 +2,10 @@
 #define HANDLEAUTH
 #pragma once
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include "Networking/General/SG_ClientSession.h"
-#include "Packets/Auth/LoginPackets.h"
-#include <Packets/Auth/LoginPacketsResponse.h>
-#include <Tools/Database/Database.h>
+#include "../../Networking/General/SG_ClientSession.h"
+#include "../../Packets/Auth/LoginPackets.h"
+#include "../../Packets/Auth/LoginPacketsResponse.h"
+#include "../../Tools/Database/Database.h"
 
 class SG_AuthHandler
 {

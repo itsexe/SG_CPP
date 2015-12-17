@@ -2,8 +2,8 @@
 #define SG_MMOHandler_H
 #pragma once
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include "Networking/General/SG_ClientSession.h"
-#include "Packets/MMO/MMOPackets.h"
+#include "../../Networking/General/SG_ClientSession.h"
+#include "../../Packets/MMO/MMOPackets.h"
 
 struct BM_SC_END_GAME;
 

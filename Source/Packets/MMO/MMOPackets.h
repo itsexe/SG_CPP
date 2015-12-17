@@ -1,7 +1,7 @@
 #ifndef PACKETS_MMO
 #define PACKETS_MMO
 
-#include "Packets/PacketBaseMessage.h"
+#include "../../Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
 struct BM_SC_LOGIN : public TS_MESSAGE

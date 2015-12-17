@@ -1,8 +1,8 @@
 #include "SG_MmoServer.h"
 #include <string>
-#include "Tools/SG_Logger.h"
-#include "Handlers/MMO/SG_MMOHandler.h"
-#include <Packets/MMO/MMOPackets.h>
+#include "../../Tools/SG_Logger.h"
+#include "../../Handlers/MMO/SG_MMOHandler.h"
+#include "../../Packets/MMO/MMOPackets.h"
 
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)

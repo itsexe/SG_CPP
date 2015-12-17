@@ -3,8 +3,8 @@
 #pragma once
 #include <vector>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include "Networking/General/SG_ServerBase.h"
-#include "Networking/General/SG_ClientSession.h"
+#include "../../Networking/General/SG_ServerBase.h"
+#include "../../Networking/General/SG_ClientSession.h"
 class SG_MmoServer : public SG_ServerBase
 {
 

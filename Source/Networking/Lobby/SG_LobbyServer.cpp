@@ -1,6 +1,6 @@
 #include "SG_LobbyServer.h"
 #include <string>
-#include "Tools/SG_Logger.h"
+#include "../../Tools/SG_Logger.h"
 
 bool SG_LobbyServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {

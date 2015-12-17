@@ -5,9 +5,9 @@
 #include <boost/bind.hpp>
 
 #include "SG_ServerBase.h"
-#include "SG_Config.h"
+#include "../../SG_Config.h"
 #include "SG_ClientSession.h"
-#include "Packets/PacketBaseMessage.h"
+#include "../../Packets/PacketBaseMessage.h"
 
 MySQLConnection *SG_ClientSession::SQLConn = nullptr;
 SG_Config *SG_ClientSession::conf = nullptr;

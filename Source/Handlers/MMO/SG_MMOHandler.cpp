@@ -1,6 +1,6 @@
 #include "SG_MMOHandler.h"
-#include "Tools/SG_Logger.h"
-#include <Packets/MMO/MMOPacketsResponse.h>
+#include "../../Tools/SG_Logger.h"
+#include "../../Packets/MMO/MMOPacketsResponse.h"
 #include <boost/make_shared.hpp>
 
 void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet)
@@ -395,9 +395,7 @@ void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sessi
 
 void SG_MMOHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id)
 {
-	
-	
-	if(!packet->MaxPlayers < 2 || !packet->MaxPlayers > 8 || packet->Level || !packet->Level > 45)
+	if(packet->MaxPlayers > 2 || packet->MaxPlayers < 8 || packet->Level || packet->Level < 45)
 	{
 		//Add room to list
 		boost::shared_ptr<sg_constructor::Room> RoomPtr(new sg_constructor::Room(packet->Name, packet->password, packet->Mode, packet->MaxPlayers, packet->Level, id));

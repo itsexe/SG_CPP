@@ -1,7 +1,7 @@
 #ifndef PACKETS_TS_CA_ACCOUNT_H
 #define PACKETS_TS_CA_ACCOUNT_H
 
-#include "Packets/PacketBaseMessage.h"
+#include "../../Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
 

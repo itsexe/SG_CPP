@@ -1,9 +1,9 @@
 #include "SG_AuthServer.h"
 #include <string>
 #include <random>
-#include "Tools/SG_Logger.h"
-#include "Handlers/Auth/SG_AuthHandler.h"
-#include "Packets/Auth/LoginPackets.h"
+#include "../../Tools/SG_Logger.h"
+#include "../../Handlers/Auth/SG_AuthHandler.h"
+#include "../../Packets/Auth/LoginPackets.h"
 
 bool SG_AuthServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {

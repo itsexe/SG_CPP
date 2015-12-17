@@ -2,8 +2,8 @@
 #include <iostream>
 #include <boost/interprocess/detail/atomic.hpp>
 #include <boost/bind.hpp>
-#include "SG_Config.h"
-#include <Tools/SG_Logger.h>
+#include "../../SG_Config.h"
+#include "../../Tools/SG_Logger.h"
 
 SG_ServerBase::SG_ServerBase()
 	: m_Acceptor(m_Service), m_Strand(m_Service)
