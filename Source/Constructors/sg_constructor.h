@@ -45,6 +45,14 @@ namespace sg_constructor
 		uint32_t Tricklvl;
 		uint8_t ApplyTrick;
 	};
+	struct Tricksrace
+	{
+		Tricksrace() { }
+		Tricksrace(uint32_t ID, uint32_t level) : TrickID(ID), uk1(level) { }
+
+		uint32_t uk1;
+		uint32_t TrickID;
+	};
 	struct Room //internal room structure
 	{
 		Room(){}

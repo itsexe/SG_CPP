@@ -140,6 +140,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_FINISH_RACE::packetID:
 		SG_MMOHandler::EndGame(pSession, static_cast<const BM_SC_FINISH_RACE*>(packet));
 		break;
+	case BM_SC_CHARACTER_INFO::packetID:
+		SG_MMOHandler::HandlePlayerRoomInfo(pSession, static_cast<const BM_SC_CHARACTER_INFO*>(packet));
+		break;
 	case BM_SC_SELECT_MAP::packetID:
 		SG_MMOHandler::SelectMap(pSession, static_cast<const BM_SC_SELECT_MAP*>(packet));
 		break;

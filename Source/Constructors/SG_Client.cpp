@@ -51,6 +51,22 @@ SG_Client::SG_Client()
 	items.push_back(Item(4, 1070, 0, 10, 0, 0, 0));
 	items.push_back(Item(5, 2541, 0, 10, 0, 0, 0));*/
 	//Set current Time as last KeepAlive
+
+	head = 1067;
+	face = 0;
+	upper = 2160;
+	lower = 3140;
+	foot = 3569;
+	hand = 2582;
+	google = 4557;
+	accesoire = 4055;
+	theme = 0;
+	mantle = 0;
+	buckle = 0;
+	vent = 0;
+	nitro = 0;
+	wheels = 0;
+
 	UpdateLastKeepAlive();
 }
 

@@ -554,7 +554,7 @@ void SG_MMOHandler::RoomLeave(const boost::shared_ptr<SG_ClientSession> Session)
 
 void SG_MMOHandler::HandlePlayerReady(const boost::shared_ptr<SG_ClientSession> Session)
 {
-	if (Session->m_Player->IsReady = 1)
+	if (Session->m_Player->IsReady == 1)
 		Session->m_Player->IsReady = 0;
 	else
 		Session->m_Player->IsReady = 1;
@@ -572,6 +572,79 @@ void SG_MMOHandler::HandlePlayerReady(const boost::shared_ptr<SG_ClientSession> 
 				BM_SC_ROOM_MULTI_INFO_RESP response3 = GeneratePlayerRoomUpdate(Session);
 				Session->SendPacketStruct(&response3);
 			}
+		}
+	}
+}
+
+void SG_MMOHandler::HandlePlayerRoomInfo(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHARACTER_INFO* packet)
+{
+	//This is a long ass packet.
+	//there is a lot of stuff wich needs to be outsourced to the database or something
+
+	std::string charname(packet->charname, packet->charname + 40);
+	charname = std::string(charname.c_str());
+	for (const auto& iter : Session->m_Server->Sessions)
+	{
+		if (iter->m_Player->charname == charname)
+		{
+			BM_SC_CHARACTER_INFO_RESP response;
+			BM_SC_CHARACTER_INFO_RESP::initMessage<BM_SC_CHARACTER_INFO_RESP>(&response);
+			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+			response.successmessage[7] = static_cast<uint8_t>(0);
+			response.uk1 = 1;
+			response.uk2 = 2;
+			response.uk3 = 3;
+			response.uk4 = 4;
+			strcpy_s(response.charname, static_cast<std::string>(iter->m_Player->charname).c_str());
+			for (auto i = iter->m_Player->charname.length(); i != 40; ++i)
+			{
+				response.charname[i] = static_cast<uint8_t>(0);
+			}
+			response.uk5 = 5;
+			response.uk6 = 6;
+			response.uk7 = 7;
+			response.chartype = iter->m_Player->chartype;
+			response.uk8 = 53;
+			response.uk9 = 8;
+			response.uk10 = 40;
+			response.uk11 = 10;
+			response.uk12 = 39;
+			response.uk13 = 11;
+			response.uk14 = 14;
+			response.uk15 = 15;
+			response.uk16 = 16;
+			response.charlevel = iter->m_Player->charlevel;
+			response.uk17 = 18;
+			response.uk18 = 19;
+			response.uk19 = 20;
+			response.uk20 = 21;
+			response.uk21 = 22;
+
+			response.head = iter->m_Player->head;
+			response.face = iter->m_Player->face;
+			response.upper = iter->m_Player->upper;
+			response.lower = iter->m_Player->lower;
+			response.foot = iter->m_Player->foot;
+			response.hand = iter->m_Player->hand;
+			response.google = iter->m_Player->google;
+			response.accesoire = iter->m_Player->accesoire;
+			response.theme = iter->m_Player->theme;
+			response.mantle = iter->m_Player->mantle;
+			response.buckle = iter->m_Player->buckle;
+			response.vent = iter->m_Player->vent;
+			response.nitro = iter->m_Player->nitro;
+			response.wheels = iter->m_Player->wheels;
+
+			response.uk22 = 37;
+			response.uk23 = 38;
+
+			response.tricksize = 13;
+			for (auto i = 0; i != 12; ++i)
+			{
+				response.tricklist[i] = sg_constructor::Tricksrace(iter->m_Player->tricks[i].TrickID,0);
+			}
+			Session->SendPacketStruct(&response);
+			break;
 		}
 	}
 }

@@ -31,6 +31,23 @@ public:
 	uint32_t chartype;
 	uint64_t charlevel;
 
+	//look
+	uint32_t head;
+	uint32_t face;
+	uint32_t upper;
+	uint32_t lower;
+	uint32_t foot;
+	uint32_t hand;
+	uint32_t google;
+	uint32_t accesoire;
+	uint32_t theme;
+	uint32_t mantle;
+	uint32_t buckle;
+	uint32_t vent;
+	uint32_t nitro;
+	uint32_t wheels;
+
+
 	std::vector<uint64_t> missions;
 	sg_constructor::Trickconstructor tricks[13];
 	std::vector<sg_constructor::Item> items;

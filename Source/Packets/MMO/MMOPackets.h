@@ -156,7 +156,7 @@ struct BM_SC_CREATE_ROOM : public TS_MESSAGE
 	char password[4];
 	char uk[48];
 	uint8_t MaxPlayers;
-	uint32_t Mode;
+	uint32_t Mode; 
 	uint8_t Level;
 	static const uint16_t packetID = 2173;
 };
@@ -232,6 +232,11 @@ struct BM_SC_QUEST_DAY_COIN : public TS_MESSAGE
 {
 	uint16_t uk1;
 	static const uint16_t packetID = 2295;
+};
+struct BM_SC_CHARACTER_INFO : public TS_MESSAGE
+{
+	char charname[40];
+	static const uint16_t packetID = 2146;
 };
 #pragma pack(pop)
 
