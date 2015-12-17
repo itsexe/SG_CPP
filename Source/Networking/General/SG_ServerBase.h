@@ -40,6 +40,8 @@ public:
 
 	uint32_t lastroomid;
 	void SendBroadcast(const TS_MESSAGE* packet);
+	void SendRoomBroadcast(const TS_MESSAGE* packet, uint32_t roomid, const boost::shared_ptr<SG_ClientSession> sender, bool sendtosender = false);
+	uint8_t GetPlayersInRoom(uint32_t roomid);
 private:
 	void WorkerThread();
 	void Listen();

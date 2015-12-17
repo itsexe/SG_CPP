@@ -33,6 +33,7 @@ public:
 	boost::shared_ptr<SG_Client> m_Player;
 	static MySQLConnection* SQLConn;
 	static SG_Config* conf;
+	boost::shared_ptr<SG_ServerBase> m_Server;
 
 private:
 	bool isStopped;
@@ -46,7 +47,6 @@ private:
 	void HandleTimeout();
 
 	boost::asio::ip::tcp::socket m_Socket;
-	boost::shared_ptr<SG_ServerBase> m_Server;
 	boost::asio::strand &m_Strand;
 	boost::asio::deadline_timer m_SocketTimout;
 	bool Socketstatus;

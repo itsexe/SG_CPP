@@ -89,6 +89,39 @@ void SG_ServerBase::SendBroadcast(const TS_MESSAGE* packet)
 	}
 }
 
+void SG_ServerBase::SendRoomBroadcast(const TS_MESSAGE* packet, uint32_t roomid, const boost::shared_ptr<SG_ClientSession> sender, bool sendtosender)
+{
+	for (const auto& iter : Sessions)
+	{
+		if (iter->m_Player->roomptr->RoomID == roomid)
+		{
+			if(iter->m_Player->charname == sender->m_Player->charname)
+			{
+				if(sendtosender == true)
+				{
+					iter->SendPacketStruct(packet);
+				}
+			}else
+			{
+				iter->SendPacketStruct(packet);
+			}
+		}
+	}
+}
+
+uint8_t SG_ServerBase::GetPlayersInRoom(uint32_t roomid)
+{
+	int count = 0;
+	for (const auto& iter : Sessions)
+	{
+		if(iter->m_Player->roomptr->RoomID == roomid)
+		{
+			count++;
+		}
+	}
+	return count;
+}
+
 void SG_ServerBase::WorkerThread()
 {
 	while (1)

@@ -2,6 +2,7 @@
 #include "Tools/SG_Logger.h"
 #include "Packets/MMO/MMOPacketsResponse.h"
 #include <boost/make_shared.hpp>
+#include <Networking/General/SG_ServerBase.h>
 
 void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet)
 {
@@ -393,7 +394,8 @@ void SG_MMOHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sessi
 		}
 		room.mode = iter->Mode;
 		room.level = iter->Level;
-		//room.currentplayers = iter->Sessions.size;
+		
+		room.currentplayers = Session->m_Server->GetPlayersInRoom(iter->RoomID);
 		room.maxplayers = iter->Max_Player;
 		room.state = iter->State;
 		response.rooms[i] = room;
