@@ -492,6 +492,7 @@ void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session,
 		if (iter->RoomID == packet->roomid +1 )
 		{
 			Session->m_Player->roomptr = iter;
+			Session->m_Player->IsReady = 0;
 			BM_SC_ENTER_ROOM_SUCCESS_RESP response;
 			BM_SC_ENTER_ROOM_SUCCESS_RESP::initMessage<BM_SC_ENTER_ROOM_SUCCESS_RESP>(&response);
 			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
@@ -506,66 +507,26 @@ void SG_MMOHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session,
 				response.relayip[i] = static_cast<uint8_t>(0);
 			}
 			Session->SendPacketStruct(&response);
-			for (const auto& iter : *roomlist_ptr)
+			for (const auto& iter2 : *roomlist_ptr)
 			{
-				if (iter->RoomID == packet->roomid +1)
+				if (iter2->RoomID == packet->roomid +1)
 				{
-					Session->m_Player->roomptr = iter;
+					Session->m_Player->roomptr = iter2;
 				}
 			}
 
 			//inform other players about the new room member
-			BM_SC_ROOM_MULTI_INFO_RESP response2;
-			BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response2);
-			strcpy_s(response2.remoteendpoint, static_cast<std::string>(Session->getSocket().remote_endpoint().address().to_string()).c_str());
-			for (auto i = Session->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
-			{
-				response2.remoteendpoint[i] = static_cast<uint8_t>(0);
-			}
-			strcpy_s(response2.charname, static_cast<std::string>(Session->m_Player->charname).c_str());
-			for (auto i = Session->m_Player->charname.length(); i != 40; ++i)
-			{
-				response2.charname[i] = static_cast<uint8_t>(0);
-			}
-			response2.slotdisplay = 2;
-			response2.chartype = Session->m_Player->chartype;
-			response2.enterinfo = 3;
-			if(Session->m_Player->rank > 1)
-			{
-				response2.isadmin = 1;
-			}
-			response2.slotdisplay = 2;
-			response2.uk3 = 1;
+			BM_SC_ROOM_MULTI_INFO_RESP response2  = GeneratePlayerRoomUpdate(Session);
 			Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session);
 
 			//inform new player about current players
-			for (const auto& iter : Session->m_Server->Sessions)
+			for (const auto& iter2 : Session->m_Server->Sessions)
 			{
-				if (iter->m_Player->roomptr != nullptr)
+				if (iter2->m_Player->roomptr != nullptr)
 				{
-					if (iter->m_Player->roomptr->RoomID == packet->roomid + 1)
+					if (iter2->m_Player->roomptr->RoomID == packet->roomid + 1)
 					{
-						BM_SC_ROOM_MULTI_INFO_RESP response3;
-						BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response3);
-						strcpy_s(response3.remoteendpoint, static_cast<std::string>(iter->getSocket().remote_endpoint().address().to_string()).c_str());
-						for (auto i = iter->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
-						{
-							response3.remoteendpoint[i] = static_cast<uint8_t>(0);
-						}
-						strcpy_s(response3.charname, static_cast<std::string>(iter->m_Player->charname).c_str());
-						for (auto i = iter->m_Player->charname.length(); i != 40; ++i)
-						{
-							response3.charname[i] = static_cast<uint8_t>(0);
-						}
-						response3.slotdisplay = 1;
-						response3.chartype = iter->m_Player->chartype;
-						response3.enterinfo = 3;
-						if (iter->m_Player->rank > 1)
-						{
-							response3.isadmin = 1;
-						}
-						response3.slotdisplay = 1;
-						response3.uk3 = 1;
+						BM_SC_ROOM_MULTI_INFO_RESP response3 = GeneratePlayerRoomUpdate(Session);
 						Session->SendPacketStruct(&response3);
 					}
 				}
@@ -589,6 +550,30 @@ void SG_MMOHandler::RoomLeave(const boost::shared_ptr<SG_ClientSession> Session)
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 	Session->m_Player->roomptr.reset();
+}
+
+void SG_MMOHandler::HandlePlayerReady(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	if (Session->m_Player->IsReady = 1)
+		Session->m_Player->IsReady = 0;
+	else
+		Session->m_Player->IsReady = 1;
+	BM_SC_READY_GAME_RESP response;
+	BM_SC_READY_GAME_RESP::initMessage<BM_SC_READY_GAME_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+	for (const auto& iter2 : Session->m_Server->Sessions)
+	{
+		if (iter2->m_Player->roomptr != nullptr)
+		{
+			if (iter2->m_Player->roomptr->RoomID == Session->m_Player->roomptr->RoomID)
+			{
+				BM_SC_ROOM_MULTI_INFO_RESP response3 = GeneratePlayerRoomUpdate(Session);
+				Session->SendPacketStruct(&response3);
+			}
+		}
+	}
 }
 
 void SG_MMOHandler::HandleMSN(const boost::shared_ptr<SG_ClientSession> Session)
@@ -721,6 +706,34 @@ void SG_MMOHandler::UpdateMap(const boost::shared_ptr<SG_ClientSession> Session)
 	}
 }
 
+BM_SC_ROOM_MULTI_INFO_RESP &SG_MMOHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_ROOM_MULTI_INFO_RESP response;
+	BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response);
+	strcpy_s(response.remoteendpoint, static_cast<std::string>(Session->getSocket().remote_endpoint().address().to_string()).c_str());
+	for (auto i = Session->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
+	{
+		response.remoteendpoint[i] = static_cast<uint8_t>(0);
+	}
+	strcpy_s(response.charname, static_cast<std::string>(Session->m_Player->charname).c_str());
+	for (auto i = Session->m_Player->charname.length(); i != 40; ++i)
+	{
+		response.charname[i] = static_cast<uint8_t>(0);
+	}
+	response.slotdisplay = 2;
+	response.chartype = Session->m_Player->chartype;
+	response.ready = Session->m_Player->IsReady;
+	response.enterinfo = 3;
+	if (Session->m_Player->rank > 1)
+	{
+		response.isadmin = 1;
+	}
+	response.slotdisplay = 2;
+	response.uk1 = 0;
+	response.uk2 = 0;
+	response.uk3 = 1;
+	return response;
+}
 
 void SG_MMOHandler::UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> Session)
 {

@@ -386,6 +386,11 @@ struct BM_SC_QUEST_DAY_COIN_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2296;
 };
+struct BM_SC_READY_GAME_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2188;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

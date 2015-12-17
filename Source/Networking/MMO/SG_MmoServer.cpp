@@ -110,6 +110,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		lastroomid++;
 		SG_MMOHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet),&Rooms_internal, lastroomid);
 		break;
+	case BM_SC_READY_GAME::packetID:
+		SG_MMOHandler::HandlePlayerReady(pSession);
+		break;
 	case BM_SC_ENTER_ROOM::packetID:
 		SG_MMOHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet),&Rooms_internal);
 		break;

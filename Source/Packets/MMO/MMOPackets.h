@@ -166,6 +166,10 @@ struct BM_SC_ENTER_ROOM : public TS_MESSAGE
 	uint32_t roomid;
 	static const uint16_t packetID = 2175;
 };
+struct BM_SC_READY_GAME : public TS_MESSAGE
+{
+	static const uint16_t packetID = 2187;
+};
 struct BM_SC_LEAVE_ROOM : public TS_MESSAGE
 {
 	static const uint16_t packetID = 2177;
