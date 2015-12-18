@@ -719,7 +719,7 @@ void SG_MMOHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session,
 				}
 				player.uk10 = 15;
 				strcpy_s(player.remoteendpoint, static_cast<std::string>(iter->getSocket().remote_endpoint().address().to_string()).c_str());
-				for (auto i = iter->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
+				for (auto i = iter->getSocket().remote_endpoint().address().to_string().length(); i != 16; ++i)
 				{
 					player.remoteendpoint[i] = static_cast<uint8_t>(0);
 				}
