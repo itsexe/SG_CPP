@@ -3,6 +3,14 @@
 #include "Tools/SG_Logger.h"
 #include "Handlers/MMO/SG_MMOHandler.h"
 #include "Packets/MMO/MMOPackets.h"
+#include <Packets/MMO/Social/SocialPackets.h>
+#include <Packets/MMO/Minigames/MinigamePackets.h>
+#include <Packets/MMO/Rooms/RoomPackets.h>
+#include <Handlers/MMO/Rooms/SG_RoomHandler.h>
+#include <Handlers/MMO/Social/SG_SocialHandler.h>
+#include <Handlers/MMO/Social/SG_ChatHandler.h>
+#include <Handlers/MMO/Minigames/OX/SG_QuizHandler.h>
+#include <Handlers/MMO/Minigames/SG_MinigameHandler.h>
 
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
@@ -81,7 +89,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_STATUS_MESSAGE::packetID:
 		break;
 	case BM_SC_CHAT_MESSAGE::packetID:
-		SG_MMOHandler::HandleChatMessage(pSession, static_cast<const BM_SC_CHAT_MESSAGE*>(packet));
+		SG_ChatHandler::HandleChatMessage(pSession, static_cast<const BM_SC_CHAT_MESSAGE*>(packet));
 		break;
 	case BM_SC_INVENTORY::packetID:
 		SG_MMOHandler::SendInventory(pSession);
@@ -93,34 +101,34 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::StartMission(pSession);
 		break;
 	case BM_SC_MMO_OX_ENTER::packetID:
-		SG_MMOHandler::EnterOX(pSession);
+		SG_QuizHandler::EnterOX(pSession);
 		break;
 	case BM_SC_MMO_OX_LEAVE::packetID:
-		SG_MMOHandler::LeaveOX(pSession);
+		SG_QuizHandler::LeaveOX(pSession);
 		break;
 	case BM_SC_CREATE_CHAR::packetID:
 		SG_MMOHandler::CreateChar(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
 		break;
 	case BM_SC_GET_ROOMLIST::packetID:
-		SG_MMOHandler::SendRoomList(pSession,&Rooms_internal);
+		SG_RoomHandler::SendRoomList(pSession,&Rooms_internal);
 		break;
 	case BM_SC_CREATE_ROOM::packetID:
 		if (lastroomid > 1000)
 			lastroomid = 0;
 		lastroomid++;
-		SG_MMOHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet),&Rooms_internal, lastroomid);
+		SG_RoomHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet),&Rooms_internal, lastroomid);
 		break;
 	case BM_SC_READY_GAME::packetID:
-		SG_MMOHandler::HandlePlayerReady(pSession);
+		SG_RoomHandler::HandlePlayerReady(pSession);
 		break;
 	case BM_SC_ENTER_ROOM::packetID:
-		SG_MMOHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet),&Rooms_internal);
+		SG_RoomHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet),&Rooms_internal);
 		break;
 	case BM_SC_LEAVE_ROOM::packetID:
-		SG_MMOHandler::RoomLeave(pSession);
+		SG_RoomHandler::RoomLeave(pSession);
 		break;
 	case MM_SC_MSN::packetID:
-		SG_MMOHandler::HandleMSN(pSession);
+		SG_SocialHandler::HandleMSN(pSession);
 		break;
 	case BM_SC_QUEST_DAY_COIN2::packetID:
 		SG_MMOHandler::CheckDailyCoins(pSession);
@@ -129,32 +137,32 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::HandleDailyCoins(pSession, static_cast<const BM_SC_QUEST_DAY_COIN*>(packet));
 		break;
 	case MM_SC_MSN_FIND_USER::packetID:
-		SG_MMOHandler::FindUser(pSession, static_cast<const MM_SC_MSN_FIND_USER*>(packet));
+		SG_SocialHandler::FindUser(pSession, static_cast<const MM_SC_MSN_FIND_USER*>(packet));
 		break;
 	case MM_SC_FRIEND_REQUEST::packetID:
-		SG_MMOHandler::FriendRequest(pSession, static_cast<const MM_SC_FRIEND_REQUEST*>(packet));
+		SG_SocialHandler::FriendRequest(pSession, static_cast<const MM_SC_FRIEND_REQUEST*>(packet));
 		break;
 	case BM_SC_START_GAME::packetID:
-		SG_MMOHandler::StartGame(pSession, static_cast<const BM_SC_START_GAME*>(packet));
+		SG_RoomHandler::StartGame(pSession, static_cast<const BM_SC_START_GAME*>(packet));
 		break;
 	case BM_SC_FINISH_RACE::packetID:
-		SG_MMOHandler::EndGame(pSession, static_cast<const BM_SC_FINISH_RACE*>(packet));
+		SG_RoomHandler::EndGame(pSession, static_cast<const BM_SC_FINISH_RACE*>(packet));
 		break;
 	case BM_SC_CHARACTER_INFO::packetID:
-		SG_MMOHandler::HandlePlayerRoomInfo(pSession, static_cast<const BM_SC_CHARACTER_INFO*>(packet));
+		SG_RoomHandler::HandlePlayerRoomInfo(pSession, static_cast<const BM_SC_CHARACTER_INFO*>(packet));
 		break;
 	case BM_SC_SELECT_MAP::packetID:
-		SG_MMOHandler::SelectMap(pSession, static_cast<const BM_SC_SELECT_MAP*>(packet));
+		SG_RoomHandler::SelectMap(pSession, static_cast<const BM_SC_SELECT_MAP*>(packet));
 		break;
 	case BM_SC_MINIGAME_START::packetID:
 		SG_MMOHandler::RunClientSideScript(pSession);
-		SG_MMOHandler::StartMinigame(pSession, static_cast<const BM_SC_MINIGAME_START*>(packet));
+		SG_MinigameHandler::StartMinigame(pSession, static_cast<const BM_SC_MINIGAME_START*>(packet));
 		break;
 	case BM_SC_MINIGAME_FINISH::packetID:
-		SG_MMOHandler::FinishMinigame(pSession, static_cast<const BM_SC_MINIGAME_FINISH*>(packet));
+		SG_MinigameHandler::FinishMinigame(pSession, static_cast<const BM_SC_MINIGAME_FINISH*>(packet));
 		break;
 	case BM_SC_UNKNOWN_INFO::packetID:
-		SG_MMOHandler::HandleUnknownInfo(pSession, static_cast<const BM_SC_UNKNOWN_INFO*>(packet));
+		SG_RoomHandler::HandleUnknownInfo(pSession, static_cast<const BM_SC_UNKNOWN_INFO*>(packet));
 		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
