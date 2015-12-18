@@ -3,6 +3,7 @@
 #include "Packets/MMO/MMOPacketsResponse.h"
 #include <boost/make_shared.hpp>
 #include <Networking/General/SG_ServerBase.h>
+#include "Handlers/MMO/Chat/SG_ChatHandler.h"
 
 void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet)
 {
@@ -271,12 +272,18 @@ void SG_MMOHandler::HandlePositionUpdate(const boost::shared_ptr<SG_ClientSessio
 
 void SG_MMOHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
 {
-	BM_SC_CHAT_MESSAGE_RESP response;
-	BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
-	SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
-	response.successmessage[7] = static_cast<uint8_t>(0);
-	Session->SendPacketStruct(&response);
+	if(packet->msg[0] == 59)
+	{
+		SG_ChatHandler::HandleAdminCommand(Session, packet);
+	}else
+	{
+		BM_SC_CHAT_MESSAGE_RESP response;
+		BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
+		SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
+		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		response.successmessage[7] = static_cast<uint8_t>(0);
+		Session->SendPacketStruct(&response);
+	}
 }
 
 void SG_MMOHandler::EnterLobby(const boost::shared_ptr<SG_ClientSession> Session)
@@ -605,7 +612,7 @@ void SG_MMOHandler::HandlePlayerRoomInfo(const boost::shared_ptr<SG_ClientSessio
 			response.uk14 = 14;
 			response.uk15 = 15;
 			response.uk16 = 16;
-			response.charlevel = iter->m_Player->charlevel;
+			response.charlevel = static_cast<uint32_t>(iter->m_Player->charlevel);
 			response.uk17 = 18;
 			response.uk18 = 19;
 			response.uk19 = 20;
