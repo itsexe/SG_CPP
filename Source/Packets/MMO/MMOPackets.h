@@ -118,117 +118,28 @@ struct BM_SC_SET_SESSION_MESSAGE : public TS_MESSAGE
 	char message[14];
 	static const uint16_t packetID = 2120;
 };
-struct BM_SC_CHAT_MESSAGE : public TS_MESSAGE
-{
-	char sender[33];
-	uint8_t type; // 0 = normal chat; 3 = whisper; 5 = shout
-	uint16_t messagelength;
-	char msg[70];
-	static const uint16_t packetID = 2206;
-};
 struct ID_BZ_SC_ENTER_LOBBY : public TS_MESSAGE
 {
 
 	static const uint16_t packetID = 2275;
 };
-struct BM_SC_MMO_OX_ENTER: public TS_MESSAGE
-{
-	static const uint16_t packetID = 2030;
-};
-struct BM_SC_MMO_OX_LEAVE: public TS_MESSAGE
-{
-	static const uint16_t packetID = 2032;
-};
+
 struct BM_SC_START_MISSION: public TS_MESSAGE
 {
+	//TODO 
 	static const uint16_t packetID = 2074;
 };
 struct BM_SC_INVENTORY : public TS_MESSAGE
 {
 	static const uint16_t packetID = 2098;
 };
-struct BM_SC_GET_ROOMLIST : public TS_MESSAGE
-{
-	static const uint16_t packetID = 2303;
-};
-struct BM_SC_CREATE_ROOM : public TS_MESSAGE
-{
-	char Name[24];
-	char password[4];
-	char uk[48];
-	uint8_t MaxPlayers;
-	uint32_t Mode; 
-	uint8_t Level;
-	static const uint16_t packetID = 2173;
-};
-struct BM_SC_ENTER_ROOM : public TS_MESSAGE
-{
-	uint8_t uk1;
-	uint32_t roomid;
-	static const uint16_t packetID = 2175;
-};
-struct BM_SC_READY_GAME : public TS_MESSAGE
-{
-	static const uint16_t packetID = 2187;
-};
-struct BM_SC_LEAVE_ROOM : public TS_MESSAGE
-{
-	static const uint16_t packetID = 2177;
-};
+
 struct BM_SC_QUEST_DAY_COIN2 : public TS_MESSAGE
 {
 	static const uint16_t packetID = 2297;
 };
-struct MM_SC_MSN : public TS_MESSAGE
-{
-	//has some data
-	static const uint16_t packetID = 5001;
-};
-struct MM_SC_MSN_FIND_USER : public TS_MESSAGE
-{
-	char username[42];
-	static const uint16_t packetID = 5013;
-};
-struct MM_SC_FRIEND_REQUEST : public TS_MESSAGE
-{
-	char uk[40];
-	char username[402];
-	static const uint16_t packetID = 5015;
-};
-struct BM_SC_START_GAME : public TS_MESSAGE
-{
-	//has some data
-	static const uint16_t packetID = 2189;
-};
-struct BM_SC_SELECT_MAP : public TS_MESSAGE
-{
-	uint16_t mapid;
-	static const uint16_t packetID = 2198;
-};
-struct BM_SC_MINIGAME_START : public TS_MESSAGE
-{
-	uint8_t uk1;
-	uint8_t uk2;
-	uint8_t uk3;
-	uint8_t uk4;
-	char gameid[4];
-	static const uint16_t packetID = 2048;
-};
-struct BM_SC_MINIGAME_FINISH : public TS_MESSAGE
-{
-	char gameid[30];
-	static const uint16_t packetID = 2050;
-};
-struct BM_SC_UPDATE_ROUND : public TS_MESSAGE
-{
-	uint16_t uk1;
-	static const uint16_t packetID = 2204;
-};
-struct BM_SC_FINISH_RACE : public TS_MESSAGE
-{
-	char gameid[16];
-	static const uint16_t packetID = 2191;
-};
+
+
 struct BM_SC_QUEST_DAY_COIN : public TS_MESSAGE
 {
 	uint16_t uk1;
@@ -239,12 +150,7 @@ struct BM_SC_CHARACTER_INFO : public TS_MESSAGE
 	char charname[40];
 	static const uint16_t packetID = 2146;
 };
-struct BM_SC_UNKNOWN_INFO : public TS_MESSAGE
-{
-	uint8_t uk1;
-	uint32_t id;
-	static const uint16_t packetID = 2183;
-};
+
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

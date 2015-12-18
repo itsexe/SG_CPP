@@ -178,16 +178,6 @@ struct BM_SC_SET_SESSION_MESSAGE_RESP : public TS_MESSAGE
 	char sessionmessage[21];
 	static const uint16_t packetID = 2119;
 };
-struct BM_SC_MMO_OX_ENTER_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2031;
-};
-struct BM_SC_MMO_OX_LEAVE_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2033;
-};
 struct BM_SC_CREATE_CHAR_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
@@ -219,100 +209,6 @@ struct BM_SC_INVENTORY_RESP : public TS_MESSAGE
 	std::vector<sg_constructor::Item> items;
 	static const uint16_t packetID = 2099;
 };
-struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2207;
-};
-struct BM_SC_CHAT_MESSAGE_RESP2 : public TS_MESSAGE
-{
-	//not working atm
-	char sender[33];
-	unsigned short len;
-	unsigned char type;
-	char message[70];
-
-	static const uint16_t packetID = 2208;
-};
-struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
-{
-	BM_SC_GET_ROOMLIST_RESP(){}
-	BM_SC_GET_ROOMLIST_RESP(uint16_t count, sg_constructor::rooms_packet roomlist[]) : roomcount(count)	{}
-	uint16_t roomcount;
-	uint16_t uk1;
-	uint16_t uk2;
-	sg_constructor::rooms_packet rooms[100];
-	//std::vector<sg_constructor::rooms_packet> rooms;
-	static const uint16_t packetID = 2304;
-};
-struct BM_SC_CREATE_ROOM_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	uint64_t uk1;
-	uint64_t uk2;
-	uint32_t roomid;
-	char relayip[20]; //Yes, this is 20 for whatever reason
-	uint16_t relayport;
-	uint8_t team; // 1 = red | 2 = Blue
-	uint8_t uk3;
-	uint8_t uk4;
-	uint32_t udpport; //default 5000
-	static const uint16_t packetID = 2174;
-};
-struct BM_SC_CREATE_FAILED_RESP : public TS_MESSAGE
-{
-	char errormessage[16];
-	static const uint16_t packetID = 2174;
-};
-struct BM_SC_CREATE_ROOM_ALREADYJOINED_RESP : public TS_MESSAGE
-{
-	char errormessage[21];
-	static const uint16_t packetID = 2174;
-};
-struct BM_SC_ENTER_ROOM_SUCCESS_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	uint64_t uk1;
-	uint64_t uk2;
-	char relayip[20];
-	uint16_t relayport;
-	uint8_t team; // 1 = red | 2 = Blue
-	uint8_t uk3;
-	uint8_t uk4;
-	uint32_t udpport; //default 5000
-	static const uint16_t packetID = 2176;
-};
-struct BM_SC_ENTER_ROOM_FAILED_RESP : public TS_MESSAGE
-{
-	char errormessage[16];
-	static const uint16_t packetID = 2176;
-};
-struct BM_SC_ENTER_ROOM_ALREADYJOINED_RESP : public TS_MESSAGE
-{
-	char errormessage[21];
-	static const uint16_t packetID = 2176;
-};
-struct BM_SC_LEAVE_ROOM_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2178;
-};
-struct BM_SC_ROOM_MULTI_INFO_RESP : public TS_MESSAGE
-{
-	char remoteendpoint[33];
-	char charname[40];
-	uint8_t lobbyposition;
-	uint8_t chartype;
-	uint8_t enterinfo; //has to be 3 BM_SC_USER_INFO:USER_ENTER
-	uint8_t isadmin;
-	uint8_t slotdisplay;
-	uint8_t ready;
-	uint8_t status;
-	uint16_t uk1;
-	uint8_t uk2;
-	uint8_t uk3;
-	static const uint16_t packetID = 2165;
-};
 struct BM_SC_CASH_BALANCE_INFO_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
@@ -331,144 +227,28 @@ struct BM_SC_LEVEL_INFO_RESP : public TS_MESSAGE
 	uint32_t license;
 	static const uint16_t packetID = 2097;
 };
-struct MM_SC_MSN_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	uint64_t uk1;
-	uint64_t uk2;
-	uint32_t uk3; //1
-	uint32_t uk4; //1
-	static const uint16_t packetID = 5002;
-};
 struct BM_SC_QUEST_DAY_COIN2_RESP : public TS_MESSAGE
 {
 	char message[17]; //ALREADY_GET_COIN
 	static const uint16_t packetID = 2298;
 };
-struct MM_SC_MSN_FIND_USER_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 5014;
-};
-struct MM_SC_FRIEND_REQUEST_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 5016;
-}; 
 struct BM_SC_DEBUG_ACCESS : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 2274;
-};
-struct BM_SC_SELECT_MAP_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	uint16_t mapid;
-	static const uint16_t packetID = 2199;
-};
-struct BM_SC_MAP_INFO_RESP : public TS_MESSAGE
-{
-	//char successmessage[8];
-	uint16_t mapid;
-	static const uint16_t packetID = 2164;
-};
-struct BM_SC_UNKNOWN_INFO_RESP : public TS_MESSAGE
-{
-	char name[40];
-	static const uint16_t packetID = 2184;
-};
-struct BM_SC_MINIGAME_START_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2049;
-};
-struct BM_SC_MINIGAME_FINISH_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2051;
 };
 struct BM_SC_RUN_CLIENT_SIDE_SCRIPT : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 2353;
 };
-struct BM_SC_START_GAME_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	uint64_t uk1;
-	uint64_t uk2;
-	char encryptionkey[16];
-	uint16_t playercount;
-	
-	//Playerlist
-	sg_constructor::room_players players[2];
-	static const uint16_t packetID = 2190;
-};
-struct BM_SC_END_GAME : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2192;
-};
 struct BM_SC_QUEST_DAY_COIN_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
 	static const uint16_t packetID = 2296;
 };
-struct BM_SC_READY_GAME_RESP : public TS_MESSAGE
-{
-	char successmessage[8];
-	static const uint16_t packetID = 2188;
-};
-struct BM_SC_CHARACTER_INFO_RESP : public TS_MESSAGE
-{
-	
 
-	char successmessage[8];
-	uint32_t uk1;
-	uint32_t uk2;
-	uint32_t uk3;
-	uint32_t uk4;
-	char charname[40];
-	uint32_t uk5;
-	uint32_t uk6;
-	uint8_t uk7;
-	uint8_t chartype;
-	uint8_t uk8;
-	uint32_t uk9;
-	uint32_t uk10;
-	uint32_t uk11;
-	uint32_t uk12;
-	uint32_t uk13;
-	uint32_t uk14;
-	uint32_t uk15;
-	uint32_t uk16;
-	uint32_t charlevel;
-	uint32_t uk17;
-	uint32_t uk18;
-	uint32_t uk19;
-	uint32_t uk20;
-	uint32_t uk21;
-	uint32_t head;
-	uint32_t face;
-	uint32_t upper;
-	uint32_t lower;
-	uint32_t foot;
-	uint32_t hand;
-	uint32_t google;
-	uint32_t accesoire;
-	uint32_t theme;
-	uint32_t mantle;
-	uint32_t buckle;
-	uint32_t vent;
-	uint32_t nitro;
-	uint32_t wheels;
-	uint8_t uk22;
-	uint32_t uk23;
-	uint32_t tricksize;
-	sg_constructor::Tricksrace tricklist[13];
 
-	static const uint16_t packetID = 2147;
-};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

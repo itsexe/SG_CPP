@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	std::cout << ">> ";
 
-	if (IsDebuggerPresent)
+	if (IsDebuggerPresent())
 	{
 		option = 99;
 	}else
