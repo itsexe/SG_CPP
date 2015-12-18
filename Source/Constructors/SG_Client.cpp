@@ -24,22 +24,20 @@ SG_Client::SG_Client()
 	}
 
 	//Update tricklist
-	// Basic tricks
-	tricks[0] = sg_constructor::Trickconstructor(1000,5, 1);	// Grind
-	tricks[1] = sg_constructor::Trickconstructor(1100,3, 1);	// Dash
-	tricks[2] = sg_constructor::Trickconstructor(1200,2, 1);	// Back Skating
-	tricks[3] = sg_constructor::Trickconstructor(1300,4, 1);	// Butting
-	tricks[4] = sg_constructor::Trickconstructor(1400,0, 1);	// Power Slide
-
-	// Extended stuff
-	tricks[5] = sg_constructor::Trickconstructor(1500,0, 1);	// Back Flip
-	tricks[6] = sg_constructor::Trickconstructor(1600,0, 1);	// Front Flip
-	tricks[7] = sg_constructor::Trickconstructor(1700,0, 1);	// Air Twist
-	tricks[8] = sg_constructor::Trickconstructor(1800,0, 1);	// Power Swing
-	tricks[9] = sg_constructor::Trickconstructor(1900,0, 1);	// Grip Turn
-	tricks[10] = sg_constructor::Trickconstructor(2000,0, 1);	// Jumping Steer
-	tricks[11] = sg_constructor::Trickconstructor(2100,0, 1);	// Power Jump
-	tricks[12] = sg_constructor::Trickconstructor(5000,0, 1);	// Wallride
+	
+	tricks[0] = sg_constructor::Trickconstructor(1000,5,1);		// Grind
+	tricks[1] = sg_constructor::Trickconstructor(1100,4,1);		// Back Flip
+	tricks[2] = sg_constructor::Trickconstructor(1200,5,1);		// Front Flip
+	tricks[3] = sg_constructor::Trickconstructor(1300,5,1);		// Air Twist
+	tricks[4] = sg_constructor::Trickconstructor(1400,4,1);		// Power Swing
+	tricks[5] = sg_constructor::Trickconstructor(1500,3,1);		// Grip Turn
+	tricks[6] = sg_constructor::Trickconstructor(1600,3,1);		// Dash
+	tricks[7] = sg_constructor::Trickconstructor(1700,3,1);		// Back Skating
+	tricks[8] = sg_constructor::Trickconstructor(1800,3,1);		// Jumping Steer
+	tricks[9] = sg_constructor::Trickconstructor(1900,5,1);		// Butting
+	tricks[10] = sg_constructor::Trickconstructor(2000,0,1);	// Power Slide
+	tricks[11] = sg_constructor::Trickconstructor(2200,3,1);	// Power Jump
+	tricks[12] = sg_constructor::Trickconstructor(5000,4,1);	// Wall Ride
 
 	for (auto i = 55001; i <= 55045; ++i)
 	{
