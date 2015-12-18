@@ -755,7 +755,23 @@ void SG_MMOHandler::SelectMap(const boost::shared_ptr<SG_ClientSession> Session,
 		switch(packet->mapid)
 		{
 		case sg_constructor::sg_map::RANDOM:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::RANDOM;
+			// int mapList[11]{57, 59, 61, 119, 67, 107, 63, 120, 121, 122, 123};// List of all maps
+			
+			// This is cleaner, and you can comment out one line to disable map to be in random selection
+			int mapList[11]{
+				sg_constructor::sg_map::GRIND_ROLLER,
+				sg_constructor::sg_map::CROSS_LINK,
+				sg_constructor::sg_map::GRIND_CROSS,
+				sg_constructor::sg_map::TRIESTE_EASY,
+				sg_constructor::sg_map::ROLLER_STADIUM,
+				sg_constructor::sg_map::FORBIDDEN_CITY,
+				sg_constructor::sg_map::STAR_TRACK,
+				sg_constructor::sg_map::MIRACLE_EASY,
+				sg_constructor::sg_map::PARAKA_EASY,
+				sg_constructor::sg_map::TRIANGLE_FARM,
+				sg_constructor::sg_map::LOST_ISLAND};
+			rn = mapList[rand() % 11];
+			Session->m_Player->roomptr->currentmap = rn;
 			break;
 		case sg_constructor::sg_map::GRIND_ROLLER:
 			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::GRIND_ROLLER;
