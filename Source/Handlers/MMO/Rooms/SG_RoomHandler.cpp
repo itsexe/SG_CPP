@@ -119,9 +119,10 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 			}
 
 			//inform other players about the new room member
-			BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session);
+			BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session, 1);
 			Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session);
 
+			uint8_t position = 2;
 			//inform new player about current players
 			for (const auto& iter2 : Session->m_Server->Sessions)
 			{
@@ -129,8 +130,9 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 				{
 					if (iter2->m_Player->roomptr->RoomID == packet->roomid + 1)
 					{
-						BM_SC_ROOM_MULTI_INFO_RESP response3 = GeneratePlayerRoomUpdate(Session);
+						BM_SC_ROOM_MULTI_INFO_RESP response3 = GeneratePlayerRoomUpdate(iter2, position);
 						Session->SendPacketStruct(&response3);
+						position++;
 					}
 				}
 			}
@@ -166,7 +168,7 @@ void SG_RoomHandler::HandlePlayerReady(const boost::shared_ptr<SG_ClientSession>
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
-	BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session);
+	BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session, Session->m_Player->RoomPosition);
 	Session->SendPacketStruct(&response2);
 	Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session, true);
 }
@@ -404,7 +406,7 @@ void SG_RoomHandler::HandleUnknownInfo(const boost::shared_ptr<SG_ClientSession>
 	Session->SendPacketStruct(&response);
 }
 
-BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session)
+BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session, uint8_t position)
 {
 	BM_SC_ROOM_MULTI_INFO_RESP response;
 	BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response);
@@ -418,7 +420,7 @@ BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost
 	{
 		response.charname[i] = static_cast<uint8_t>(0);
 	}
-	response.slotdisplay = 2;
+	response.slotdisplay = position;
 	response.chartype = Session->m_Player->chartype;
 	response.ready = Session->m_Player->IsReady;
 	response.enterinfo = 3;
@@ -426,9 +428,10 @@ BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost
 	{
 		response.isadmin = 1;
 	}
-	response.slotdisplay = 2;
+	response.slotdisplay = position;
 	response.uk1 = 0;
 	response.uk2 = 0;
 	response.uk3 = 1;
+	Session->m_Player->RoomPosition = position;
 	return response;
 }

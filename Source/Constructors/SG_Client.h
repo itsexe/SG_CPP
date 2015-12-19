@@ -77,6 +77,7 @@ public:
 	//Rooms_internal
 	bool IsInRoom;
 	bool IsReady;
+	uint8_t RoomPosition;
 	boost::shared_ptr<sg_constructor::Room> roomptr;
 
 private:
