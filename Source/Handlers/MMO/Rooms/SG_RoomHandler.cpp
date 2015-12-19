@@ -66,7 +66,7 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 		response.relayport = Session->conf->RelayPort;
 		response.udpport = 5000;
 		strcpy_s(response.relayip, SG_ClientSession::conf->relayIP.c_str());
-		for (auto i = SG_ClientSession::conf->relayIP.length(); i != 16; i++)
+		for (auto i = SG_ClientSession::conf->relayIP.length(); i != 20; i++)
 		{
 			response.relayip[i] = static_cast<uint8_t>(0);
 		}

@@ -7,6 +7,7 @@
 #include "SG_ServerBase.h"
 #include "SG_Config.h"
 #include "SG_ClientSession.h"
+#include "Tools/SG_DataConverter.h"
 #include "Packets/PacketBaseMessage.h"
 
 MySQLConnection *SG_ClientSession::SQLConn = nullptr;
@@ -51,6 +52,9 @@ void SG_ClientSession::DisconnectClient()
 
 void SG_ClientSession::SendPacketStruct(const TS_MESSAGE* packet)
 {
+	//std::stringstream ss;
+	//SG_DataConverter::BytebufferToString(reinterpret_cast<uint8_t*>(&packet), packet->size, ss);
+	//std::cout << ss.str() << std::endl;
 	boost::asio::async_write(m_Socket, boost::asio::buffer(packet,packet->size), m_Strand.wrap(boost::bind(&SG_ClientSession::HandleSend, shared_from_this(), boost::asio::placeholders::error)));
 }
 // ------------------------------------------------------------------ //

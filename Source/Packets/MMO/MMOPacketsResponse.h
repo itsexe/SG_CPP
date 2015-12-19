@@ -107,14 +107,14 @@ struct BM_SC_PLAYER_INFO_RESP : public TS_MESSAGE
 	
 	static const uint16_t packetID = 2314;
 };
-struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE
+struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE_WNA
 {
 	char successmessage[8];
 	uint64_t uk1;
 	uint64_t uk2;
 	uint8_t uk3;
 	uint16_t trickcount; //13	ad
-	sg_constructor::Trickconstructor tricklist[13];
+	sg_constructor::Trickconstructor tricklist[0];
 
 	static const uint16_t packetID = 2105;
 };

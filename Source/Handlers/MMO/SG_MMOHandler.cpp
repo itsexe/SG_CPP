@@ -102,16 +102,13 @@ void SG_MMOHandler::SelectChar(const boost::shared_ptr<SG_ClientSession> Session
 
 void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Session)
 {
-	BM_SC_TRICK_LIST_RESP response;
-	BM_SC_TRICK_LIST_RESP::initMessage<BM_SC_TRICK_LIST_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
-	response.successmessage[7] = static_cast<uint8_t>(0);
-
-	response.trickcount = 13;
-	std::copy(std::begin(Session->m_Player->tricks), std::end(Session->m_Player->tricks), std::begin(response.tricklist));
-
-	BM_SC_TRICK_LIST_RESP::recalcheader<BM_SC_TRICK_LIST_RESP>(&response);
-	Session->SendPacketStruct(&response);
+	BM_SC_TRICK_LIST_RESP *response;
+	response = TS_MESSAGE_WNA::create<BM_SC_TRICK_LIST_RESP, sg_constructor::Trickconstructor>(Session->m_Player->tricks.size());
+	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response->trickcount = Session->m_Player->tricks.size();
+	response->successmessage [7] = static_cast<uint8_t>(0);
+	std::copy(std::begin(Session->m_Player->tricks), std::end(Session->m_Player->tricks),response->tricklist);
+	Session->SendPacketStruct(response);
 }
 
 void SG_MMOHandler::SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Session)
