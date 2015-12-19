@@ -27,3 +27,4 @@ struct BM_SC_MMO_OX_LEAVE_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2033;
 };
+#endif
