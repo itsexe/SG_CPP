@@ -200,14 +200,14 @@ struct BM_SC_START_MISSION_RESP : public TS_MESSAGE
 	uint64_t missionid;
 	static const uint16_t packetID = 2075;
 };
-struct BM_SC_INVENTORY_RESP : public TS_MESSAGE
+struct BM_SC_INVENTORY_RESP : public TS_MESSAGE_WNA
 {
 	char successmessage[8];
 	uint64_t uk1;
 	uint64_t uk2;
 	uint8_t uk3;
 	uint16_t count;
-	std::vector<sg_constructor::Item> items;
+	sg_constructor::Item items[0];
 	static const uint16_t packetID = 2099;
 };
 struct BM_SC_CASH_BALANCE_INFO_RESP : public TS_MESSAGE

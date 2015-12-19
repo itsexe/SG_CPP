@@ -35,19 +35,19 @@ SG_Client::SG_Client()
 	tricks.push_back(sg_constructor::Trickconstructor(1700, 3, 1));		// Back Skating
 	tricks.push_back(sg_constructor::Trickconstructor(1800, 3, 1));		// Jumping Steer
 	tricks.push_back(sg_constructor::Trickconstructor(1900, 5, 1));		// Butting
-	tricks.push_back(sg_constructor::Trickconstructor(2000, 0, 1));	// Power Slide
-	tricks.push_back(sg_constructor::Trickconstructor(2200, 3, 1));	// Power Jump
-	tricks.push_back(sg_constructor::Trickconstructor(5000, 4, 1));	// Wall Ride
+	tricks.push_back(sg_constructor::Trickconstructor(2000, 0, 1));		// Power Slide
+	tricks.push_back(sg_constructor::Trickconstructor(2200, 3, 1));		// Power Jump
+	tricks.push_back(sg_constructor::Trickconstructor(5000, 4, 1));		// Wall Ride
 	
 	for (auto i = 55001; i <= 55045; ++i)
 	{
 		missions.push_back(i);
 	}
-	/*items.push_back(Item(1, 2075, 0, 10, 0, 0, 0));
-	items.push_back(Item(2, 2042, 0, 10, 0, 0, 0));
-	items.push_back(Item(3, 1079, 0, 10, 0, 0, 0));
-	items.push_back(Item(4, 1070, 0, 10, 0, 0, 0));
-	items.push_back(Item(5, 2541, 0, 10, 0, 0, 0));*/
+	items.push_back(sg_constructor::Item(1, 2075, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(2, 2042, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(3, 1079, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(4, 1070, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(5, 2541, 0, 10, 0, 0, 0));
 	//Set current Time as last KeepAlive
 
 	head = 1067;

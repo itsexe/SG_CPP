@@ -26,7 +26,7 @@ void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sess
 	}
 	BM_SC_GET_ROOMLIST_RESP *response;
 	response = TS_MESSAGE_WNA::create<BM_SC_GET_ROOMLIST_RESP, sg_constructor::rooms_packet>(Session->m_Server->Rooms_internal.size());
-	response->roomcount = rooms.size();
+	response->roomcount = static_cast<uint16_t>(rooms.size());
 	std::copy(std::begin(rooms), std::end(rooms), response->rooms);
 	Session->SendPacketStruct(response);
 }
