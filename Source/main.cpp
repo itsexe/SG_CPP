@@ -26,16 +26,15 @@ int main(int argc, char *argv[])
 	std::cout << "99.	All in one" << std::endl;
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	std::cout << ">> ";
-
+#ifdef _WIN32
 	if (IsDebuggerPresent())
 	{
 		option = 99;
-	}else
+	}
+	else
 	{
 		std::cin >> option;
 	}
-
-#ifdef _WIN32
 	std::system("cls"); // For Windows
 #else
 	std::system("clear"); //For Linux, Mac, Whatever
