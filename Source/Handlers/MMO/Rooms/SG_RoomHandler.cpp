@@ -119,7 +119,7 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 			}
 
 			//inform other players about the new room member
-			BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session, 1);
+			BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session, 1, true);
 			Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session);
 
 			uint8_t position = 2;
@@ -250,54 +250,49 @@ void SG_RoomHandler::HandlePlayerRoomInfo(const boost::shared_ptr<SG_ClientSessi
 void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_START_GAME* packet)
 {
 	UpdateMap(Session);
-	BM_SC_START_GAME_RESP response;
-	BM_SC_START_GAME_RESP::initMessage<BM_SC_START_GAME_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
-	response.successmessage[7] = static_cast<uint8_t>(0);
-	strcpy_s(response.encryptionkey, static_cast<std::string>("encryptionbla<3").c_str());
-	response.encryptionkey[15] = static_cast<uint8_t>(0);
-
-	int i = 0;
+	std::vector<sg_constructor::room_players> playerlist;
+	uint16_t IDx = 100;
 	for (const auto& iter : Session->m_Server->Sessions)
 	{
 		if (iter->m_Player->roomptr != nullptr)
 		{
 			if (iter->m_Player->roomptr->RoomID == Session->m_Player->roomptr->RoomID)
 			{
+				IDx++;
 				sg_constructor::room_players player;
 				strcpy_s(player.charname, static_cast<std::string>(iter->m_Player->charname).c_str());
+				strcpy_s(player.remoteendpoint, iter->getSocket().remote_endpoint().address().to_string().c_str());
 				for (auto i = iter->m_Player->charname.length(); i != 40; ++i)
 				{
 					player.charname[i] = static_cast<uint8_t>(0);
 				}
-				player.uk10 = 15;
-				strcpy_s(player.remoteendpoint, static_cast<std::string>(iter->getSocket().remote_endpoint().address().to_string()).c_str());
 				for (auto i = iter->getSocket().remote_endpoint().address().to_string().length(); i != 16; ++i)
 				{
 					player.remoteendpoint[i] = static_cast<uint8_t>(0);
 				}
+				player.uk10 = 16;
 				player.uk11 = 1;
 				player.uk12 = 1;
-				player.index_p = i + 100;
-				if (i == 0)
-				{
+				player.index_p = IDx;
+				if (IDx == 101)
 					player.ismaster = 1;
-				}
 				else
-				{
 					player.ismaster = 0;
-				}
-				player.uk14 = 11;
-
-				response.players[i] = player;
-				i++;
+				playerlist.push_back(player);
 			}
 		}
 	}
-
-	response.playercount = i;
-	Session->m_Server->SendRoomBroadcast(&response, Session->m_Player->roomptr->RoomID, Session, true);
-
+	BM_SC_START_GAME_RESP *response;
+	response = TS_MESSAGE_WNA::create<BM_SC_START_GAME_RESP, sg_constructor::room_players>(playerlist.size());
+	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
+	strcpy_s(response->encryptionkey, static_cast<std::string>("encryptionbla<3").c_str());
+	response->successmessage[7] = static_cast<uint8_t>(0);
+	response->encryptionkey[15] = static_cast<uint8_t>(0);
+	response->uk1 = 0;
+	response->uk2 = 0;
+	response->playercount = playerlist.size();
+	std::copy(std::begin(playerlist), std::end(playerlist), response->players);
+	Session->m_Server->SendRoomBroadcast(response, Session->m_Player->roomptr->RoomID, Session, true);
 }
 
 void SG_RoomHandler::EndGame(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_FINISH_RACE* packet)
@@ -406,7 +401,7 @@ void SG_RoomHandler::HandleUnknownInfo(const boost::shared_ptr<SG_ClientSession>
 	Session->SendPacketStruct(&response);
 }
 
-BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session, uint8_t position)
+BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session, uint8_t position, bool newplayer)
 {
 	BM_SC_ROOM_MULTI_INFO_RESP response;
 	BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response);
@@ -423,11 +418,13 @@ BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost
 	response.slotdisplay = position;
 	response.chartype = Session->m_Player->chartype;
 	response.ready = Session->m_Player->IsReady;
-	response.enterinfo = 3;
+	if (newplayer == true)
+		response.enterinfo = 3;
+	else
+		response.enterinfo = 0;
 	if (Session->m_Player->rank > 1)
-	{
 		response.isadmin = 1;
-	}
+
 	response.slotdisplay = position;
 	response.uk1 = 0;
 	response.uk2 = 0;

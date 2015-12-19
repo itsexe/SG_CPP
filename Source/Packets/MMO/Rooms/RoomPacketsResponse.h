@@ -94,7 +94,7 @@ struct BM_SC_MAP_INFO_RESP : public TS_MESSAGE
 	uint16_t mapid;
 	static const uint16_t packetID = 2164;
 };
-struct BM_SC_START_GAME_RESP : public TS_MESSAGE
+struct BM_SC_START_GAME_RESP : public TS_MESSAGE_WNA
 {
 	char successmessage[8];
 	uint64_t uk1;
@@ -103,7 +103,7 @@ struct BM_SC_START_GAME_RESP : public TS_MESSAGE
 	uint16_t playercount;
 
 	//Playerlist
-	sg_constructor::room_players players[2];
+	sg_constructor::room_players players[0];
 	static const uint16_t packetID = 2190;
 };
 struct BM_SC_END_GAME : public TS_MESSAGE

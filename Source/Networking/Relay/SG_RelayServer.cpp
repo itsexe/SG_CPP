@@ -30,8 +30,9 @@ bool SG_RelayServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> 
 		break;
 	case NM_SC_EXPIRE::packetID: //Client finished loading
 		SG_RelayHandler::SendServerTick(pSession);
-		//SG_RelayHandler::ReadyGame(pSession);
-
+		
+		Sleep(2000);
+		SG_RelayHandler::ReadyGame(pSession);
 		//SG_RelayHandler::StartGame(pSession);
 		break;
 	case Playerinfo::packetID:

@@ -18,6 +18,6 @@ public:
 	static void SelectMap(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_SELECT_MAP* packet);
 	static void UpdateMap(const boost::shared_ptr<SG_ClientSession> Session);
 	static void HandleUnknownInfo(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_UNKNOWN_INFO* packet);
-	static BM_SC_ROOM_MULTI_INFO_RESP &GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session, uint8_t position);
+	static BM_SC_ROOM_MULTI_INFO_RESP &GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session, uint8_t position, bool newplayer = false);
 };
 

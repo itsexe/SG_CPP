@@ -50,21 +50,34 @@ SG_Client::SG_Client()
 	items.push_back(sg_constructor::Item(5, 2541, 0, 10, 0, 0, 0));
 	//Set current Time as last KeepAlive
 
-	head = 1067;
+	//head = 1067;
+	//face = 0;
+	//upper = 2160;
+	//lower = 3140;
+	//foot = 3569;
+	//hand = 2582;
+	//google = 4557;
+	//accesoire = 4055;
+	//theme = 0;
+	//mantle = 0;
+	//buckle = 0;
+	//vent = 0;
+	//nitro = 0;
+	//wheels = 0;
+	head = 0;
 	face = 0;
-	upper = 2160;
-	lower = 3140;
-	foot = 3569;
-	hand = 2582;
-	google = 4557;
-	accesoire = 4055;
+	upper = 0;
+	lower = 0;
+	foot = 0;
+	hand = 0;
+	google = 0;
+	accesoire = 0;
 	theme = 0;
 	mantle = 0;
 	buckle = 0;
 	vent = 0;
 	nitro = 0;
 	wheels = 0;
-
 	UpdateLastKeepAlive();
 }
 
