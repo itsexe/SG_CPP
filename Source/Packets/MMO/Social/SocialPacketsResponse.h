@@ -1,5 +1,9 @@
-#pragma once
-#include <Packets/PacketBaseMessage.h>
+#ifndef PACKETS_SOCIAL_RESP
+#define PACKETS_SOCIAL_RESP
+#include <cstdint>
+#include "Packets/PacketBaseMessage.h"
+
+#pragma pack(push, 1)
 struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
@@ -34,3 +38,4 @@ struct MM_SC_FRIEND_REQUEST_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 5016;
 };
+#endif

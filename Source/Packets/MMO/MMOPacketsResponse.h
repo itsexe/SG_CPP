@@ -63,30 +63,30 @@ struct BM_SC_PLAYER_INFO_RESP : public TS_MESSAGE
 	char mapname2[9];
 
 	//Subpacket 2
-	uint16_t sp2id = 2;
-	uint16_t sp2size = 12;
-	uint16_t uk17 = 5;
-	uint16_t uk18 = 5;
+	uint16_t sp2id;
+	uint16_t sp2size;
+	uint16_t uk17;
+	uint16_t uk18;
 	uint64_t level;
 
 	//Subpacket 4
-	uint16_t sp4id = 4;
-	uint16_t sp4size = 12;
-	uint32_t uk19 = 5;
-	uint32_t uk20 = 6;
-	uint32_t uk31 = 7; 
+	uint16_t sp4id;
+	uint16_t sp4size;
+	uint32_t uk19;
+	uint32_t uk20;
+	uint32_t uk31; 
 
 	//Subpacket 64
-	uint16_t sp64id = 64;
-	uint16_t sp64size = 16;
-	uint32_t uk32 = 7;
-	uint32_t uk33 = 8;
-	uint32_t uk34 = 9;
-	uint32_t uk35 = 10;
+	uint16_t sp64id;
+	uint16_t sp64size;
+	uint32_t uk32;
+	uint32_t uk33;
+	uint32_t uk34;
+	uint32_t uk35;
 
 	//Subpacket 512
-	uint16_t sp512id = 512;
-	uint16_t sp512size = 44;
+	uint16_t sp512id;
+	uint16_t sp512size;
 	float speed;
 	float accel;
 	float turn;
@@ -99,12 +99,13 @@ struct BM_SC_PLAYER_INFO_RESP : public TS_MESSAGE
 	float uk37;
 
 	//Subpacket 1024
-	uint16_t sp1024id = 511;
-	uint16_t sp1024size = 12;
-	uint32_t count1 = 2;
-	uint32_t count2 = 1;
-	uint32_t count3 = 2;
-	
+	uint16_t sp1024id;
+	uint16_t sp1024size;
+	uint32_t count1;
+	uint32_t count2;
+	uint32_t count3;
+	uint32_t count4;
+
 	static const uint16_t packetID = 2314;
 };
 struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE_WNA

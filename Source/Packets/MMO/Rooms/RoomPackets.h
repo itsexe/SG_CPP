@@ -1,4 +1,9 @@
-#pragma once
+#ifndef PACKETS_ROOMS
+#define PACKETS_ROOMS
+#include <cstdint>
+#include "Packets/PacketBaseMessage.h"
+
+#pragma pack(push, 1)
 #include <Packets/PacketBaseMessage.h>
 
 struct BM_SC_GET_ROOMLIST : public TS_MESSAGE
@@ -105,3 +110,4 @@ struct BM_SC_CHARACTER_INFO_RESP : public TS_MESSAGE
 
 	static const uint16_t packetID = 2147;
 };
+#endif

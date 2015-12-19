@@ -1,5 +1,9 @@
-#pragma once
-#include <Packets/PacketBaseMessage.h>
+#ifndef PACKETS_MINIGAMES_RESP
+#define PACKETS_MINIGAMES_RESP
+#include <cstdint>
+#include "Packets/PacketBaseMessage.h"
+
+#pragma pack(push, 1)
 
 struct BM_SC_MINIGAME_START_RESP : public TS_MESSAGE
 {

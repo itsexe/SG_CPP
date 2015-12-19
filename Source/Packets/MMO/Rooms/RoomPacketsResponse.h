@@ -1,5 +1,9 @@
-#pragma once
-#include <Packets/PacketBaseMessage.h>
+#ifndef PACKETS_ROOMS_RESP
+#define PACKETS_ROOMS_RESP
+#include <cstdint>
+#include "Packets/PacketBaseMessage.h"
+
+#pragma pack(push, 1)
 #include <Constructors/sg_constructor.h>
 
 struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE_WNA
@@ -117,3 +121,4 @@ struct BM_SC_READY_GAME_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2188;
 };
+#endif

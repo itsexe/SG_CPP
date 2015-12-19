@@ -153,7 +153,7 @@ void SG_MMOHandler::SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Ses
 	response.count1 = 2;
 	response.count2 = 1;
 	response.count3 = 2;
-
+	response.count4 = 3;
 
 
 	//Playerstuff
