@@ -5,11 +5,8 @@
 
 void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
-	BM_SC_GET_ROOMLIST_RESP response;
-	BM_SC_GET_ROOMLIST_RESP::initMessage<BM_SC_GET_ROOMLIST_RESP>(&response);
-	//std::vector<sg_constructor::rooms_packet> rooms;
-	//sg_constructor::rooms_packet rooms[100];
-	int i = 0;
+
+	std::vector<sg_constructor::rooms_packet> rooms;
 	for (const auto& iter : *roomlist_ptr)
 	{
 		sg_constructor::rooms_packet room;
@@ -25,15 +22,13 @@ void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sess
 		room.currentplayers = Session->m_Server->GetPlayersInRoom(iter->RoomID);
 		room.maxplayers = iter->Max_Player;
 		room.state = iter->State;
-		response.rooms[i] = room;
-		i++;
-		if (i > 99)
-			break;
+		rooms.push_back(room);
 	}
-	response.roomcount = i;
-	response.size = sizeof(BM_SC_GET_ROOMLIST_RESP) + (i * sizeof(sg_constructor::rooms_packet));
-	response.msg_check_sum = response.checkMessage(&response);
-	Session->SendPacketStruct(&response);
+	BM_SC_GET_ROOMLIST_RESP *response;
+	response = TS_MESSAGE_WNA::create<BM_SC_GET_ROOMLIST_RESP, sg_constructor::rooms_packet>(Session->m_Server->Rooms_internal.size());
+	response->roomcount = rooms.size();
+	std::copy(std::begin(rooms), std::end(rooms), response->rooms);
+	Session->SendPacketStruct(response);
 }
 
 void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id)

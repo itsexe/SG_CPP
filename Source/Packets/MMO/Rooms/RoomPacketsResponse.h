@@ -2,14 +2,12 @@
 #include <Packets/PacketBaseMessage.h>
 #include <Constructors/sg_constructor.h>
 
-struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE
+struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE_WNA
 {
-	BM_SC_GET_ROOMLIST_RESP() {}
-	BM_SC_GET_ROOMLIST_RESP(uint16_t count, sg_constructor::rooms_packet roomlist[]) : roomcount(count) {}
 	uint16_t roomcount;
 	uint16_t uk1;
 	uint16_t uk2;
-	sg_constructor::rooms_packet rooms[100];
+	sg_constructor::rooms_packet rooms[0];
 	//std::vector<sg_constructor::rooms_packet> rooms;
 	static const uint16_t packetID = 2304;
 };
