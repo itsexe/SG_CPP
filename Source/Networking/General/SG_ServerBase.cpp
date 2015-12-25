@@ -133,7 +133,7 @@ uint8_t SG_ServerBase::GetPlayersInRoom(uint32_t roomid)
 void SG_ServerBase::SaveChar(const boost::shared_ptr<SG_ClientSession> Session)
 {
 		//name, rank, level, xp, license, rupees, coins, questpoints, clanid, accid, chartype, cangetbonuscoins, char_id
-		MySQLQuery mysql_query(Session->SQLConn, "UPDATE `Chars` SET `Name` = ?, `Rank` = ?, `Level` = ?, `XP` = ?, `License` = ?, `Rupees` = ?, `Coins` = ?, `Questpoints` = ?, `ClanID` = ?, `AccountID` = ?, `CharType` = ?, `LastDailyCoins` = ? WHERE `Name` = ?");
+		MySQLQuery mysql_query(Session->SQLConn, "UPDATE Chars SET Name = ?, Rank = ?, Level = ?, XP = ?, License = ?, Rupees = ?, Coins = ?, Questpoints = ?, ClanID = ?, CharType = ?, LastDailyCoins=FROM_UNIXTIME(?), age = ?, zoneid = ?, zoneinfo = ?, bio = ? WHERE id = ?");
 		mysql_query.setString(1, Session->m_Player->charname);
 		mysql_query.setInt(2, Session->m_Player->rank);
 		mysql_query.setInt(3, static_cast<uint16_t>(Session->m_Player->charlevel));
@@ -143,12 +143,15 @@ void SG_ServerBase::SaveChar(const boost::shared_ptr<SG_ClientSession> Session)
 		mysql_query.setInt(7, Session->m_Player->coins);
 		mysql_query.setInt(8, Session->m_Player->questpoints);
 		mysql_query.setInt(9, NULL);//clan id
-		mysql_query.setInt(10, Session->m_Player->playerid);
-		mysql_query.setInt(11, Session->m_Player->chartype);
-		mysql_query.setTime(12, Session->m_Player->LastBonusCoin);
-		mysql_query.setString(13, Session->m_Player->charname);
+		mysql_query.setInt(10, Session->m_Player->chartype);
+		mysql_query.setTime(11, Session->m_Player->LastBonusCoin);
+		mysql_query.setInt(12, Session->m_Player->age);
+		mysql_query.setInt(13, Session->m_Player->zoneid);
+		mysql_query.setString(14, Session->m_Player->zoneinfo);
+		mysql_query.setString(15, Session->m_Player->biostr);
+		mysql_query.setInt(16, Session->m_Player->charid);
 
-		mysql_query.ExecuteQuery();
+		mysql_query.ExecuteUpdate();
 }
 
 void SG_ServerBase::WorkerThread()

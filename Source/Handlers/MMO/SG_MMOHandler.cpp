@@ -38,6 +38,7 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 			Session->m_Player->zoneid = qry.getInt(1, "zoneid");
 			Session->m_Player->zoneinfo = qry.getString(1, "zoneinfo");
 			Session->m_Player->biostr = qry.getString(1, "bio");
+			Session->m_Player->charid = qry.getInt(1, "id");
 			Session->m_Player->charcreated = 1;
 		}
 		else
@@ -329,7 +330,7 @@ void SG_MMOHandler::HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> S
 	SendBalanceInfo(Session);
 	SendCashBalanceInfo(Session);
 
-	Session->m_Player->LastBonusCoin = time_t(0);
+	Session->m_Player->LastBonusCoin = std::time(nullptr);
 	Session->m_Server->SaveChar(Session);
 }
 

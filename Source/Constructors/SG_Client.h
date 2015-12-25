@@ -26,6 +26,7 @@ public:
 
 	//Playersettings
 	uint16_t playerid;
+	uint16_t charid;
 	std::string charname;
 	uint16_t charcreated;
 	uint32_t chartype;
@@ -34,7 +35,8 @@ public:
 	uint8_t age;
 	std::string zoneinfo;
 	std::string biostr;
-	
+	uint8_t gender; // 1 = Male; 2 = Female; (Todo: Maybe add other options if this isn't hardcoded)
+	uint8_t isprivate; // Display infos to all players
 
 	//look
 	uint32_t head;

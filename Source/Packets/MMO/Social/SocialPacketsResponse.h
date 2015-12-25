@@ -64,4 +64,9 @@ struct BM_SC_MATE_INFO_RESP : public TS_MESSAGE
 
 	static const uint16_t packetID = 2336;
 };
+struct BM_SC_UPDATE_MYMATEINFO_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2263;
+};
 #endif
