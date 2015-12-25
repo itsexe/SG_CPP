@@ -3,11 +3,6 @@
 This is a emulator for the serverside the StreetGears.
 StreetGears is a mmo that was discontinued mid 2012.
 
-Please note:
-This is a very early stage of development.
-The only thing that works in most parts is the loginserver.
-
-## State of the Emulator
 Auth Server: (90%)
 
 MMO Server (20%)
