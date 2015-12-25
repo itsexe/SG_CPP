@@ -36,8 +36,18 @@ CREATE TABLE `Accounts` (
   `ingamecash` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `ID` (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Accounts`
+--
+
+LOCK TABLES `Accounts` WRITE;
+/*!40000 ALTER TABLE `Accounts` DISABLE KEYS */;
+INSERT INTO `Accounts` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','some@thi.ng','2015-12-09 15:44:16',1,0,'BKX5z5hF8r686z06W3OrcnQfm05ahFCY',0),(2,'simon','21232f297a57a5a743894a0e4a801fc3','irgendwas@mail.at','2015-12-16 18:39:08',1,0,'mRv6hiezto3ohsRTHAhAPZzgQu1l55Ix',0);
+/*!40000 ALTER TABLE `Accounts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Chars`
@@ -60,11 +70,26 @@ CREATE TABLE `Chars` (
   `ClanID` int(11) NOT NULL,
   `AccountID` int(11) DEFAULT NULL,
   `CharType` int(11) NOT NULL,
+  `LastDailyCoins` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `age` int(2) DEFAULT '0',
+  `zoneid` int(10) DEFAULT '0',
+  `zoneinfo` varchar(140) DEFAULT NULL,
+  `bio` varchar(150) DEFAULT 'hello (:',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_Accounts` (`AccountID`),
   CONSTRAINT `FK_Accounts` FOREIGN KEY (`AccountID`) REFERENCES `Accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Chars`
+--
+
+LOCK TABLES `Chars` WRITE;
+/*!40000 ALTER TABLE `Chars` DISABLE KEYS */;
+INSERT INTO `Chars` VALUES (3,'Test','3','2015-12-09 18:16:24',40,10,5,10,310,0,0,1,5,'2015-12-25 15:28:07',19,0,'NRW','Das ist ein Test'),(4,'Simon','0','2015-12-17 03:11:03',40,0,5,10,10,0,0,2,5,'2015-12-09 18:16:24',0,0,NULL,'hello (:');
+/*!40000 ALTER TABLE `Chars` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Friends`
@@ -81,6 +106,15 @@ CREATE TABLE `Friends` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Friends`
+--
+
+LOCK TABLES `Friends` WRITE;
+/*!40000 ALTER TABLE `Friends` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Friends` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Inventory`
 --
 
@@ -94,6 +128,15 @@ CREATE TABLE `Inventory` (
   `CharID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Inventory`
+--
+
+LOCK TABLES `Inventory` WRITE;
+/*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -104,4 +147,4 @@ CREATE TABLE `Inventory` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-13 17:20:10
+-- Dump completed on 2015-12-25 17:33:04
