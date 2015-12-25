@@ -5,6 +5,8 @@
 #include <iostream>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#include "Tools/SG_Logger.h"
+#include <boost/filesystem.hpp>
 
 class SG_Config
 	{
@@ -57,46 +59,65 @@ class SG_Config
 
 void SG_Config::init(std::string path)
 {
-	std::fstream ifs(path); //maybe you'll have to specify your path here
-	boost::property_tree::ptree conf;
-	read_ini(ifs, conf);
+	if(!boost::filesystem::exists(path))
+	{
+		SG_Logger::instance().log("Config file not found in: " + path + ". Please check if the path is valid. Otherwise you can pass the config path as a start argument. Press any key to exit.", SG_Logger::kLogLevelError);
+		getchar();
+		exit(-1);
+	}
+	try
+	{
+		std::fstream ifs(path); //maybe you'll have to specify your path here
+		boost::property_tree::ptree conf;
+		read_ini(ifs, conf);
 
-	//Global config
-	MaximumUsersPerServer = conf.get<uint16_t>("Global.MaximumUsersPerServer");
+		//Global config
+		MaximumUsersPerServer = conf.get<uint16_t>("Global.MaximumUsersPerServer");
 
-	//Database
-	host = conf.get<std::string>("Database.Host");
-	port = conf.get<uint16_t>("Database.Port");
-	DBUser = conf.get<std::string>("Database.User");
-	DBPass = conf.get<std::string>("Database.Password");
-	DBName = conf.get<std::string>("Database.Database");
+		//Database
+		host = conf.get<std::string>("Database.Host");
+		port = conf.get<uint16_t>("Database.Port");
+		DBUser = conf.get<std::string>("Database.User");
+		DBPass = conf.get<std::string>("Database.Password");
+		DBName = conf.get<std::string>("Database.Database");
 
-	//Auth configuration
-	AuthIP = conf.get<std::string>("Auth.ServerIP");
-	AuthPort = conf.get<short>("Auth.ServerPort");
-	CheckClientVersion = conf.get<bool>("Auth.CheckVersion");
-	CheckClientLanguage = conf.get<bool>("Auth.CheckLanguage");
-	ClientVersion = conf.get<std::string>("Auth.ClientVersion");
-	ClientLanguage = conf.get<std::string>("Auth.ClientLanguage");
+		//Auth configuration
+		AuthIP = conf.get<std::string>("Auth.ServerIP");
+		AuthPort = conf.get<short>("Auth.ServerPort");
+		CheckClientVersion = conf.get<bool>("Auth.CheckVersion");
+		CheckClientLanguage = conf.get<bool>("Auth.CheckLanguage");
+		ClientVersion = conf.get<std::string>("Auth.ClientVersion");
+		ClientLanguage = conf.get<std::string>("Auth.ClientLanguage");
 
-	//MMO Configuration
-	MMOIP = conf.get<std::string>("MMO.ServerIP");
-	MMOPort = conf.get<short>("MMO.ServerPort");
-	
-	//Lobby Configuration
-	LobbyIP = conf.get<std::string>("Lobby.ServerIP");
-	LobbyPort = conf.get<short>("Lobby.ServerPort");
+		//MMO Configuration
+		MMOIP = conf.get<std::string>("MMO.ServerIP");
+		MMOPort = conf.get<short>("MMO.ServerPort");
 
-	//Message Configuration
-	msgIP = conf.get<std::string>("Message.ServerIP");
-	MsgPort = conf.get<short>("Message.ServerPort");
+		//Lobby Configuration
+		LobbyIP = conf.get<std::string>("Lobby.ServerIP");
+		LobbyPort = conf.get<short>("Lobby.ServerPort");
 
-	//Message Configuration
-	relayIP = conf.get<std::string>("Relay.ServerIP");
-	RelayPort = conf.get<short>("Relay.ServerPort");
+		//Message Configuration
+		msgIP = conf.get<std::string>("Message.ServerIP");
+		MsgPort = conf.get<short>("Message.ServerPort");
 
-	//Encryption
-	DESPassword = conf.get<std::string>("Encryption.DESKey");
-	MD5Salt = conf.get<std::string>("Encryption.MD5Salt");
+		//Message Configuration
+		relayIP = conf.get<std::string>("Relay.ServerIP");
+		RelayPort = conf.get<short>("Relay.ServerPort");
+
+		//Encryption
+		DESPassword = conf.get<std::string>("Encryption.DESKey");
+		MD5Salt = conf.get<std::string>("Encryption.MD5Salt");
+	}catch(boost::property_tree::ini_parser_error &e)
+	{
+		SG_Logger::instance().log("Something is wrong with your config! Error occured in: " + e.filename() + ":" + std::to_string(e.line()) + " Errormessage: " + e.message() + ". Press any key to exit.", SG_Logger::kLogLevelError);
+		getchar();
+		exit(-2);
+	}
+	catch(...){
+		SG_Logger::instance().log("Something is wrong with your config! Press any key to exit.", SG_Logger::kLogLevelError);
+		getchar();
+		exit(-3);
+	}
 }
 #endif
