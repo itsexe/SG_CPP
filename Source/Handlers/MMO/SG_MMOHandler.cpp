@@ -205,7 +205,7 @@ void SG_MMOHandler::SendInventory(const boost::shared_ptr<SG_ClientSession> Sess
 {
 	BM_SC_INVENTORY_RESP *response;
 	response = TS_MESSAGE_WNA::create<BM_SC_INVENTORY_RESP, sg_constructor::Item>(Session->m_Player->items.size());
-	response->count = Session->m_Player->items.size();
+	response->count = static_cast<uint16_t>(Session->m_Player->items.size());
 	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response->successmessage[7] = static_cast<uint8_t>(0);
 	std::copy(std::begin(Session->m_Player->items), std::end(Session->m_Player->items), response->items);
