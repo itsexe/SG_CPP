@@ -35,4 +35,10 @@ struct BM_SC_CLAN_CREATION : public TS_MESSAGE
 	char clanname[43];
 	static const uint16_t packetID = 2344;
 };
+struct BM_SC_MATE_INFO : public TS_MESSAGE
+{
+	uint32_t uk1;
+	char charname[43];
+	static const uint16_t packetID = 2335;
+};
 #endif

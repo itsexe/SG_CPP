@@ -109,6 +109,9 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_LEAVE_INVENTORY::packetID:
 		SG_MMOHandler::LeaveInventory(pSession);
 		break;
+	case BM_SC_MATE_INFO::packetID:
+		SG_SocialHandler::HandleMateInfo(pSession, static_cast<const BM_SC_MATE_INFO*>(packet));
+		break;
 	case BM_SC_MMO_OX_ENTER::packetID:
 		SG_QuizHandler::EnterOX(pSession);
 		break;

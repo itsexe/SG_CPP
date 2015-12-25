@@ -68,8 +68,8 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 		response.successmessage[7] = static_cast<uint8_t>(0);
 
 		// TODO
-		// Clean this shit up. I'm currently to tired for this.
-
+		// We have to load the char with the name from the packet from the database or something, but i'm currently to tired for this crap.
+		// I will just load the data of the current logged in player; should be okay for now.
 		strcpy_s(response.clanname, static_cast<std::string>("Testclan <3").c_str());
 		strcpy_s(response.clantag, static_cast<std::string>("TES").c_str());
 		strcpy_s(response.charname, static_cast<std::string>(Session->m_Player->charname).c_str());
