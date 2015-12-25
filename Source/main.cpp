@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
 		std::cin >> option;
 	}
 	std::system("cls"); // For Windows
+	std::system("title Street Gears Emulator 1.0.1");
 #else
 	std::system("clear"); //For Linux, Mac, Whatever
 #endif
