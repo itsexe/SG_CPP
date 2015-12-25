@@ -38,4 +38,9 @@ struct MM_SC_FRIEND_REQUEST_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 5016;
 };
+struct BM_SC_CLAN_CREATION_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	static const uint16_t packetID = 2345;
+};
 #endif

@@ -30,4 +30,9 @@ struct BM_SC_CHAT_MESSAGE : public TS_MESSAGE
 	char msg[70];
 	static const uint16_t packetID = 2206;
 };
+struct BM_SC_CLAN_CREATION : public TS_MESSAGE
+{
+	char clanname[43];
+	static const uint16_t packetID = 2344;
+};
 #endif

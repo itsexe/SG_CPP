@@ -356,3 +356,23 @@ void SG_MMOHandler::RunClientSideScript(const boost::shared_ptr<SG_ClientSession
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
+
+void SG_MMOHandler::EnterInventory(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	//TODO: Despawn player (maybe)
+	BM_SC_ENTER_INVENTORY_RESP response;
+	BM_SC_ENTER_INVENTORY_RESP::initMessage<BM_SC_ENTER_INVENTORY_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::LeaveInventory(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	//TODO: Respawn player (maybe)
+	BM_SC_LEAVE_INVENTORY_RESP response;
+	BM_SC_LEAVE_INVENTORY_RESP::initMessage<BM_SC_LEAVE_INVENTORY_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}

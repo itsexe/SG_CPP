@@ -150,7 +150,14 @@ struct BM_SC_CHARACTER_INFO : public TS_MESSAGE
 	char charname[40];
 	static const uint16_t packetID = 2146;
 };
-
+struct BM_SC_ENTER_INVENTORY : public TS_MESSAGE
+{
+	static const uint16_t packetID = 2078;
+};
+ struct BM_SC_LEAVE_INVENTORY : public TS_MESSAGE
+ {
+	 static const uint16_t packetID = 2080;
+ };
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

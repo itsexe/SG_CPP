@@ -100,6 +100,15 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_START_MISSION::packetID:
 		SG_MMOHandler::StartMission(pSession);
 		break;
+	case BM_SC_CLAN_CREATION::packetID:
+		SG_SocialHandler::CreateClan(pSession, static_cast<const BM_SC_CLAN_CREATION*>(packet));
+		break;
+	case BM_SC_ENTER_INVENTORY::packetID:
+		SG_MMOHandler::EnterInventory(pSession);
+		break;
+	case BM_SC_LEAVE_INVENTORY::packetID:
+		SG_MMOHandler::LeaveInventory(pSession);
+		break;
 	case BM_SC_MMO_OX_ENTER::packetID:
 		SG_QuizHandler::EnterOX(pSession);
 		break;

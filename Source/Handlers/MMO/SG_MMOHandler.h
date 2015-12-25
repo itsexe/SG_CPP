@@ -52,6 +52,10 @@ public:
 	static void UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> Session);
 	static void RunClientSideScript(const boost::shared_ptr<SG_ClientSession> Session);
 
+
+	static void EnterInventory(const boost::shared_ptr<SG_ClientSession> Session);
+	static void LeaveInventory(const boost::shared_ptr<SG_ClientSession> Session);
+
 };
 
 #endif

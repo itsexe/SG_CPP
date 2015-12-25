@@ -47,3 +47,12 @@ void SG_SocialHandler::FriendRequest(const boost::shared_ptr<SG_ClientSession> S
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
+
+void SG_SocialHandler::CreateClan(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CLAN_CREATION* packet)
+{
+	BM_SC_CLAN_CREATION_RESP response;
+	BM_SC_CLAN_CREATION_RESP::initMessage<BM_SC_CLAN_CREATION_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
