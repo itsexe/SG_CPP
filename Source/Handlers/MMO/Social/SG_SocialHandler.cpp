@@ -72,9 +72,9 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 
 		strcpy_s(response.clanname, static_cast<std::string>("Testclan <3").c_str());
 		strcpy_s(response.clantag, static_cast<std::string>("TES").c_str());
-		strcpy_s(response.charname, static_cast<std::string>(Session->m_Player->charname).c_str());
-		strcpy_s(response.zoneinfo, static_cast<std::string>("").c_str());
-		strcpy_s(response.biostr, static_cast<std::string>("").c_str());
+		strcpy_s(response.charname, Session->m_Player->charname.c_str());
+		strcpy_s(response.zoneinfo, Session->m_Player->zoneinfo.c_str());
+		strcpy_s(response.biostr, Session->m_Player->biostr.c_str());
 
 
 
@@ -87,16 +87,17 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 		{
 			response.charname[i] = static_cast<uint8_t>(0);
 		}
-		for (auto i = 0; i != 121; ++i)
+		for (auto i = Session->m_Player->zoneinfo.length(); i != 121; ++i)
 		{
 			response.zoneinfo[i] = static_cast<uint8_t>(0);
 		}
-		for (auto i = 0; i != 218; ++i)
+		for (auto i = Session->m_Player->biostr.length(); i != 218; ++i)
 		{
 			response.biostr[i] = static_cast<uint8_t>(0);
 		}
 
-		response.zoneid = 1;
+		response.age = Session->m_Player->age;
+		response.zoneid = Session->m_Player->zoneid;
 		response.chartype = Session->m_Player->chartype;
 		response.license = Session->m_Player->license;
 		response.level = Session->m_Player->charlevel;

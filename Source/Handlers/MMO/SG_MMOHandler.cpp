@@ -18,7 +18,7 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	{
 		Session->m_Player->playerid = accqry.getInt(1, "id");
 		//Get Chars
-		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins from Chars where AccountID =  ?;");
+		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins, age, zoneid, zoneinfo, bio from Chars where AccountID =  ?;");
 		qry.setInt(1, Session->m_Player->playerid);
 		qry.ExecuteQuery();
 		if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
@@ -34,6 +34,10 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 			Session->m_Player->license = qry.getInt(1, "License");
 			Session->m_Player->questpoints = qry.getInt(1, "Questpoints");
 			Session->m_Player->LastBonusCoin = qry.getTime(1, "LastDailyCoins");
+			Session->m_Player->age = qry.getInt(1, "age");
+			Session->m_Player->zoneid = qry.getInt(1, "zoneid");
+			Session->m_Player->zoneinfo = qry.getString(1, "zoneinfo");
+			Session->m_Player->biostr = qry.getString(1, "bio");
 			Session->m_Player->charcreated = 1;
 		}
 		else

@@ -30,6 +30,11 @@ public:
 	uint16_t charcreated;
 	uint32_t chartype;
 	uint64_t charlevel;
+	uint32_t zoneid;
+	uint8_t age;
+	std::string zoneinfo;
+	std::string biostr;
+	
 
 	//look
 	uint32_t head;

@@ -45,7 +45,7 @@ struct BM_SC_CLAN_CREATION_RESP : public TS_MESSAGE
 };
 struct BM_SC_MATE_INFO_RESP : public TS_MESSAGE
 {
-	//here is most likely something wrong
+	//here is most likely something wrongw
 
 	char successmessage[8];
 	char uk1[25];
@@ -60,7 +60,7 @@ struct BM_SC_MATE_INFO_RESP : public TS_MESSAGE
 	uint16_t license;
 	uint32_t zoneid;
 	char zoneinfo[121];
-	char biostr[218];
+	char biostr[218]; // Maximum 150 chars
 
 	static const uint16_t packetID = 2336;
 };
