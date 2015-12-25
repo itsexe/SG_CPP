@@ -41,4 +41,14 @@ struct BM_SC_MATE_INFO : public TS_MESSAGE
 	char charname[43];
 	static const uint16_t packetID = 2335;
 };
+struct BM_SC_UPDATE_MYMATEINFO : public TS_MESSAGE
+{
+	uint8_t age;
+	uint32_t zoneid;
+	char zoneinfo[121];
+	char biostr[151];
+	uint8_t isprivate; // 1 = private; 0 = public
+	uint8_t gender; // 1 = Male; 2 = Female
+	static const uint16_t packetID = 2262;
+};
 #endif
