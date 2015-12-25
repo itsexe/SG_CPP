@@ -290,7 +290,7 @@ void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session
 	response->encryptionkey[15] = static_cast<uint8_t>(0);
 	response->uk1 = 0;
 	response->uk2 = 0;
-	response->playercount = playerlist.size();
+	response->playercount = static_cast<uint16_t>(playerlist.size());
 	std::copy(std::begin(playerlist), std::end(playerlist), response->players);
 	Session->m_Server->SendRoomBroadcast(response, Session->m_Player->roomptr->RoomID, Session, true);
 }

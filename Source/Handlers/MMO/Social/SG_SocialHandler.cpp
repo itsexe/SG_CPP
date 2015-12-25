@@ -101,7 +101,7 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 		response.zoneid = Session->m_Player->zoneid;
 		response.chartype = Session->m_Player->chartype;
 		response.license = Session->m_Player->license;
-		response.level = Session->m_Player->charlevel;
+		response.level = static_cast<uint16_t>(Session->m_Player->charlevel);
 
 		Session->SendPacketStruct(&response);
 	}
