@@ -47,6 +47,7 @@ public:
 	static void CheckDailyCoins(const boost::shared_ptr<SG_ClientSession> Session);
 	static void HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_QUEST_DAY_COIN* packet);
 	static void StartMission(const boost::shared_ptr<SG_ClientSession> Session);
+	static void SendQuestList(const boost::shared_ptr<SG_ClientSession> Session);
 
 	//Scipts and Debug
 	static void UnlockDebugAccess(const boost::shared_ptr<SG_ClientSession> Session);

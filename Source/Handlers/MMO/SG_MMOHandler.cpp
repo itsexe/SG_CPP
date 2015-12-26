@@ -112,7 +112,12 @@ void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Sess
 	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response->trickcount = static_cast<uint16_t>(Session->m_Player->tricks.size());
 	response->successmessage [7] = static_cast<uint8_t>(0);
-	std::copy(std::begin(Session->m_Player->tricks), std::end(Session->m_Player->tricks),response->tricklist);
+	int i = 0;
+	for (const auto& iter : Session->m_Player->tricks)
+	{
+		response->tricklist[i] = iter;
+		i++;
+	}
 	Session->SendPacketStruct(response);
 }
 
@@ -208,7 +213,12 @@ void SG_MMOHandler::SendInventory(const boost::shared_ptr<SG_ClientSession> Sess
 	response->count = static_cast<uint16_t>(Session->m_Player->items.size());
 	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response->successmessage[7] = static_cast<uint8_t>(0);
-	std::copy(std::begin(Session->m_Player->items), std::end(Session->m_Player->items), response->items);
+	int i = 0;
+	for (const auto& iter : Session->m_Player->items)
+	{
+		response->items[i] = iter;
+		i++;
+	}
 	Session->SendPacketStruct(response);
 }
 
@@ -341,6 +351,15 @@ void SG_MMOHandler::StartMission(const boost::shared_ptr<SG_ClientSession> Sessi
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	response.missionid = 55002;
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::SendQuestList(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_QUEST_LIST_RESP response;
+	BM_SC_QUEST_LIST_RESP::initMessage<BM_SC_QUEST_LIST_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
 

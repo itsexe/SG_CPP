@@ -59,6 +59,8 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_TRICK_LIST::packetID:
 		SG_MMOHandler::SendTrickList(pSession);
 		break;
+	case BM_SC_QUEST_LIST::packetID:
+		SG_MMOHandler::SendQuestList(pSession);
 	case BM_SC_CHANNEL_LIST::packetID:
 		SG_MMOHandler::SendChannellist(pSession);
 		break;

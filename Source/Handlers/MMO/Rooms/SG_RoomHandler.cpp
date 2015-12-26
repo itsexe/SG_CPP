@@ -296,7 +296,12 @@ void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session
 	response->uk1 = 0;
 	response->uk2 = 0;
 	response->playercount = static_cast<uint16_t>(playerlist.size());
-	memcpy(response->players, playerlist.data(), playerlist.size());
+	int i = 0;
+	for (const auto& iter : playerlist)
+	{
+		response->players[i] = iter;
+		i++;
+	}
 	Session->m_Server->SendRoomBroadcast(response, Session->m_Player->roomptr->RoomID, Session, true);
 }
 
