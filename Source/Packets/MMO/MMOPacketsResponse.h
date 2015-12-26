@@ -258,6 +258,12 @@ struct BM_SC_LEAVE_INVENTORY_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2081;
 };
+struct BM_SC_QUEST_LIST_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+
+	static const uint16_t packetID = 2107;
+};
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H
