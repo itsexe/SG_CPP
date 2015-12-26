@@ -13,16 +13,17 @@
 
 MySQLConnection *SG_ClientSession::SQLConn = nullptr;
 SG_Config *SG_ClientSession::conf = nullptr;
-
+RC4Cipher cachedCipher("}h79q~B%al;k'y $E");
 
 SG_ClientSession::SG_ClientSession(boost::asio::io_service &rService, boost::asio::strand &rStrand, boost::shared_ptr<SG_ServerBase> pServer): m_Socket(rService), m_Strand(rStrand), m_Server(pServer), m_SocketTimout(rService), m_Player(boost::make_shared<SG_Client>())
 {
 	Socketstatus = false;
+	initRC4Cipher();
 }
 
 SG_ClientSession::~SG_ClientSession()
 {
-
+	initRC4Cipher();
 }
 
 // ------------------------------------------------------------------ //
@@ -129,4 +130,9 @@ void SG_ClientSession::HandleTimeout()
 	}
 
 	m_SocketTimout.async_wait(m_Strand.wrap(boost::bind(&SG_ClientSession::HandleTimeout, shared_from_this())));
+}
+
+void SG_ClientSession::initRC4Cipher()
+{
+	outputEnc = inputEnc = cachedCipher;
 }
