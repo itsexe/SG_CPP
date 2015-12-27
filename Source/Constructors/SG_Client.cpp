@@ -25,48 +25,59 @@ SG_Client::SG_Client()
 
 	//Update tricklist
 	// Basic tricks
-	tricks[0] = sg_constructor::Trickconstructor(1000,5, 1);	// Grind
-	tricks[1] = sg_constructor::Trickconstructor(1100,3, 1);	// Dash
-	tricks[2] = sg_constructor::Trickconstructor(1200,2, 1);	// Back Skating
-	tricks[3] = sg_constructor::Trickconstructor(1300,4, 1);	// Butting
-	tricks[4] = sg_constructor::Trickconstructor(1400,0, 1);	// Power Slide
-
-	// Extended stuff
-	tricks[5] = sg_constructor::Trickconstructor(1500,0, 1);	// Back Flip
-	tricks[6] = sg_constructor::Trickconstructor(1600,0, 1);	// Front Flip
-	tricks[7] = sg_constructor::Trickconstructor(1700,0, 1);	// Air Twist
-	tricks[8] = sg_constructor::Trickconstructor(1800,0, 1);	// Power Swing
-	tricks[9] = sg_constructor::Trickconstructor(1900,0, 1);	// Grip Turn
-	tricks[10] = sg_constructor::Trickconstructor(2000,0, 1);	// Jumping Steer
-	tricks[11] = sg_constructor::Trickconstructor(2100,0, 1);	// Power Jump
-	tricks[12] = sg_constructor::Trickconstructor(5000,0, 1);	// Wallride
-
+	tricks.push_back(sg_constructor::Trickconstructor(1000, 5, 1));		// Grind
+	tricks.push_back(sg_constructor::Trickconstructor(1100, 4, 1));		// Back Flip
+	tricks.push_back(sg_constructor::Trickconstructor(1200, 5, 1));		// Front Flip
+	tricks.push_back(sg_constructor::Trickconstructor(1300, 5, 1));		// Air Twist
+	tricks.push_back(sg_constructor::Trickconstructor(1400, 4, 1));		// Power Swing
+	tricks.push_back(sg_constructor::Trickconstructor(1500, 3, 1));		// Grip Turn
+	tricks.push_back(sg_constructor::Trickconstructor(1600, 3, 1));		// Dash
+	tricks.push_back(sg_constructor::Trickconstructor(1700, 3, 1));		// Back Skating
+	tricks.push_back(sg_constructor::Trickconstructor(1800, 3, 1));		// Jumping Steer
+	tricks.push_back(sg_constructor::Trickconstructor(1900, 5, 1));		// Butting
+	tricks.push_back(sg_constructor::Trickconstructor(2000, 0, 1));		// Power Slide
+	tricks.push_back(sg_constructor::Trickconstructor(2200, 3, 1));		// Power Jump
+	tricks.push_back(sg_constructor::Trickconstructor(5000, 4, 1));		// Wall Ride
+	
 	for (auto i = 55001; i <= 55045; ++i)
 	{
 		missions.push_back(i);
 	}
-	/*items.push_back(Item(1, 2075, 0, 10, 0, 0, 0));
-	items.push_back(Item(2, 2042, 0, 10, 0, 0, 0));
-	items.push_back(Item(3, 1079, 0, 10, 0, 0, 0));
-	items.push_back(Item(4, 1070, 0, 10, 0, 0, 0));
-	items.push_back(Item(5, 2541, 0, 10, 0, 0, 0));*/
+	items.push_back(sg_constructor::Item(1, 2075, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(2, 2042, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(3, 1079, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(4, 1070, 0, 10, 0, 0, 0));
+	items.push_back(sg_constructor::Item(5, 2541, 0, 10, 0, 0, 0));
 	//Set current Time as last KeepAlive
 
-	head = 1067;
+	//head = 1067;
+	//face = 0;
+	//upper = 2160;
+	//lower = 3140;
+	//foot = 3569;
+	//hand = 2582;
+	//google = 4557;
+	//accesoire = 4055;
+	//theme = 0;
+	//mantle = 0;
+	//buckle = 0;
+	//vent = 0;
+	//nitro = 0;
+	//wheels = 0;
+	head = 0;
 	face = 0;
-	upper = 2160;
-	lower = 3140;
-	foot = 3569;
-	hand = 2582;
-	google = 4557;
-	accesoire = 4055;
+	upper = 0;
+	lower = 0;
+	foot = 0;
+	hand = 0;
+	google = 0;
+	accesoire = 0;
 	theme = 0;
 	mantle = 0;
 	buckle = 0;
 	vent = 0;
 	nitro = 0;
 	wheels = 0;
-
 	UpdateLastKeepAlive();
 }
 

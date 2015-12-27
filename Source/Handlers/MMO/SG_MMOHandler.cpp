@@ -102,16 +102,13 @@ void SG_MMOHandler::SelectChar(const boost::shared_ptr<SG_ClientSession> Session
 
 void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Session)
 {
-	BM_SC_TRICK_LIST_RESP response;
-	BM_SC_TRICK_LIST_RESP::initMessage<BM_SC_TRICK_LIST_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
-	response.successmessage[7] = static_cast<uint8_t>(0);
-
-	response.trickcount = 13;
-	std::copy(std::begin(Session->m_Player->tricks), std::end(Session->m_Player->tricks), std::begin(response.tricklist));
-
-	BM_SC_TRICK_LIST_RESP::recalcheader<BM_SC_TRICK_LIST_RESP>(&response);
-	Session->SendPacketStruct(&response);
+	BM_SC_TRICK_LIST_RESP *response;
+	response = TS_MESSAGE_WNA::create<BM_SC_TRICK_LIST_RESP, sg_constructor::Trickconstructor>(Session->m_Player->tricks.size());
+	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response->trickcount = static_cast<uint16_t>(Session->m_Player->tricks.size());
+	response->successmessage [7] = static_cast<uint8_t>(0);
+	std::copy(std::begin(Session->m_Player->tricks), std::end(Session->m_Player->tricks),response->tricklist);
+	Session->SendPacketStruct(response);
 }
 
 void SG_MMOHandler::SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Session)
@@ -156,7 +153,7 @@ void SG_MMOHandler::SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Ses
 	response.count1 = 2;
 	response.count2 = 1;
 	response.count3 = 2;
-
+	response.count4 = 3;
 
 
 	//Playerstuff
@@ -201,18 +198,13 @@ void SG_MMOHandler::SendLevelInfo(const boost::shared_ptr<SG_ClientSession> Sess
 
 void SG_MMOHandler::SendInventory(const boost::shared_ptr<SG_ClientSession> Session)
 {
-	BM_SC_INVENTORY_RESP response;
-	BM_SC_INVENTORY_RESP::initMessage<BM_SC_INVENTORY_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
-	response.successmessage[7] = static_cast<uint8_t>(0);
-	
-	response.count = static_cast<uint16_t>(Session->m_Player->items.size());
-	/*for (const auto &iter : Session->m_Player->items)
-	{
-		response.items.push_back(iter);
-	}*/
-	BM_SC_INVENTORY_RESP::recalcheader<BM_SC_INVENTORY_RESP>(&response);
-	Session->SendPacketStruct(&response);
+	BM_SC_INVENTORY_RESP *response;
+	response = TS_MESSAGE_WNA::create<BM_SC_INVENTORY_RESP, sg_constructor::Item>(Session->m_Player->items.size());
+	response->count = Session->m_Player->items.size();
+	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response->successmessage[7] = static_cast<uint8_t>(0);
+	std::copy(std::begin(Session->m_Player->items), std::end(Session->m_Player->items), response->items);
+	Session->SendPacketStruct(response);
 }
 
 void SG_MMOHandler::SendChannellist(const boost::shared_ptr<SG_ClientSession> Session)

@@ -49,7 +49,7 @@ public:
 
 
 	std::vector<uint64_t> missions;
-	sg_constructor::Trickconstructor tricks[13];
+	std::vector<sg_constructor::Trickconstructor> tricks;
 	std::vector<sg_constructor::Item> items;
 
 	uint32_t gpotatos;
@@ -77,6 +77,7 @@ public:
 	//Rooms_internal
 	bool IsInRoom;
 	bool IsReady;
+	uint8_t RoomPosition;
 	boost::shared_ptr<sg_constructor::Room> roomptr;
 
 private:

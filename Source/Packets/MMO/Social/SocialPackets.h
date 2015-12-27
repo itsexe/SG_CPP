@@ -1,4 +1,9 @@
-#pragma once
+#ifndef PACKETS_SOCIAL
+#define PACKETS_SOCIAL
+#include <cstdint>
+#include "Packets/PacketBaseMessage.h"
+
+#pragma pack(push, 1)
 #include <Packets/PacketBaseMessage.h>
 
 struct MM_SC_MSN : public TS_MESSAGE
@@ -25,3 +30,4 @@ struct BM_SC_CHAT_MESSAGE : public TS_MESSAGE
 	char msg[70];
 	static const uint16_t packetID = 2206;
 };
+#endif

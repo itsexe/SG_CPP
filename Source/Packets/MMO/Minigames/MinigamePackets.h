@@ -1,6 +1,9 @@
-#pragma once
-#include <Packets/PacketBaseMessage.h>
+#ifndef PACKETS_MINIGAMES
+#define PACKETS_MINIGAMES
+#include <cstdint>
+#include "Packets/PacketBaseMessage.h"
 
+#pragma pack(push, 1)
 struct BM_SC_MMO_OX_ENTER : public TS_MESSAGE
 {
 	static const uint16_t packetID = 2030;
@@ -23,3 +26,4 @@ struct BM_SC_MINIGAME_FINISH : public TS_MESSAGE
 	char gameid[30];
 	static const uint16_t packetID = 2050;
 };
+#endif
