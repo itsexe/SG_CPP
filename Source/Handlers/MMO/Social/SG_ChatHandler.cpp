@@ -25,6 +25,7 @@ void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession>
 
 void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
 {
+
 	std::string msg(packet->msg, packet->messagelength);
 	if (msg == ";flushrooms")
 	{
@@ -40,8 +41,38 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 
 		BM_SC_ENTER_ROOM pack;
 		BM_SC_ENTER_ROOM::initMessage<BM_SC_ENTER_ROOM>(&pack);
-		SG_RoomHandler::RoomEnter(Session,&pack, &Session->m_Server->Rooms_internal);
+		SG_RoomHandler::RoomEnter(Session, &pack, &Session->m_Server->Rooms_internal);
 	}
-
+	if (msg == ";disconnect")
+	{
+		Session->DisconnectClient();
+	}
+	if (strncmp(";setrank", msg.c_str(), strlen(";setrank") - 1) == 0)
+	{
+		msg = msg.substr(9);
+		std::cout << "Set Rank from " << Session->m_Player->charname << "[" << Session->m_Player->playerid << "] to " << msg.c_str() << std::endl;
+		Session->m_Player->rank = atoi(msg.c_str());
+		Session->m_Server->SaveChar(Session);
+	}
+	if (strncmp(";setrupees", msg.c_str(), strlen(";setrupees") - 1) == 0)
+	{
+		msg = msg.substr(11);
+		std::cout << "Set Rupees from " << Session->m_Player->charname << "[" << Session->m_Player->playerid << "] to " << msg.c_str() << std::endl;
+		Session->m_Player->rupees = atoi(msg.c_str());
+		Session->m_Server->SaveChar(Session);
+	}
+	if (strncmp(";setcoins", msg.c_str(), strlen(";setcoins") - 1) == 0)
+	{
+		msg = msg.substr(10);
+		std::cout << "Set Coins from " << Session->m_Player->charname << "[" << Session->m_Player->playerid << "] to " << msg.c_str() << std::endl;
+		Session->m_Player->coins = atoi(msg.c_str());
+		Session->m_Server->SaveChar(Session);
+	}
+	if (strncmp(";setname", msg.c_str(), strlen(";setname") - 1) == 0)
+	{
+		msg = msg.substr(9);
+		std::cout << "Set Name from " << Session->m_Player->charname << "[" << Session->m_Player->playerid << "] to " << msg.c_str() << std::endl;
+		Session->m_Player->charname = msg.c_str();
+		Session->m_Server->SaveChar(Session);
+	}
 }
-
