@@ -83,5 +83,5 @@ SG_Client::SG_Client()
 
 void SG_Client::UpdateLastKeepAlive()
 {
-	LastKeepAlive = time_t(0);
+	LastKeepAlive = std::time(nullptr);
 }

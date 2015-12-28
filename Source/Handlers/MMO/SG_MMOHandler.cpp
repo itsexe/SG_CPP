@@ -18,7 +18,7 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	{
 		Session->m_Player->playerid = accqry.getInt(1, "id");
 		//Get Chars
-		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins from Chars where AccountID =  ?;");
+		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins, age, zoneid, zoneinfo, bio from Chars where AccountID =  ?;");
 		qry.setInt(1, Session->m_Player->playerid);
 		qry.ExecuteQuery();
 		if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
@@ -34,6 +34,11 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 			Session->m_Player->license = qry.getInt(1, "License");
 			Session->m_Player->questpoints = qry.getInt(1, "Questpoints");
 			Session->m_Player->LastBonusCoin = qry.getTime(1, "LastDailyCoins");
+			Session->m_Player->age = qry.getInt(1, "age");
+			Session->m_Player->zoneid = qry.getInt(1, "zoneid");
+			Session->m_Player->zoneinfo = qry.getString(1, "zoneinfo");
+			Session->m_Player->biostr = qry.getString(1, "bio");
+			Session->m_Player->charid = qry.getInt(1, "id");
 			Session->m_Player->charcreated = 1;
 		}
 		else
@@ -107,7 +112,12 @@ void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Sess
 	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response->trickcount = static_cast<uint16_t>(Session->m_Player->tricks.size());
 	response->successmessage [7] = static_cast<uint8_t>(0);
-	std::copy(std::begin(Session->m_Player->tricks), std::end(Session->m_Player->tricks),response->tricklist);
+	int i = 0;
+	for (const auto& iter : Session->m_Player->tricks)
+	{
+		response->tricklist[i] = iter;
+		i++;
+	}
 	Session->SendPacketStruct(response);
 }
 
@@ -200,10 +210,15 @@ void SG_MMOHandler::SendInventory(const boost::shared_ptr<SG_ClientSession> Sess
 {
 	BM_SC_INVENTORY_RESP *response;
 	response = TS_MESSAGE_WNA::create<BM_SC_INVENTORY_RESP, sg_constructor::Item>(Session->m_Player->items.size());
-	response->count = Session->m_Player->items.size();
+	response->count = static_cast<uint16_t>(Session->m_Player->items.size());
 	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response->successmessage[7] = static_cast<uint8_t>(0);
-	std::copy(std::begin(Session->m_Player->items), std::end(Session->m_Player->items), response->items);
+	int i = 0;
+	for (const auto& iter : Session->m_Player->items)
+	{
+		response->items[i] = iter;
+		i++;
+	}
 	Session->SendPacketStruct(response);
 }
 
@@ -325,7 +340,7 @@ void SG_MMOHandler::HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> S
 	SendBalanceInfo(Session);
 	SendCashBalanceInfo(Session);
 
-	Session->m_Player->LastBonusCoin = time_t(0);
+	Session->m_Player->LastBonusCoin = std::time(nullptr);
 	Session->m_Server->SaveChar(Session);
 }
 
@@ -336,6 +351,15 @@ void SG_MMOHandler::StartMission(const boost::shared_ptr<SG_ClientSession> Sessi
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	response.missionid = 55002;
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::SendQuestList(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_QUEST_LIST_RESP response;
+	BM_SC_QUEST_LIST_RESP::initMessage<BM_SC_QUEST_LIST_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
 
@@ -352,6 +376,26 @@ void SG_MMOHandler::RunClientSideScript(const boost::shared_ptr<SG_ClientSession
 {
 	BM_SC_RUN_CLIENT_SIDE_SCRIPT response;
 	BM_SC_RUN_CLIENT_SIDE_SCRIPT::initMessage<BM_SC_RUN_CLIENT_SIDE_SCRIPT>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::EnterInventory(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	//TODO: Despawn player (maybe)
+	BM_SC_ENTER_INVENTORY_RESP response;
+	BM_SC_ENTER_INVENTORY_RESP::initMessage<BM_SC_ENTER_INVENTORY_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::LeaveInventory(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	//TODO: Respawn player (maybe)
+	BM_SC_LEAVE_INVENTORY_RESP response;
+	BM_SC_LEAVE_INVENTORY_RESP::initMessage<BM_SC_LEAVE_INVENTORY_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);

@@ -1,6 +1,5 @@
 #include "SG_SocialHandler.h"
 #include <Packets/MMO/Social/SocialPacketsResponse.h>
-#include "Networking/General/SG_ServerBase.h"
 
 void SG_SocialHandler::HandleMSN(const boost::shared_ptr<SG_ClientSession> Session)
 {
@@ -69,13 +68,13 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 		response.successmessage[7] = static_cast<uint8_t>(0);
 
 		// TODO
-		// Clean this shit up. I'm currently to tired for this.
-
+		// We have to load the char with the name from the packet from the database or something, but i'm currently to tired for this crap.
+		// I will just load the data of the current logged in player; should be okay for now.
 		strcpy_s(response.clanname, static_cast<std::string>("Testclan <3").c_str());
 		strcpy_s(response.clantag, static_cast<std::string>("TES").c_str());
-		strcpy_s(response.charname, Session->m_Player->charname.c_str());
-		strcpy_s(response.zoneinfo, Session->m_Player->zoneinfo.c_str());
-		strcpy_s(response.biostr, Session->m_Player->biostr.c_str());
+		strcpy_s(response.charname, static_cast<std::string>(Session->m_Player->charname).c_str());
+		strcpy_s(response.zoneinfo, static_cast<std::string>("").c_str());
+		strcpy_s(response.biostr, static_cast<std::string>("").c_str());
 
 
 
@@ -88,40 +87,20 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 		{
 			response.charname[i] = static_cast<uint8_t>(0);
 		}
-		for (auto i = Session->m_Player->zoneinfo.length(); i != 121; ++i)
+		for (auto i = 0; i != 121; ++i)
 		{
 			response.zoneinfo[i] = static_cast<uint8_t>(0);
 		}
-		for (auto i = Session->m_Player->biostr.length(); i != 218; ++i)
+		for (auto i = 0; i != 218; ++i)
 		{
 			response.biostr[i] = static_cast<uint8_t>(0);
 		}
 
-		response.age = Session->m_Player->age;
-		response.zoneid = Session->m_Player->zoneid;
+		response.zoneid = 1;
 		response.chartype = Session->m_Player->chartype;
 		response.license = Session->m_Player->license;
-		response.level = static_cast<uint16_t>(Session->m_Player->charlevel);
+		response.level = Session->m_Player->charlevel;
 
 		Session->SendPacketStruct(&response);
 	}
-}
-void SG_SocialHandler::UpdateMateInfo(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_UPDATE_MYMATEINFO* packet)
-{
-	Session->m_Player->age = packet->age;
-	Session->m_Player->zoneid = packet->zoneid;
-	Session->m_Player->zoneinfo = std::string(packet->zoneinfo);
-	Session->m_Player->biostr = std::string(packet->biostr);
-	Session->m_Player->gender = packet->gender;
-	Session->m_Player->isprivate = packet->isprivate;
-	Session->m_Server->SaveChar(Session);
-
-	//Todo: Maybe send this to mates
-
-	BM_SC_UPDATE_MYMATEINFO_RESP response;
-	BM_SC_UPDATE_MYMATEINFO_RESP::initMessage<BM_SC_UPDATE_MYMATEINFO_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
-	response.successmessage[7] = static_cast<uint8_t>(0);
-	Session->SendPacketStruct(&response);
-
 }

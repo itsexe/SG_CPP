@@ -12,9 +12,13 @@
 
 int main(int argc, char *argv[])
 {
+	std::string confpath = "SG_Config.ini";
 	if (argc < 2) {
-		std::cerr << "Usage: " << argv[0] << " <Config path>" << std::endl;
-		return 1;
+		//std::cerr << "Usage: " << argv[0] << " <Config path>" << std::endl;
+		//return 1;
+	}else
+	{
+		confpath = argv[1];
 	}
 	int option;
 	std::cout << "Please select the Server" << std::endl;
@@ -36,6 +40,7 @@ int main(int argc, char *argv[])
 		std::cin >> option;
 	}
 	std::system("cls"); // For Windows
+	std::system("title Street Gears Emulator 1.0.1");
 #else
 	std::system("clear"); //For Linux, Mac, Whatever
 #endif
@@ -46,7 +51,7 @@ int main(int argc, char *argv[])
 	boost::shared_ptr<SG_RelayServer> pRelay(new SG_RelayServer());
 	boost::shared_ptr<MySQLConnection> pDatabase(new MySQLConnection());
 	boost::shared_ptr<SG_Config> conf(new SG_Config());
-	conf->init(argv[1]);
+	conf->init(confpath);
 	pDatabase->Connect(conf->host, conf->port, conf->DBUser, conf->DBPass, conf->DBName);
 	SG_ClientSession::SQLConn = pDatabase.get();
 	SG_ClientSession::conf = conf.get();

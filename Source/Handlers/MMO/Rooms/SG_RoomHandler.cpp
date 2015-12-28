@@ -27,7 +27,12 @@ void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sess
 	BM_SC_GET_ROOMLIST_RESP *response;
 	response = TS_MESSAGE_WNA::create<BM_SC_GET_ROOMLIST_RESP, sg_constructor::rooms_packet>(Session->m_Server->Rooms_internal.size());
 	response->roomcount = static_cast<uint16_t>(rooms.size());
-	std::copy(std::begin(rooms), std::end(rooms), response->rooms);
+	int i = 0;
+	for (const auto& iter : rooms)
+	{
+		response->rooms[i] = iter;
+		i++;
+	}
 	Session->SendPacketStruct(response);
 }
 
@@ -290,8 +295,13 @@ void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session
 	response->encryptionkey[15] = static_cast<uint8_t>(0);
 	response->uk1 = 0;
 	response->uk2 = 0;
-	response->playercount = playerlist.size();
-	std::copy(std::begin(playerlist), std::end(playerlist), response->players);
+	response->playercount = static_cast<uint16_t>(playerlist.size());
+	int i = 0;
+	for (const auto& iter : playerlist)
+	{
+		response->players[i] = iter;
+		i++;
+	}
 	Session->m_Server->SendRoomBroadcast(response, Session->m_Player->roomptr->RoomID, Session, true);
 }
 

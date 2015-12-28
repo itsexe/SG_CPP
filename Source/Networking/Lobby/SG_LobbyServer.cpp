@@ -17,6 +17,8 @@ bool SG_LobbyServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> 
 {
 	switch (packet->id)
 	{
+	case 1:
+		break;
 	default:
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
 	}

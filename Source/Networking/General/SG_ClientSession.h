@@ -11,6 +11,7 @@
 #include "Packets/PacketBaseMessage.h"
 #include "Tools/Database/Database.h"
 #include "SG_Config.h"
+#include <Tools/Encryption/RC4Cipher.h>
 
 /*++
 Class for handling client sessions.
@@ -46,9 +47,13 @@ private:
 
 	void HandleTimeout();
 
+	void initRC4Cipher();
+
 	boost::asio::ip::tcp::socket m_Socket;
 	boost::asio::strand &m_Strand;
 	boost::asio::deadline_timer m_SocketTimout;
 	bool Socketstatus;
+	RC4Cipher cachedCipher;
+	RC4Cipher inputEnc, outputEnc;
 };
 #endif

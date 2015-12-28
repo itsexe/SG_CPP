@@ -30,4 +30,25 @@ struct BM_SC_CHAT_MESSAGE : public TS_MESSAGE
 	char msg[70];
 	static const uint16_t packetID = 2206;
 };
+struct BM_SC_CLAN_CREATION : public TS_MESSAGE
+{
+	char clanname[43];
+	static const uint16_t packetID = 2344;
+};
+struct BM_SC_MATE_INFO : public TS_MESSAGE
+{
+	uint32_t uk1;
+	char charname[43];
+	static const uint16_t packetID = 2335;
+};
+struct BM_SC_UPDATE_MYMATEINFO : public TS_MESSAGE
+{
+	uint8_t age;
+	uint32_t zoneid;
+	char zoneinfo[121];
+	char biostr[151];
+	uint8_t isprivate; // 1 = private; 0 = public
+	uint8_t gender; // 1 = Male; 2 = Female
+	static const uint16_t packetID = 2262;
+};
 #endif
