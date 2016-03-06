@@ -4,6 +4,7 @@
 #include "Tools/SG_Logger.h"
 #include "Handlers/Auth/SG_AuthHandler.h"
 #include "Packets/Auth/LoginPackets.h"
+#include <Tools/SG_DataConverter.h>
 
 bool SG_AuthServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
@@ -36,7 +37,9 @@ bool SG_AuthServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> p
 		SG_AuthHandler::SelectServer(pSession, static_cast<const TS_CA_SELECT_SERVER*>(packet));
 		break;
 	default:
-		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
+		std::stringstream ss;
+		SG_DataConverter::BytebufferToString(reinterpret_cast<uint8_t*>(&packet), packet->size, ss);
+		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "] Content[" + ss.str() + "]",SG_Logger::kLogLevelPacket);
 	}
 	return true;
 }

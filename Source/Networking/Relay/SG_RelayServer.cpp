@@ -3,6 +3,7 @@
 #include "Tools/SG_Logger.h"
 #include "Packets/Relay/RelayPackets.h"
 #include "Handlers/Relay/SG_RelayHandler.h"
+#include <Tools/SG_DataConverter.h>
 
 bool SG_RelayServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
@@ -39,7 +40,9 @@ bool SG_RelayServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> 
 		SG_RelayHandler::handleplayerinfo(pSession, static_cast<const Playerinfo*>(packet));
 		break;
 	default:
-		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
+		std::stringstream ss;
+		SG_DataConverter::BytebufferToString(reinterpret_cast<uint8_t*>(&packet), packet->size, ss);
+		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "] Content[" + ss.str() + "]", SG_Logger::kLogLevelPacket);
 	}
 
 	return true;
