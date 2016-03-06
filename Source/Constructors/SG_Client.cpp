@@ -7,7 +7,7 @@
 
 SG_Client::SG_Client()
 {
-	strChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	strChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1023456789";
 	playerid = 0;
 	charcreated = 0;
 	chartype = 0;
