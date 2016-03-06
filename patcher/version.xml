@@ -1,0 +1,9 @@
+<SGINFO>
+	<Maintenance>0</Maintenance>
+	<MaintenanceMSG>Serverwartung. Hier irgendwas einfügen...</MaintenanceMSG>
+	<LatestVersion>1</LatestVersion>
+	<Patchlist>http://192.168.0.119/Patch/List.txt</Patchlist>
+	<PatchRoot>http://192.168.0.119/Patch/PatchRoot/</PatchRoot>
+	<AuthIP>127.0.0.1</AuthIP>
+	<AuthPort>1337</AuthPort>
+</SGINFO>

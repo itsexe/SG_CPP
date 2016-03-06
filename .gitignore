@@ -38,3 +38,5 @@ Source/SG_Auth.sln
 *.vcxproj
 *.txt
 Debug Library/Debug/DebugLib.ilk
+*.suo
+*.opendb
