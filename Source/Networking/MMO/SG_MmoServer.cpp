@@ -16,13 +16,36 @@
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
-	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] connected from: " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelMMO);
-	return true;
+
+	for (INT temp : idConnected)
+	{
+		if(temp == pSession->m_Player->playerid)
+		{
+			// User already connected
+			SG_Logger::instance().log("User already connected. Denying connection.", SG_Logger::kLogLevelMMO);
+			pSession->DisconnectClient();
+			return false;
+		}
+		else
+		{
+			// Connect player
+			SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] connected from: " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelMMO);
+			idConnected.push_back(pSession->m_Player->playerid);
+			return true;
+		}
+	}
 }
 
 void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
 {
 	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] disconnected!", SG_Logger::kLogLevelMMO);
+	for (int i = 0;i < idConnected.size();i++)
+	{
+		if(idConnected[i] == pSession->m_Player->playerid)
+		{
+			idConnected.erase(idConnected.begin()+i);
+		}
+	}
 }
 
 bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pSession, const TS_MESSAGE* packet)
