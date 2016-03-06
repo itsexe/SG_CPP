@@ -17,7 +17,7 @@
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
 
-	for (INT temp : idConnected)
+	for (int temp : idConnected)
 	{
 		if(temp == pSession->m_Player->playerid)
 		{
