@@ -107,18 +107,55 @@ void SG_MMOHandler::SelectChar(const boost::shared_ptr<SG_ClientSession> Session
 
 void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Session)
 {
-	BM_SC_TRICK_LIST_RESP *response;
-	response = TS_MESSAGE_WNA::create<BM_SC_TRICK_LIST_RESP, sg_constructor::Trickconstructor>(Session->m_Player->tricks.size());
-	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
-	response->trickcount = static_cast<uint16_t>(Session->m_Player->tricks.size());
-	response->successmessage [7] = static_cast<uint8_t>(0);
-	int i = 0;
-	for (const auto& iter : Session->m_Player->tricks)
-	{
-		response->tricklist[i] = iter;
-		i++;
-	}
-	Session->SendPacketStruct(response);
+	BM_SC_TRICK_LIST_RESP response;
+	BM_SC_TRICK_LIST_RESP::initMessage<BM_SC_TRICK_LIST_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.trickcount = 13;
+	response.successmessage [7] = static_cast<uint8_t>(0);
+
+	response.TrickIDGrind = 1000;
+	response.TrickIDBackFlip = 1100;
+	response.TrickIDFrontFlip = 1200;
+	response.TrickIDAirTwist = 1300;
+	response.TrickIDPowerSwing = 1400;
+	response.TrickIDGripTurn = 1500;
+	response.TrickIDDash = 1600;
+	response.TrickIDBackSkating = 1700;
+	response.TrickIDJumpingSteer = 1800;
+	response.TrickIDButting = 1900;
+	response.TrickIDPowerSlide = 2000;
+	response.TrickIDPowerJump = 2200;
+	response.TrickIDWallRide = 5000;
+
+	response.ApplyTrickGrind = 1;
+	response.ApplyTrickBackFlip = 1;
+	response.ApplyTrickFrontFlip = 1;
+	response.ApplyTrickAirTwist = 1;
+	response.ApplyTrickPowerSwing = 1;
+	response.ApplyTrickGripTurn = 1;
+	response.ApplyTrickDash = 1;
+	response.ApplyTrickBackSkating = 1;
+	response.ApplyTrickJumpingSteer = 1;
+	response.ApplyTrickButting = 1;
+	response.ApplyTrickPowerSlide = 1;
+	response.ApplyTrickPowerJump = 1;
+	response.ApplyTrickWallRide = 1;
+
+	response.TricklvlGrind = 1;
+	response.TricklvlBackFlip = 1;
+	response.TricklvlFrontFlip = 1;
+	response.TricklvlAirTwist = 1;
+	response.TricklvlPowerSwing = 1;
+	response.TricklvlGripTurn = 1;
+	response.TricklvlDash = 1;
+	response.TricklvlBackSkating = 1;
+	response.TricklvlJumpingSteer = 1;
+	response.TricklvlButting = 1;
+	response.TricklvlPowerSlide = 1;
+	response.TricklvlPowerJump = 1;
+	response.TricklvlWallRide = 1;
+
+	Session->SendPacketStruct(&response);
 }
 
 void SG_MMOHandler::SendPlayerInfo(const boost::shared_ptr<SG_ClientSession> Session)
@@ -404,6 +441,15 @@ void SG_MMOHandler::LeaveInventory(const boost::shared_ptr<SG_ClientSession> Ses
 	//TODO: Respawn player (maybe)
 	BM_SC_LEAVE_INVENTORY_RESP response;
 	BM_SC_LEAVE_INVENTORY_RESP::initMessage<BM_SC_LEAVE_INVENTORY_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::SendPlayerDisguise(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_PLAYER_DISGUISE_RESP response;
+	BM_SC_PLAYER_DISGUISE_RESP::initMessage<BM_SC_PLAYER_DISGUISE_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);

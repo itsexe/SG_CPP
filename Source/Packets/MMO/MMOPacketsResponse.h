@@ -108,14 +108,67 @@ struct BM_SC_PLAYER_INFO_RESP : public TS_MESSAGE
 
 	static const uint16_t packetID = 2314;
 };
-struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE_WNA
+struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
 	uint64_t uk1;
 	uint64_t uk2;
 	uint8_t uk3;
 	uint16_t trickcount; //13	ad
-	sg_constructor::Trickconstructor tricklist[0];
+	//sg_constructor::Trickconstructor tricklist[13];
+
+	uint32_t TrickIDGrind;
+	uint32_t TricklvlGrind;
+	uint8_t ApplyTrickGrind;
+
+	uint32_t TrickIDBackFlip;
+	uint32_t TricklvlBackFlip;
+	uint8_t ApplyTrickBackFlip;
+
+	uint32_t TrickIDFrontFlip;
+	uint32_t TricklvlFrontFlip;
+	uint8_t ApplyTrickFrontFlip;
+
+	uint32_t TrickIDAirTwist;
+	uint32_t TricklvlAirTwist;
+	uint8_t ApplyTrickAirTwist;
+
+	uint32_t TrickIDPowerSwing;
+	uint32_t TricklvlPowerSwing;
+	uint8_t ApplyTrickPowerSwing;
+
+	uint32_t TrickIDGripTurn;
+	uint32_t TricklvlGripTurn;
+	uint8_t ApplyTrickGripTurn;
+
+	uint32_t TrickIDDash;
+	uint32_t TricklvlDash;
+	uint8_t ApplyTrickDash;
+
+	uint32_t TrickIDBackSkating;
+	uint32_t TricklvlBackSkating;
+	uint8_t ApplyTrickBackSkating;
+
+	uint32_t TrickIDJumpingSteer;
+	uint32_t TricklvlJumpingSteer;
+	uint8_t ApplyTrickJumpingSteer;
+
+	uint32_t TrickIDButting;
+	uint32_t TricklvlButting;
+	uint8_t ApplyTrickButting;
+
+	uint32_t TrickIDPowerSlide;
+	uint32_t TricklvlPowerSlide;
+	uint8_t ApplyTrickPowerSlide;
+
+	uint32_t TrickIDPowerJump;
+	uint32_t TricklvlPowerJump;
+	uint8_t ApplyTrickPowerJump;
+
+	uint32_t TrickIDWallRide;
+	uint32_t TricklvlWallRide;
+	uint8_t ApplyTrickWallRide;
+
 
 	static const uint16_t packetID = 2105;
 };
@@ -263,6 +316,12 @@ struct BM_SC_QUEST_LIST_RESP : public TS_MESSAGE
 	char successmessage[8];
 
 	static const uint16_t packetID = 2107;
+};
+struct BM_SC_PLAYER_DISGUISE_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+
+	static const uint16_t packetID = 2341;
 };
 #pragma pack(pop)
 

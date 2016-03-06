@@ -11,6 +11,7 @@
 #include <Handlers/MMO/Social/SG_ChatHandler.h>
 #include <Handlers/MMO/Minigames/OX/SG_QuizHandler.h>
 #include <Handlers/MMO/Minigames/SG_MinigameHandler.h>
+#include <Tools/SG_DataConverter.h>
 
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
@@ -61,6 +62,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		break;
 	case BM_SC_QUEST_LIST::packetID:
 		SG_MMOHandler::SendQuestList(pSession);
+		break;
 	case BM_SC_CHANNEL_LIST::packetID:
 		SG_MMOHandler::SendChannellist(pSession);
 		break;
@@ -181,9 +183,13 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	case BM_SC_UNKNOWN_INFO::packetID:
 		SG_RoomHandler::HandleUnknownInfo(pSession, static_cast<const BM_SC_UNKNOWN_INFO*>(packet));
 		break;
+	case BM_SC_PLAYER_DISGUISE::packetID:
+		SG_MMOHandler::SendPlayerDisguise(pSession);
+		break;
 	default:
-		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]",SG_Logger::kLogLevelPacket);
-	}
+		std::stringstream ss;
+		SG_DataConverter::BytebufferToString(reinterpret_cast<uint8_t*>(&packet), packet->size, ss);
+		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "] Content[" + ss.str() + "]", SG_Logger::kLogLevelPacket);	}
 
 	return true;
 }

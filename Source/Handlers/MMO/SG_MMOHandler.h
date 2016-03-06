@@ -19,7 +19,6 @@ public:
 	//Gameinfo
 	static void SendLevelInfo(const boost::shared_ptr<SG_ClientSession> Session);
 
-
 	//Charlist
 	static void SendCharList(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAR_LIST* packet);
 	static void SelectChar(const boost::shared_ptr<SG_ClientSession> Session);
@@ -56,6 +55,10 @@ public:
 
 	static void EnterInventory(const boost::shared_ptr<SG_ClientSession> Session);
 	static void LeaveInventory(const boost::shared_ptr<SG_ClientSession> Session);
+
+
+	//UK
+	static void SendPlayerDisguise(const boost::shared_ptr<SG_ClientSession> Session);
 
 };
 
