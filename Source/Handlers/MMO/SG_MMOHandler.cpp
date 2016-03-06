@@ -325,6 +325,14 @@ void SG_MMOHandler::CheckDailyCoins(const boost::shared_ptr<SG_ClientSession> Se
 		response.message[16] = static_cast<uint8_t>(0);
 		Session->SendPacketStruct(&response);
 	}
+	else if (Session->m_Player->coins > 949)
+	{
+		BM_SC_QUEST_DAY_COIN2_RESP response;
+		BM_SC_QUEST_DAY_COIN2_RESP::initMessage<BM_SC_QUEST_DAY_COIN2_RESP>(&response);
+		strcpy_s(response.message, static_cast<std::string>("HAVE_MAX_COIN").c_str());
+		response.message[16] = static_cast<uint8_t>(0);
+		Session->SendPacketStruct(&response);
+	}
 }
 
 void SG_MMOHandler::HandleDailyCoins(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_QUEST_DAY_COIN* packet)
