@@ -19,23 +19,14 @@ bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> p
 
 	for (int temp : idConnected)
 	{
-		if(temp == pSession->m_Player->playerid)
-		{
-			// User already connected
-			SG_Logger::instance().log("User already connected. Denying connection.", SG_Logger::kLogLevelMMO);
-			pSession->DisconnectClient();
-			return false;
-		}
-		else
-		{
 			// Connect player
 			SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] connected from: " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelMMO);
-			idConnected.push_back(pSession->m_Player->playerid);
+			//idConnected.push_back(pSession->m_Player->playerid);
 			return true;
-		}
 	}
 }
 
+// TODO : WHY IS THIS THING PROC'D 2 TIMES WHEN DC ?? (the second is more or less 30s / 1min later)
 void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
 {
 	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] disconnected!", SG_Logger::kLogLevelMMO);
@@ -43,13 +34,25 @@ void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> 
 	{
 		if(idConnected[i] == pSession->m_Player->playerid)
 		{
-			idConnected.erase(idConnected.begin()+i);
+			if (nbConnected[i] == 2)
+			{
+				//std::cout << "remove first connection" << std::endl;
+				nbConnected[i] = 1;
+			}
+			else
+			{
+				std::cout << "remove second connection" << std::endl;
+				idConnected.erase(idConnected.begin() + i);
+				nbConnected.erase(nbConnected.begin() + i);
+			}
 		}
 	}
 }
 
 bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pSession, const TS_MESSAGE* packet)
 {
+	bool alreadyExists = false;
+
 	switch (packet->id)
 	{
 	case XX_SC_KEEP_ALIVE::packetID:
@@ -76,6 +79,25 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		//Sometimes the client wont request this data, so we send it after the char selection without a request.
 		SG_MMOHandler::SendPlayerInfo(pSession);
 		SG_MMOHandler::SendTrickList(pSession);
+
+		
+		for(auto temp : SG_MmoServer::idConnected)
+		{
+			if(temp == pSession->m_Player->playerid)
+			{
+				// User already connected
+				SG_Logger::instance().log("User already connected. Denying connection.", SG_Logger::kLogLevelMMO);
+				pSession->DisconnectClient();
+			}
+			alreadyExists = true;
+		}
+
+		if(!alreadyExists)
+		{
+			SG_MmoServer::idConnected.push_back(pSession->m_Player->playerid);
+			SG_MmoServer::nbConnected.push_back(2);
+		}
+
 		break;
 	case BM_SC_PLAYER_INFO::packetID:
 		SG_MMOHandler::SendPlayerInfo(pSession);
