@@ -16,13 +16,10 @@
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
-		// Connect player
 		SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] connected from: " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelMMO);
-		//idConnected.push_back(pSession->m_Player->playerid);
 		return true;
 }
 
-// TODO : WHY IS THIS THING PROC'D 2 TIMES WHEN DC ?? (the second is more or less 30s / 1min later)
 void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
 {
 	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] disconnected!", SG_Logger::kLogLevelMMO);
@@ -32,12 +29,10 @@ void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> 
 		{
 			if (nbConnected[i] == 2)
 			{
-				// std::cout << "remove first connection" << std::endl;
 				nbConnected[i] = 1;
 			}
 			else
 			{
-				// std::cout << "remove second connection" << std::endl;
 				idConnected.erase(idConnected.begin() + i);
 				nbConnected.erase(nbConnected.begin() + i);
 			}
