@@ -16,17 +16,34 @@
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
-	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] connected from: " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelMMO);
-	return true;
+		SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] connected from: " + pSession->getSocket().remote_endpoint().address().to_string(), SG_Logger::kLogLevelMMO);
+		return true;
 }
 
 void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
 {
 	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] disconnected!", SG_Logger::kLogLevelMMO);
+	for (int i = 0;i < idConnected.size();i++)
+	{
+		if(idConnected[i] == pSession->m_Player->playerid)
+		{
+			if (nbConnected[i] == 2)
+			{
+				nbConnected[i] = 1;
+			}
+			else
+			{
+				idConnected.erase(idConnected.begin() + i);
+				nbConnected.erase(nbConnected.begin() + i);
+			}
+		}
+	}
 }
 
 bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pSession, const TS_MESSAGE* packet)
 {
+	bool alreadyExists = false;
+
 	switch (packet->id)
 	{
 	case XX_SC_KEEP_ALIVE::packetID:
@@ -53,6 +70,25 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		//Sometimes the client wont request this data, so we send it after the char selection without a request.
 		SG_MMOHandler::SendPlayerInfo(pSession);
 		SG_MMOHandler::SendTrickList(pSession);
+
+		
+		for(auto temp : SG_MmoServer::idConnected)
+		{
+			if(temp == pSession->m_Player->playerid)
+			{
+				// User already connected
+				SG_Logger::instance().log("User already connected. Denying connection.", SG_Logger::kLogLevelMMO);
+				pSession->DisconnectClient();
+			}
+			alreadyExists = true;
+		}
+
+		if(!alreadyExists)
+		{
+			SG_MmoServer::idConnected.push_back(pSession->m_Player->playerid);
+			SG_MmoServer::nbConnected.push_back(2);
+		}
+
 		break;
 	case BM_SC_PLAYER_INFO::packetID:
 		SG_MMOHandler::SendPlayerInfo(pSession);
