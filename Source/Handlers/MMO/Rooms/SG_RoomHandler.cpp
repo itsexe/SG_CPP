@@ -330,49 +330,10 @@ void SG_RoomHandler::SelectMap(const boost::shared_ptr<SG_ClientSession> Session
 		sg_constructor::sg_map::LOST_ISLAND };
 	if (Session->m_Player->roomptr != nullptr)
 	{
-		switch (packet->mapid)
-		{
-		case sg_constructor::sg_map::RANDOM:
-			// This is cleaner, and you can comment out one line to disable map to be in random selection
+		if (packet->mapid == sg_constructor::sg_map::RANDOM)
 			Session->m_Player->roomptr->currentmap = static_cast<sg_constructor::sg_map>(mapList[rand() % 11]);
-			break;
-		case sg_constructor::sg_map::GRIND_ROLLER:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::GRIND_ROLLER;
-			break;
-		case sg_constructor::sg_map::CROSS_LINK:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::CROSS_LINK;
-			break;
-		case sg_constructor::sg_map::GRIND_CROSS:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::GRIND_CROSS;
-			break;
-		case sg_constructor::sg_map::TRIESTE_EASY:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::TRIESTE_EASY;
-			break;
-		case sg_constructor::sg_map::ROLLER_STADIUM:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::ROLLER_STADIUM;
-			break;
-		case sg_constructor::sg_map::FORBIDDEN_CITY:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::FORBIDDEN_CITY;
-			break;
-		case sg_constructor::sg_map::STAR_TRACK:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::STAR_TRACK;
-			break;
-		case sg_constructor::sg_map::MIRACLE_EASY:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::MIRACLE_EASY;
-			break;
-		case sg_constructor::sg_map::PARAKA_EASY:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::PARAKA_EASY;
-			break;
-		case sg_constructor::sg_map::TRIANGLE_FARM:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::TRIANGLE_FARM;
-			break;
-		case sg_constructor::sg_map::LOST_ISLAND:
-			Session->m_Player->roomptr->currentmap = sg_constructor::sg_map::LOST_ISLAND;
-			break;
-		default:
-			SG_Logger::instance().log("Unknown map selected: " + packet->mapid, SG_Logger::kLogLevelMMO);
-			return;
-		}
+		else
+			Session->m_Player->roomptr->currentmap = static_cast<sg_constructor::sg_map>(packet->mapid);
 	}
 	UpdateMap(Session);
 }
