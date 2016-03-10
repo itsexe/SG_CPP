@@ -3,18 +3,20 @@
 This is a emulator for the serverside the StreetGears.
 StreetGears is a mmo that was discontinued mid 2012.
 
-Auth Server: (90%)
-
-MMO Server (20%)
-
-Lobby Server: (0%)
-
-Message Server: (0%)
-
 [![Build Status](https://travis-ci.org/itsexe/SG_CPP.svg)](https://travis-ci.org/itsexe/SG_CPP)
 
+##Status:
+Auth Server/ Login: Finished
+
+Driving around in park town: Working, but you won't be able to see other players and most minigames won't work.
+
+Lobbys/ Races: Partly working
+
+Chat, Friends and stuff: Not working right now.
+
+
 ## Structure of the emulator
-The emulator has diffrent types to servers.
+The client needs different kinds of servers.
 ### Auth Server
 The Auth Server handles the basic authentification.
 It has following tasks:
