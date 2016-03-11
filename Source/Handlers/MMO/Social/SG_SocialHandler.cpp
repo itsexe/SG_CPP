@@ -15,7 +15,7 @@ void SG_SocialHandler::HandleMSN(const boost::shared_ptr<SG_ClientSession> Sessi
 
 void SG_SocialHandler::FindUser(const boost::shared_ptr<SG_ClientSession> Session, const MM_SC_MSN_FIND_USER* packet)
 {
-	MySQLQuery qry(Session->SQLConn, "Select id from Chars where Name =  ?;");
+	MySQLQuery qry(Session->SQLConn, "Select id from accounts where Name =  ?;");
 	qry.setString(1, std::string(packet->username, packet->username + 42));
 	qry.ExecuteQuery();
 	if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.

@@ -90,5 +90,11 @@ int main(int argc, char *argv[])
 	while(1)
 	{
 		std::cin.get();
+
+		#ifdef _WIN32
+		system("cls");
+		#else
+		system("clear");
+		#endif
 	}
 }

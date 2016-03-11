@@ -133,7 +133,7 @@ uint8_t SG_ServerBase::GetPlayersInRoom(uint32_t roomid)
 void SG_ServerBase::SaveChar(const boost::shared_ptr<SG_ClientSession> Session)
 {
 		//name, rank, level, xp, license, rupees, coins, questpoints, clanid, accid, chartype, cangetbonuscoins, char_id
-		MySQLQuery mysql_query(Session->SQLConn, "UPDATE Chars SET Name = ?, Rank = ?, Level = ?, XP = ?, License = ?, Rupees = ?, Coins = ?, Questpoints = ?, ClanID = ?, CharType = ?, LastDailyCoins=FROM_UNIXTIME(?), age = ?, zoneid = ?, zoneinfo = ?, bio = ? WHERE id = ?");
+		MySQLQuery mysql_query(Session->SQLConn, "UPDATE accounts SET Name = ?, Rank = ?, Level = ?, XP = ?, License = ?, Rupees = ?, Coins = ?, Questpoints = ?, ClanID = ?, CharType = ?, LastDailyCoins=FROM_UNIXTIME(?), age = ?, zoneid = ?, zoneinfo = ?, bio = ? WHERE id = ?");
 		mysql_query.setString(1, Session->m_Player->charname);
 		mysql_query.setInt(2, Session->m_Player->rank);
 		mysql_query.setInt(3, static_cast<uint16_t>(Session->m_Player->charlevel));

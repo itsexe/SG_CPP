@@ -11,17 +11,17 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	Session->m_Player->SessionKey.resize(32);
 	
 	//Get Accountsettings
-	MySQLQuery accqry(Session->SQLConn, "Select id, ingamecash from Accounts where Sessionkey = ?;");
+	MySQLQuery accqry(Session->SQLConn, "Select id, ingamecash from accounts where Sessionkey = ?;");
 	accqry.setString(1, Session->m_Player->SessionKey);
 	accqry.ExecuteQuery();
 	if (accqry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
 	{
 		Session->m_Player->playerid = accqry.getInt(1, "id");
 		//Get Chars
-		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins, age, zoneid, zoneinfo, bio from Chars where AccountID =  ?;");
+		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins, age, zoneid, zoneinfo, bio from accounts where id =  ?;");
 		qry.setInt(1, Session->m_Player->playerid);
 		qry.ExecuteQuery();
-		if (qry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
+		if (qry.GetResultRowCount() && qry.getString(1, "Name") != "") // Some error occured. The Client will timeout after a few seconds.
 		{
 			Session->m_Player->charname = qry.getString(1, "Name");
 			Session->m_Player->chartype = qry.getInt(1, "CharType");
@@ -70,7 +70,7 @@ void SG_MMOHandler::CreateChar(const boost::shared_ptr<SG_ClientSession> Session
 	response.successmessage[7] = static_cast<uint8_t>(0);
 
 	//Insert everything in Database
-	MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins from Chars where AccountID =  ?;");//Added CanGetBonusCoins
+	MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins from Accounts where id =  ?;");//Added CanGetBonusCoins
 	qry.setString(1, packet->charname);
 	qry.setInt(2, Session->m_Player->playerid);
 	qry.ExecuteInsert();
