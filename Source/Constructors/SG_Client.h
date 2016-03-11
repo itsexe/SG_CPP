@@ -54,6 +54,20 @@ public:
 	uint32_t nitro;
 	uint32_t wheels;
 
+	//Tricks
+	uint8_t grind; //max 5
+	uint8_t backflip; //max 4
+	uint8_t frontflip; //max 5
+	uint8_t airtwist; //max 5
+	uint8_t powerswing; //max 4
+	uint8_t gripturn; //max 3
+	uint8_t dash; //max 3
+	uint8_t backskating; //max 3
+	uint8_t jumpingsteer; //max 3
+	uint8_t butting; //max 5
+	uint8_t powerslide; //max 0
+	uint8_t powerjump; //max 3
+	uint8_t wallride; //max 4
 
 	std::vector<uint64_t> missions;
 	std::vector<sg_constructor::Trickconstructor> tricks;
