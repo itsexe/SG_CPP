@@ -4,7 +4,7 @@ USE `sg`;
 --
 -- Host: 89.163.208.5    Database: sg
 -- ------------------------------------------------------
--- Server version	5.5.46-0ubuntu0.14.04.2
+-- Server version	5.5.47-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,62 +34,26 @@ CREATE TABLE `Accounts` (
   `banned` tinyint(4) NOT NULL DEFAULT '0',
   `Sessionkey` varchar(45) DEFAULT NULL,
   `ingamecash` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `ID` (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Accounts`
---
-
-LOCK TABLES `Accounts` WRITE;
-/*!40000 ALTER TABLE `Accounts` DISABLE KEYS */;
-INSERT INTO `Accounts` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','some@thi.ng','2015-12-09 15:44:16',1,0,'BKX5z5hF8r686z06W3OrcnQfm05ahFCY',0),(2,'simon','21232f297a57a5a743894a0e4a801fc3','irgendwas@mail.at','2015-12-16 18:39:08',1,0,'mRv6hiezto3ohsRTHAhAPZzgQu1l55Ix',0);
-/*!40000 ALTER TABLE `Accounts` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Chars`
---
-
-DROP TABLE IF EXISTS `Chars`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Chars` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(40) NOT NULL,
   `Rank` varchar(10) NOT NULL DEFAULT 'U',
-  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `Level` int(11) NOT NULL,
-  `XP` double NOT NULL,
+  `XP` float NOT NULL,
   `License` int(11) NOT NULL,
   `Rupees` int(11) NOT NULL,
   `Coins` int(11) NOT NULL,
   `Questpoints` int(11) NOT NULL,
   `ClanID` int(11) NOT NULL,
-  `AccountID` int(11) DEFAULT NULL,
   `CharType` int(11) NOT NULL,
   `LastDailyCoins` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `age` int(2) DEFAULT '0',
-  `zoneid` int(10) DEFAULT '0',
-  `zoneinfo` varchar(140) DEFAULT NULL,
-  `bio` varchar(150) DEFAULT 'hello (:',
+  `age` int(2) NOT NULL,
+  `zoneid` int(10) NOT NULL,
+  `zoneinfo` varchar(140) NOT NULL,
+  `bio` varchar(150) NOT NULL DEFAULT 'hello (:',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_Accounts` (`AccountID`),
-  CONSTRAINT `FK_Accounts` FOREIGN KEY (`AccountID`) REFERENCES `Accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  KEY `ID` (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Chars`
---
-
-LOCK TABLES `Chars` WRITE;
-/*!40000 ALTER TABLE `Chars` DISABLE KEYS */;
-INSERT INTO `Chars` VALUES (3,'Test','3','2015-12-09 18:16:24',40,10,5,10,310,0,0,1,5,'2015-12-25 15:28:07',19,0,'NRW','Das ist ein Test'),(4,'Simon','0','2015-12-17 03:11:03',40,0,5,10,10,0,0,2,5,'2015-12-09 18:16:24',0,0,NULL,'hello (:');
-/*!40000 ALTER TABLE `Chars` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Friends`
@@ -104,15 +68,6 @@ CREATE TABLE `Friends` (
   `Relation_B` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Friends`
---
-
-LOCK TABLES `Friends` WRITE;
-/*!40000 ALTER TABLE `Friends` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Friends` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Inventory`
@@ -130,13 +85,44 @@ CREATE TABLE `Inventory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Inventory`
+-- Dumping events for database 'sg'
 --
 
-LOCK TABLES `Inventory` WRITE;
-/*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
-UNLOCK TABLES;
+--
+-- Dumping routines for database 'sg'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `CreateAccount` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`clickbait`@`%` PROCEDURE `CreateAccount`(
+	IN usr varchar(20),
+	IN pwd varchar(32),
+	IN mail varchar(50)
+)
+BEGIN
+INSERT INTO Accounts(
+username,
+password,
+email
+)
+VALUES(
+usr,
+md5(pwd),
+mail
+);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -147,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-25 17:33:04
+-- Dump completed on 2016-03-11 18:23:21
