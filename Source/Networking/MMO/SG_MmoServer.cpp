@@ -227,9 +227,6 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		std::stringstream ss;
 		SG_DataConverter::BytebufferToString(reinterpret_cast<uint8_t*>(&packet), packet->size, ss);
 		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "] Content[" + ss.str() + "]", SG_Logger::kLogLevelPacket);
-		std::ofstream outfile;
-		outfile.open("log.txt", std::ios_base::app);
-		outfile << ss.str() << std::endl;
 	}
 
 	return true;
