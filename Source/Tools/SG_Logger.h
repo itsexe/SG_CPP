@@ -19,6 +19,7 @@ public:
 	static const std::string kLogLevelLobby;
 	static const std::string kLogLevelRelay;
 	static const std::string kLogLevelChat;
+	static const std::string kLogLevelMessage;
 
 	// Returns a reference to the singleton Logger object
 	static SG_Logger& instance();

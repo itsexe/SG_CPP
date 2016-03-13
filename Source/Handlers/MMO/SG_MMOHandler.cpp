@@ -2,6 +2,7 @@
 #include "Tools/SG_Logger.h"
 #include "Packets/MMO/MMOPacketsResponse.h"
 #include <Networking/General/SG_ServerBase.h>
+#include <Packets/Auth/LoginPacketsResponse.h>
 
 void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_LOGIN* packet)
 {
@@ -77,6 +78,15 @@ void SG_MMOHandler::CreateChar(const boost::shared_ptr<SG_ClientSession> Session
 	SG_Logger::instance().log(Session->m_Player->SessionKey + " has choosen charname: " + packet->charname, SG_Logger::kLogLevelMMO);
 
 	//std::cout << packet << std::endl;
+	Session->SendPacketStruct(&response);
+
+	//Kick player:
+	TS_CA_SELECT_SERVER_RESP response2;
+	TS_CA_SELECT_SERVER_RESP::initMessage<TS_CA_SELECT_SERVER_RESP>(&response2);
+	response2.state = TM_SC_SELECT_SERVER_state::CONNECTION_BROKEN;
+	response2.uk1 = 0;
+	response2.uk2 = 0;
+	response2.uk3 = 0;
 	Session->SendPacketStruct(&response);
 }
 

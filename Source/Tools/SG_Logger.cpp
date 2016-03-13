@@ -3,17 +3,18 @@
 #include <stdexcept>
 #include <string>
 
-const std::string SG_Logger::kLogLevelDebug = "DEBUG   ";
-const std::string SG_Logger::kLogLevelInfo = "INFO    ";
-const std::string SG_Logger::kLogLevelError = "ERROR   ";
-const std::string SG_Logger::kLogLevelPacket = "PACKET  ";
-const std::string SG_Logger::kLogLevelPlayer = "PLAYER  ";
-const std::string SG_Logger::kLogLevelDatabase = "DATABASE";
+const std::string SG_Logger::kLogLevelDebug = "Debug   ";
+const std::string SG_Logger::kLogLevelInfo = "Info    ";
+const std::string SG_Logger::kLogLevelError = "Error   ";
+const std::string SG_Logger::kLogLevelPacket = "Packet  ";
+const std::string SG_Logger::kLogLevelPlayer = "Player  ";
+const std::string SG_Logger::kLogLevelDatabase = "Database";
 const std::string SG_Logger::kLogLevelAuth = "Auth    ";
 const std::string SG_Logger::kLogLevelMMO = "MMO     ";
 const std::string SG_Logger::kLogLevelLobby = "Lobby   "; 
 const std::string SG_Logger::kLogLevelRelay = "Relay   ";
 const std::string SG_Logger::kLogLevelChat = "Chat    ";
+const std::string SG_Logger::kLogLevelMessage = "Message ";
 
 const char* const SG_Logger::kLogFileName = "Log.txt";
 
