@@ -3,6 +3,7 @@
 #include "Networking/MMO/SG_MmoServer.h"
 #include "Networking/Lobby/SG_LobbyServer.h"
 #include "Networking/Relay/SG_RelayServer.h"
+#include "Networking/Message/SG_MessageServer.h"
 
 #include "Tools/Database/Database.h"
 
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
 	std::cout << "2.	MMO" << std::endl;
 	std::cout << "3.	Lobby" << std::endl;
 	std::cout << "4.	Relay" << std::endl;
+	std::cout << "5.	Message" << std::endl;
 	std::cout << "99.	All in one" << std::endl;
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	std::cout << ">> ";
@@ -49,6 +51,7 @@ int main(int argc, char *argv[])
 	boost::shared_ptr<SG_MmoServer> pMMO(new SG_MmoServer());
 	boost::shared_ptr<SG_LobbyServer> pLobby(new SG_LobbyServer());
 	boost::shared_ptr<SG_RelayServer> pRelay(new SG_RelayServer());
+	boost::shared_ptr<SG_MessageServer> pMessage(new SG_MessageServer());
 	boost::shared_ptr<MySQLConnection> pDatabase(new MySQLConnection());
 	boost::shared_ptr<SG_Config> conf(new SG_Config());
 	conf->init(confpath);
@@ -73,6 +76,10 @@ int main(int argc, char *argv[])
 		pRelay->InitServer(conf->relayIP, conf->RelayPort, 1);
 		SG_Logger::instance().log("Relay Server started", SG_Logger::kLogLevelInfo);
 		break;
+	case 5:
+		pMessage->InitServer(conf->msgIP, conf->MsgPort, 1);
+		SG_Logger::instance().log("Message Server started", SG_Logger::kLogLevelInfo);
+		break;
 	case 99:
 		pAuth->InitServer(conf->AuthIP, conf->AuthPort, 1);
 		SG_Logger::instance().log("Auth Server started", SG_Logger::kLogLevelInfo);
@@ -82,6 +89,8 @@ int main(int argc, char *argv[])
 		SG_Logger::instance().log("Lobby Server started", SG_Logger::kLogLevelInfo);
 		pRelay->InitServer(conf->relayIP, conf->RelayPort, 1);
 		SG_Logger::instance().log("Relay Server started", SG_Logger::kLogLevelInfo);
+		pMessage->InitServer(conf->msgIP, conf->MsgPort, 1);
+		SG_Logger::instance().log("Message Server started", SG_Logger::kLogLevelInfo);
 		break;
 	default:
 		std::cout << std::endl << "INVALID NUMBER" << std::endl;

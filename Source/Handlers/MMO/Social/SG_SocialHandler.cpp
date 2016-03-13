@@ -76,9 +76,7 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 		strcpy_s(response.charname, Session->m_Player->charname.c_str());
 		strcpy_s(response.zoneinfo, Session->m_Player->zoneinfo.c_str());
 		strcpy_s(response.biostr, Session->m_Player->biostr.c_str());
-
-
-
+		
 
 		for (auto i = static_cast<std::string>("Testclan <3").length(); i != 87; ++i)
 		{
@@ -103,7 +101,7 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 		response.license = Session->m_Player->license;
 		response.level = static_cast<uint16_t>(Session->m_Player->charlevel);
 
-		Session->SendPacketStruct(&response);
+		Session->m_Server->SendBroadcast(&response);
 	}
 }
 void SG_SocialHandler::UpdateMateInfo(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_UPDATE_MYMATEINFO* packet)
