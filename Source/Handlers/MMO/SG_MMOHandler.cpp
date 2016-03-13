@@ -11,14 +11,14 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	Session->m_Player->SessionKey.resize(32);
 	
 	//Get Accountsettings
-	MySQLQuery accqry(Session->SQLConn, "Select id, ingamecash from accounts where Sessionkey = ?;");
+	MySQLQuery accqry(Session->SQLConn, "Select id, ingamecash from Accounts where Sessionkey = ?;");
 	accqry.setString(1, Session->m_Player->SessionKey);
 	accqry.ExecuteQuery();
 	if (accqry.GetResultRowCount()) // Some error occured. The Client will timeout after a few seconds.
 	{
 		Session->m_Player->playerid = accqry.getInt(1, "id");
 		//Get Chars
-		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins, age, zoneid, zoneinfo, bio from accounts where id =  ?;");
+		MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins, age, zoneid, zoneinfo, bio from Accounts where id =  ?;");
 		qry.setInt(1, Session->m_Player->playerid);
 		qry.ExecuteQuery();
 		if (qry.GetResultRowCount() && qry.getString(1, "Name") != "") // Some error occured. The Client will timeout after a few seconds.
@@ -70,11 +70,11 @@ void SG_MMOHandler::CreateChar(const boost::shared_ptr<SG_ClientSession> Session
 	response.successmessage[7] = static_cast<uint8_t>(0);
 
 	//Insert everything in Database
-	MySQLQuery qry(Session->SQLConn, "Select id, Name, Rank, CharType, Level, XP, License, Rupees, Coins, Questpoints, LastDailyCoins from Accounts where id =  ?;");//Added CanGetBonusCoins
+	MySQLQuery qry(Session->SQLConn, "Update Accounts Set Name = ? where id =  ?;");//Added CanGetBonusCoins
 	qry.setString(1, packet->charname);
 	qry.setInt(2, Session->m_Player->playerid);
 	qry.ExecuteInsert();
-	SG_Logger::instance().log(Session->m_Player->SessionKey + " has charname " + Session->m_Player->charname, SG_Logger::kLogLevelMMO);
+	SG_Logger::instance().log(Session->m_Player->SessionKey + " has choosen charname: " + packet->charname, SG_Logger::kLogLevelMMO);
 
 	//std::cout << packet << std::endl;
 	Session->SendPacketStruct(&response);
