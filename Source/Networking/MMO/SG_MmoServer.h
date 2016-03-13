@@ -8,9 +8,6 @@
 
 class SG_MmoServer : public SG_ServerBase
 {
-public:
-	std::vector<int> idConnected; // Array with connected account IDs
-	std::vector<int> nbConnected; // Array needed to store "how many DC has been proc'd" -> 2 DC when user logs out.
 
 private:
 	bool OnClientConnected(const boost::shared_ptr<SG_ClientSession> Session);

@@ -27,14 +27,14 @@ void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> 
 	{
 		if(idConnected[i] == pSession->m_Player->playerid)
 		{
-			if (nbConnected[i] == 2)
-			{
-				nbConnected[i] = 1;
-			}
-			else
+			if(nbConnected[i]==1)
 			{
 				idConnected.erase(idConnected.begin() + i);
 				nbConnected.erase(nbConnected.begin() + i);
+			}
+			else
+			{
+				nbConnected[i]--;
 			}
 		}
 	}
@@ -54,7 +54,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::SendCharList(pSession, static_cast<const BM_SC_CHAR_LIST*>(packet));
 		break;
 	case BM_SC_CHAR_LIST::packetID:
-		if(pSession->m_Player->charcreated == 0)
+		if (pSession->m_Player->charcreated == 0)
 		{
 			SG_MMOHandler::SendCharList(pSession, static_cast<const BM_SC_CHAR_LIST*>(packet));
 			SG_MMOHandler::SendPlayerInfo(pSession);
@@ -71,22 +71,23 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::SendPlayerInfo(pSession);
 		SG_MMOHandler::SendTrickList(pSession);
 
-		
-		for(auto temp : SG_MmoServer::idConnected)
+		for (int a = 0; a < SG_MmoServer::idConnected.size(); a++)
 		{
-			if(temp == pSession->m_Player->playerid)
+			if(idConnected[a] == pSession->m_Player->playerid)
 			{
 				// User already connected
 				SG_Logger::instance().log("User already connected. Denying connection.", SG_Logger::kLogLevelMMO);
+				SG_MmoServer::nbConnected[a] += 2; // When DisconnectClient is triggered, 2 OnClientDisconnect are triggered too
 				pSession->DisconnectClient();
+				alreadyExists = true;
 			}
-			alreadyExists = true;
 		}
 
-		if(!alreadyExists)
+		if (!alreadyExists)
 		{
 			SG_MmoServer::idConnected.push_back(pSession->m_Player->playerid);
 			SG_MmoServer::nbConnected.push_back(2);
+			alreadyExists = false;
 		}
 
 		break;
@@ -165,19 +166,19 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::CreateChar(pSession, static_cast<const BM_SC_CREATE_CHAR*>(packet));
 		break;
 	case BM_SC_GET_ROOMLIST::packetID:
-		SG_RoomHandler::SendRoomList(pSession,&Rooms_internal);
+		SG_RoomHandler::SendRoomList(pSession, &Rooms_internal);
 		break;
 	case BM_SC_CREATE_ROOM::packetID:
 		if (lastroomid > 1000)
 			lastroomid = 0;
 		lastroomid++;
-		SG_RoomHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet),&Rooms_internal, lastroomid);
+		SG_RoomHandler::RoomCreate(pSession, static_cast<const BM_SC_CREATE_ROOM*>(packet), &Rooms_internal, lastroomid);
 		break;
 	case BM_SC_READY_GAME::packetID:
 		SG_RoomHandler::HandlePlayerReady(pSession);
 		break;
 	case BM_SC_ENTER_ROOM::packetID:
-		SG_RoomHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet),&Rooms_internal);
+		SG_RoomHandler::RoomEnter(pSession, static_cast<const BM_SC_ENTER_ROOM*>(packet), &Rooms_internal);
 		break;
 	case BM_SC_LEAVE_ROOM::packetID:
 		SG_RoomHandler::RoomLeave(pSession);
@@ -225,7 +226,8 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 	default:
 		std::stringstream ss;
 		SG_DataConverter::BytebufferToString(reinterpret_cast<uint8_t*>(&packet), packet->size, ss);
-		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "] Content[" + ss.str() + "]", SG_Logger::kLogLevelPacket);	}
+		SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "] Content[" + ss.str() + "]", SG_Logger::kLogLevelPacket);
+	}
 
 	return true;
 }
