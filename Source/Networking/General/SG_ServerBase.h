@@ -44,6 +44,9 @@ public:
 	uint8_t GetPlayersInRoom(uint32_t roomid);
 	void SaveChar(const boost::shared_ptr<SG_ClientSession> Session);
 
+	std::vector<int> idConnected; // Array with connected account IDs
+	std::vector<int> nbConnected; // Array needed to store "how many DC has been proc'd" -> 2 DC when user logs out.
+
 private:
 	void WorkerThread();
 	void Listen();

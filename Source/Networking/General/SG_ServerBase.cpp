@@ -61,6 +61,11 @@ bool SG_ServerBase::InitServer(const std::string &strIP, uint32_t uiPort, int32_
 		}
 	}
 	StartServer();
+
+	// Initialize user list to "empty"
+	idConnected.clear();
+	nbConnected.clear();
+
 	return true;
 }
 
