@@ -87,7 +87,6 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		{
 			SG_MmoServer::idConnected.push_back(pSession->m_Player->playerid);
 			SG_MmoServer::nbConnected.push_back(2);
-			alreadyExists = false;
 		}
 
 		break;
