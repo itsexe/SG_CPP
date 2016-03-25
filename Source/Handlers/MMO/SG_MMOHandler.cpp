@@ -320,6 +320,16 @@ void SG_MMOHandler::HandlePositionUpdate(const boost::shared_ptr<SG_ClientSessio
 	Session->m_Player->coord_y = packet->coord_y;
 	Session->m_Player->coord_angle_z = packet->coord_angle_z;
 	Session->m_Player->coord_z = packet->coord_z;
+
+		/*
+	system("cls");
+	std::cout << Session->m_Player->coord_x << std::endl;
+	std::cout << Session->m_Player->coord_y << std::endl;
+	*/
+	char msg[200];
+	sprintf(msg, "UPDATE player_pos set pos_x = %f, pos_y = %f where name=\"geekgame\"", Session->m_Player->coord_x, Session->m_Player->coord_y);
+	MySQLQuery update(Session->SQLConn, msg);
+	update.ExecuteUpdate();
 }
 
 void SG_MMOHandler::EnterLobby(const boost::shared_ptr<SG_ClientSession> Session)

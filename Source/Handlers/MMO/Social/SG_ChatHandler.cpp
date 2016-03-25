@@ -6,6 +6,7 @@
 #include <Packets/MMO/Rooms/RoomPackets.h>
 #include <Handlers/MMO/Rooms/SG_RoomHandler.h>
 #include <Packets/MMO/Minigames/MinigamePacketsResponse.h>
+#include <Handlers/Relay/SG_RelayHandler.h>
 
 void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
 {
@@ -20,7 +21,9 @@ void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession>
 		SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
 		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 		response.successmessage[7] = static_cast<uint8_t>(0);
+
 		Session->SendPacketStruct(&response);
+
 	}
 }
 
@@ -130,5 +133,9 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 	if (msg == ";disconnect")
 	{
 		Session->DisconnectClient();
+	}
+	if (msg == ";clearRooms")
+	{
+		SG_RoomHandler::RemoveAllRooms(Session);
 	}
 }
