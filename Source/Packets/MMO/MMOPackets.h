@@ -90,6 +90,8 @@ struct BM_SC_MMO_GAME_MESSAGE : public TS_MESSAGE
 	uint16_t counter;
 	uint32_t keystate;
 
+	char uk;
+
 	//coords
 	float coord_x;
 	float coord_y;
