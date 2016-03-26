@@ -36,6 +36,12 @@ void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sess
 	Session->SendPacketStruct(response);
 }
 
+void SG_RoomHandler::RemoveAllRooms(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	Session->m_Server->Rooms_internal.clear();
+	std::cout << "All rooms have been removed" << std::endl;
+}
+
 void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CREATE_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr, uint32_t id)
 {
 	if (packet->MaxPlayers > 2 || packet->MaxPlayers < 8 || packet->Level || packet->Level < 45)
