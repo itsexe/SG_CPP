@@ -64,6 +64,12 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 		//	}
 		//}
 		//Send successmessage
+
+		if(strstr(packet->Name, "RANKED"))
+		{
+			std::cout << " ==== THIS IS A RANKED GAME ==== " << std::endl;
+		}
+
 		BM_SC_CREATE_ROOM_RESP response;
 		BM_SC_CREATE_ROOM_RESP::initMessage<BM_SC_CREATE_ROOM_RESP>(&response);
 		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
@@ -308,6 +314,12 @@ void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session
 		response->players[i] = iter;
 		i++;
 	}
+
+	strcpy_s(response->ip1, "127.0.0.1");
+	strcpy_s(response->ip2, "99999999999999999999999999999999999999999999");
+
+	// IL MANQUE UN TRUC JUSTE ICI
+
 	Session->m_Server->SendRoomBroadcast(response, Session->m_Player->roomptr->RoomID, Session, true);
 }
 

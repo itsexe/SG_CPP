@@ -260,7 +260,7 @@ struct BM_SC_INVENTORY_RESP : public TS_MESSAGE_WNA
 	uint64_t uk2;
 	uint8_t uk3;
 	uint16_t count;
-	sg_constructor::Item items[0];
+	sg_constructor::Item items[];
 	static const uint16_t packetID = 2099;
 };
 struct BM_SC_CASH_BALANCE_INFO_RESP : public TS_MESSAGE
@@ -323,6 +323,14 @@ struct BM_SC_PLAYER_DISGUISE_RESP : public TS_MESSAGE
 
 	static const uint16_t packetID = 2341;
 };
+
+struct BM_SC_MMO_COIN_ENTER_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	
+	static const uint16_t packetID = 2022;
+};
+
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H

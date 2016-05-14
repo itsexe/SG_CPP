@@ -9,16 +9,19 @@ struct BM_SC_CHAT_MESSAGE_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2207;
 }; //Confirmation for sender
+
 struct BM_SC_CHAT_MESSAGE_RESP2 : public TS_MESSAGE
 {
-	//not working atm
-	char sender[33];
-	unsigned short len;
+	char pre[33];
+	char sender[32];
+	char after[8];
 	unsigned char type;
-	char message[70];
+	short length;
+	char message[70]; // Client only shows 27 chars.
 
 	static const uint16_t packetID = 2208;
-}; // Will be broadcasted players
+}; // Cast to all clients
+
 struct MM_SC_MSN_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
@@ -28,6 +31,7 @@ struct MM_SC_MSN_RESP : public TS_MESSAGE
 	uint32_t uk4; //1
 	static const uint16_t packetID = 5002;
 };
+
 struct MM_SC_MSN_FIND_USER_RESP : public TS_MESSAGE
 {
 	char successmessage[8];

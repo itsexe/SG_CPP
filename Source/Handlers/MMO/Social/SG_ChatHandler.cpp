@@ -7,6 +7,9 @@
 #include <Handlers/MMO/Rooms/SG_RoomHandler.h>
 #include <Packets/MMO/Minigames/MinigamePacketsResponse.h>
 #include <Handlers/Relay/SG_RelayHandler.h>
+#include <Packets/MMO/MMOPackets.h>
+#include <boost/algorithm/string.hpp>
+#include <Tools/SG_DataConverter.h>
 
 void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
 {
@@ -14,8 +17,14 @@ void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession>
 	{
 		SG_ChatHandler::HandleAdminCommand(Session, packet);
 	}
+	else if(packet->msg[0] == '/')
+	{
+		SG_ChatHandler::HandleUserCommand(Session, packet);
+	}
 	else
 	{
+		/*
+		// Uncommenting this will show the bubble on the top on the character head, but will display the message twice on chat...
 		BM_SC_CHAT_MESSAGE_RESP response;
 		BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
 		SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
@@ -23,6 +32,15 @@ void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession>
 		response.successmessage[7] = static_cast<uint8_t>(0);
 
 		Session->SendPacketStruct(&response);
+		*/
+
+		BM_SC_CHAT_MESSAGE_RESP2 response;
+		BM_SC_CHAT_MESSAGE_RESP2::initMessage<BM_SC_CHAT_MESSAGE_RESP2>(&response);
+
+		strcpy_s(response.sender, static_cast<std::string>(packet->sender).c_str());
+		strcpy_s(response.message, static_cast<std::string>(packet->msg).c_str());
+		response.type = CHAT_NORMAL;
+		Session->m_Server->SendBroadcast(&response);
 
 	}
 }
@@ -78,6 +96,18 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 		std::cout << "Set Name from " << Session->m_Player->charname << "[" << Session->m_Player->playerid << "] to " << msg.c_str() << std::endl;
 		Session->m_Player->charname = msg.c_str();
 		Session->m_Server->SaveChar(Session);
+	}
+	if (strncmp(";announce", msg.c_str(), strlen(";announce") - 1) == 0)
+	{
+		msg = msg.substr(10);
+
+		BM_SC_CHAT_MESSAGE_RESP2 response;
+		BM_SC_CHAT_MESSAGE_RESP2::initMessage<BM_SC_CHAT_MESSAGE_RESP2>(&response);
+
+		strcpy_s(response.sender, static_cast<std::string>("SG").c_str());
+		strcpy_s(response.message, static_cast<std::string>(msg).c_str());
+		response.type = CHAT_SYSTEM_ANNOUNCEMENT;
+		Session->m_Server->SendBroadcast(&response);
 	}
 	if (msg == ";createbot")
 	{
@@ -137,5 +167,69 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 	if (msg == ";clearRooms")
 	{
 		SG_RoomHandler::RemoveAllRooms(Session);
+	}
+	if (msg == ";spawnCoin")
+	{
+		SG_MMOHandler::BM_SC_MMO_COIN_ENTER(Session);
+		std::cout << "BM_SC_MMO_COIN_ENTER" << std::endl;
+	}
+	if (msg == ";go")
+	{
+		//SG_RelayHandler::StartGame(Session);
+		std::cout << "GOOGOGOGOGOGOGOGO" << std::endl;
+		Sleep(2000);
+
+
+		for(int i = 0;i < 100000;i++)
+		{
+			BULLSHIT_TEST rep;
+			rep.id = i;
+			BULLSHIT_TEST::initMessage(&rep);
+			std::cout << i << std::endl;
+			Session->SendPacketStruct(&rep);
+			//Beep(500, 100);
+			//Sleep(500);
+		}
+	}
+	
+	if (msg == ";go2")
+	{
+		SG_RelayHandler::StartGame2(Session);
+		std::cout << "GOOGOGOGOGOGOGOGO" << std::endl;
+	}
+
+	// Chat test.
+	if (msg == ";b")
+	{
+		std::cout << "bullshit incoming" << std::endl;
+		Sleep(2000);
+
+
+		for(int i = 2200;i < 2400;i++)
+		{
+			Sleep(200);
+
+			BM_SC_CHAT_MESSAGE_RESP response;
+			BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
+			SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
+			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+			response.successmessage[7] = static_cast<uint8_t>(0);
+			response.id = i;
+			Session->SendPacketStruct(&response);
+
+			std::cout << response.id << std::endl;
+			//Beep(500, 20);
+			//Sleep(500);
+		}
+	}
+}
+
+void SG_ChatHandler::HandleUserCommand(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
+{
+	std::vector<std::string> strs;
+	boost::split(strs, packet->msg, boost::is_any_of(" "));
+
+	if(!strcmp(strs[0].c_str(), "/w"))
+	{		
 	}
 }

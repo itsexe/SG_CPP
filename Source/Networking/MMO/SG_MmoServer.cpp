@@ -13,6 +13,7 @@
 #include <Handlers/MMO/Minigames/SG_MinigameHandler.h>
 #include <Tools/SG_DataConverter.h>
 
+#define ALLOW_MULTIPLE_CONNECTIONS true
 
 bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
@@ -73,7 +74,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 
 		for (int a = 0; a < SG_MmoServer::idConnected.size(); a++)
 		{
-			if(idConnected[a] == pSession->m_Player->playerid)
+			if(idConnected[a] == pSession->m_Player->playerid && !ALLOW_MULTIPLE_CONNECTIONS)
 			{
 				// User already connected
 				SG_Logger::instance().log("User already connected. Denying connection.", SG_Logger::kLogLevelMMO);

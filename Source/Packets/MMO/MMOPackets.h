@@ -130,6 +130,7 @@ struct BM_SC_START_MISSION: public TS_MESSAGE
 {
 	//TODO 
 	static const uint16_t packetID = 2074;
+	// There is an array of chars (maybe a list of id, or a string)
 };
 struct BM_SC_INVENTORY : public TS_MESSAGE
 {
@@ -168,6 +169,12 @@ struct BM_SC_ENTER_INVENTORY : public TS_MESSAGE
  {
 	 static const uint16_t packetID = 2340;
  };
+
+ struct BULLSHIT_TEST : public TS_MESSAGE
+ {
+	 static const uint16_t packetID = 1234;
+ };
+
 #pragma pack(pop)
 
 #endif // PACKETS_TS_CA_ACCOUNT_H
