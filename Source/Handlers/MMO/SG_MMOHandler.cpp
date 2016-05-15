@@ -41,6 +41,18 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 			Session->m_Player->biostr = qry.getString(1, "bio");
 			Session->m_Player->charid = qry.getInt(1, "id");
 			Session->m_Player->charcreated = 1;
+			sg_constructor::Item a;
+			a.uk1 = 10;
+			a.Duration = INT16_MAX;
+			a.Equip_Status = 1;
+			a.ItemID = 4539;
+			a.Trade_Status = 0;
+			a.UniqueID = 1;
+			a.uk2 = 1;
+			a.uk_4 = 2;
+			a.uk_2 = 3;
+
+			Session->m_Player->items.push_back(a);
 		}
 		else
 		{
@@ -460,6 +472,15 @@ void SG_MMOHandler::SendPlayerDisguise(const boost::shared_ptr<SG_ClientSession>
 {
 	BM_SC_PLAYER_DISGUISE_RESP response;
 	BM_SC_PLAYER_DISGUISE_RESP::initMessage<BM_SC_PLAYER_DISGUISE_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+void SG_MMOHandler::BM_SC_MMO_COIN_ENTER(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	BM_SC_MMO_COIN_ENTER_RESP response;
+	BM_SC_MMO_COIN_ENTER_RESP::initMessage<BM_SC_MMO_COIN_ENTER_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);

@@ -40,3 +40,7 @@ Source/SG_Auth.sln
 Debug Library/Debug/DebugLib.ilk
 *.suo
 *.opendb
+/Source/curl
+*.scgdat
+*.user
+*.db

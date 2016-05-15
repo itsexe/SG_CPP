@@ -59,7 +59,7 @@ public:
 
 	//UK
 	static void SendPlayerDisguise(const boost::shared_ptr<SG_ClientSession> Session);
-
+	static void BM_SC_MMO_COIN_ENTER(const boost::shared_ptr<SG_ClientSession> Session);
 };
 
 #endif

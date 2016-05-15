@@ -45,7 +45,9 @@ void SG_AuthHandler::CheckClientCredentials(const boost::shared_ptr<SG_ClientSes
 	//Check Login using MySQL
 	MySQLQuery qry(Session->SQLConn, "SELECT id, verified, banned FROM Accounts where username = ? and password = md5(?);");
 	qry.setString(1, Session->m_Player->Username);
-	qry.setString(2, SG_ClientSession::conf->MD5Salt + Session->m_Player->Password);
+	//qry.setString(2, SG_ClientSession::conf->MD5Salt + Session->m_Player->Password);
+	qry.setString(2, Session->m_Player->Password);
+	std::cout << qry.BuildQueryString() << std::endl;
 	qry.ExecuteQuery();
 	if (!qry.GetResultRowCount()) // User or password wrong
 	{

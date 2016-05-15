@@ -4,6 +4,7 @@
 #include "Tools/SG_Logger.h"
 #include "Packets/Relay/RelayPacketsResponse.h"
 #include "Packets/MMO/MMOPacketsResponse.h"
+#include <Tools/SG_DataConverter.h>
 
 void SG_RelayHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const NM_SC_LOGIN* packet)
 {
@@ -24,6 +25,16 @@ void SG_RelayHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Sessio
 {
 	NM_SC_START_GAME_RESP response;
 	NM_SC_START_GAME_RESP::initMessage<NM_SC_START_GAME_RESP>(&response);
+	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	response.successmessage[7] = static_cast<uint8_t>(0);
+	Session->SendPacketStruct(&response);
+}
+
+//? ========================================================================
+void SG_RelayHandler::StartGame2(const boost::shared_ptr<SG_ClientSession> Session)
+{
+	NM_SC_START_GAME2_RESP response;
+	NM_SC_START_GAME2_RESP::initMessage<NM_SC_START_GAME2_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);

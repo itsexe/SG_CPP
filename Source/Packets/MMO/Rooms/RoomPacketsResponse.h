@@ -102,6 +102,15 @@ struct BM_SC_START_GAME_RESP : public TS_MESSAGE_WNA
 	char encryptionkey[16];
 	uint16_t playercount;
 
+	char ip1[45] = "192.168.1.91\0";
+	char ip2[45] = "192.168.1.31\0";
+	//char ip3[45] = "127.0.0.1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	//char ip4[45] = "127.0.0.1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	//char ip5[45] = "127.0.0.1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	//char ip6[45] = "127.0.0.1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	//char ip7[45] = "127.0.0.1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	//char ip8[45] = "127.0.0.1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+
 	//Playerlist
 	sg_constructor::room_players players[0];
 	static const uint16_t packetID = 2190;
@@ -121,4 +130,5 @@ struct BM_SC_READY_GAME_RESP : public TS_MESSAGE
 	char successmessage[8];
 	static const uint16_t packetID = 2188;
 };
+
 #endif
