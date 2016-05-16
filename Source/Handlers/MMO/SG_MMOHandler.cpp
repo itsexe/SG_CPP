@@ -98,7 +98,7 @@ void SG_MMOHandler::CreateChar(const boost::shared_ptr<SG_ClientSession> Session
 	response2.state = TM_SC_SELECT_SERVER_state::CONNECTION_BROKEN;
 	response2.uk1 = 0;
 	response2.uk2 = 0;
-	response2.uk3 = 0;
+	response2.serverId = 0;
 	Session->SendPacketStruct(&response);
 }
 

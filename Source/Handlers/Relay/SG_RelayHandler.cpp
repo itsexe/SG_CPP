@@ -8,12 +8,13 @@
 
 void SG_RelayHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Session, const NM_SC_LOGIN* packet)
 {
-	//SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]", SG_Logger::kLogLevelPacket);
+	SG_Logger::instance().log("Unknown Packet ID[" + std::to_string(packet->id) + "] Size[" + std::to_string(packet->size) + "]", SG_Logger::kLogLevelPacket);
 
 }
 
 void SG_RelayHandler::ReadyGame(const boost::shared_ptr<SG_ClientSession> Session)
 {
+	std::cout << "RELAYHANDLER READY GAME" << std::endl;
 	NM_SC_READY_GAME_RESP response;
 	NM_SC_READY_GAME_RESP::initMessage<NM_SC_READY_GAME_RESP>(&response);
 	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
