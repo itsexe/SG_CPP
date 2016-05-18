@@ -374,11 +374,8 @@ void SG_RoomHandler::UpdateMap(const boost::shared_ptr<SG_ClientSession> Session
 		//Send to everyone in the room
 		Session->m_Server->SendRoomBroadcast(&response, Session->m_Player->roomptr->RoomID, Session, true);
 
-
 		BM_SC_MAP_INFO_RESP response2;
 		BM_SC_MAP_INFO_RESP::initMessage<BM_SC_MAP_INFO_RESP>(&response2);
-		//strcpy_s(response2.successmessage, static_cast<std::string>("SUCCESS").c_str());
-		//response2.successmessage[7] = static_cast<uint8_t>(0);
 		response2.mapid = Session->m_Player->roomptr->currentmap;
 		Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session, true);
 	}
