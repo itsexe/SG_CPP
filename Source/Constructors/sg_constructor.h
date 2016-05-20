@@ -48,7 +48,7 @@ namespace sg_constructor
 	struct Tricksrace
 	{
 		Tricksrace() { }
-		Tricksrace(uint32_t ID, uint32_t level) : TrickID(ID), uk1(level) { }
+		Tricksrace(uint32_t ID, uint32_t level) : uk1(level), TrickID(ID) { }
 
 		uint32_t uk1;
 		uint32_t TrickID;
@@ -56,8 +56,8 @@ namespace sg_constructor
 	struct Room //internal room structure
 	{
 		Room(){}
-		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player, uint8_t level, uint32_t RoomID)
-			: Name(name), Password(pw), Mode(mode), Max_Player(max_player), Level(level),  State (1), RoomID(RoomID), currentmap(sg_map::RANDOM) { }
+		Room(std::string name, std::string pw, uint32_t mode, uint8_t max_player,  uint8_t level, uint32_t RoomID)
+			: RoomID(RoomID), Name(name), Password(pw), Mode(mode), Max_Player(max_player), State(1), Level(level),  currentmap(sg_map::RANDOM) { }
 
 		uint32_t RoomID;
 		std::string Name;

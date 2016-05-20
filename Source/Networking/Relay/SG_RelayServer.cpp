@@ -3,7 +3,8 @@
 #include "Tools/SG_Logger.h"
 #include "Packets/Relay/RelayPackets.h"
 #include "Handlers/Relay/SG_RelayHandler.h"
-#include <Tools/SG_DataConverter.h>
+#include "Tools/SG_DataConverter.h"
+
 
 bool SG_RelayServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {
@@ -31,8 +32,9 @@ bool SG_RelayServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> 
 		break;
 	case NM_SC_EXPIRE::packetID: //Client finished loading
 		SG_RelayHandler::SendServerTick(pSession);
-		
+#ifdef _WIN32
 		Sleep(2000);
+#endif
 		SG_RelayHandler::ReadyGame(pSession);
 		//SG_RelayHandler::StartGame(pSession);
 		break;

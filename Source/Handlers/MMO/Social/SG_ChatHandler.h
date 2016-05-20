@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include "Networking/General/SG_ClientSession.h"
-#include <Packets/MMO/Social/SocialPackets.h>
+#include "Packets/MMO/Social/SocialPackets.h"
 
 class SG_ChatHandler
 {

@@ -4,7 +4,7 @@
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-#include <Constructors/sg_constructor.h>
+#include "Constructors/sg_constructor.h"
 
 struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE_WNA
 {

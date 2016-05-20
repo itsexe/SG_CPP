@@ -1,6 +1,6 @@
 #pragma once
-#include <Networking/General/SG_ClientSession.h>
-#include <Packets/MMO/Social/SocialPackets.h>
+#include "Networking/General/SG_ClientSession.h"
+#include "Packets/MMO/Social/SocialPackets.h"
 class SG_SocialHandler
 {
 public:

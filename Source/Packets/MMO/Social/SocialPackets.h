@@ -4,7 +4,7 @@
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-#include <Packets/PacketBaseMessage.h>
+#include "Packets/PacketBaseMessage.h"
 
 struct MM_SC_MSN : public TS_MESSAGE
 {

@@ -1,15 +1,15 @@
 #include "SG_ChatHandler.h"
 #include "Networking/General/SG_ServerBase.h"
-#include <Handlers/MMO/SG_MMOHandler.h>
-#include <Tools/SG_Logger.h>
-#include <Packets/MMO/Social/SocialPacketsResponse.h>
-#include <Packets/MMO/Rooms/RoomPackets.h>
-#include <Handlers/MMO/Rooms/SG_RoomHandler.h>
-#include <Packets/MMO/Minigames/MinigamePacketsResponse.h>
-#include <Handlers/Relay/SG_RelayHandler.h>
-#include <Packets/MMO/MMOPackets.h>
+#include "Handlers/MMO/SG_MMOHandler.h"
+#include "Tools/SG_Logger.h"
+#include "Packets/MMO/Social/SocialPacketsResponse.h"
+#include "Packets/MMO/Rooms/RoomPackets.h"
+#include "Handlers/MMO/Rooms/SG_RoomHandler.h"
+#include "Packets/MMO/Minigames/MinigamePacketsResponse.h"
+#include "Handlers/Relay/SG_RelayHandler.h"
+#include "Packets/MMO/MMOPackets.h"
 #include <boost/algorithm/string.hpp>
-#include <Tools/SG_DataConverter.h>
+#include "Tools/SG_DataConverter.h"
 
 void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_CHAT_MESSAGE* packet)
 {
@@ -24,18 +24,18 @@ void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession>
 	else
 	{
 		/*
-		//// Uncommenting this will show the bubble on the top on the character head, but will display the message twice on chat...
+		// Uncommenting this will show the bubble on the top on the character head, but will display the message twice on chat...
 		BM_SC_CHAT_MESSAGE_RESP response;
 		BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
 		SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
-		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.successmessage, "SUCCESS",8);
 		response.successmessage[7] = static_cast<uint8_t>(0);
 
 		Session->SendPacketStruct(&response);
 		*/
 
 		std::cout << sizeof(packet->msg) << std::endl;
-
+		
 		BM_SC_CHAT_MESSAGE_RESP2 response;
 		BM_SC_CHAT_MESSAGE_RESP2::initMessage<BM_SC_CHAT_MESSAGE_RESP2>(&response);
 
@@ -48,9 +48,9 @@ void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession>
 			}
 			message[i] = '0';
 		}
-
-		strcpy_s(response.sender, static_cast<std::string>(packet->sender).c_str());
-		strcpy_s(response.message, static_cast<std::string>(message).c_str());
+		
+		memcpy(response.sender, static_cast<std::string>(packet->sender).c_str(),32);
+		memcpy(response.message, static_cast<std::string>(message).c_str(),70);
 		response.type = CHAT_NORMAL2;
 		Session->m_Server->SendBroadcast(&response);
 
@@ -69,7 +69,7 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 	{
 		BM_SC_END_GAME response;
 		BM_SC_END_GAME::initMessage<BM_SC_END_GAME>(&response);
-		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.successmessage, "SUCCESS", 8);
 		response.successmessage[7] = static_cast<uint8_t>(0);
 		Session->m_Server->SendRoomBroadcast(&response, Session->m_Player->roomptr->RoomID, Session, true);
 
@@ -116,8 +116,8 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 		BM_SC_CHAT_MESSAGE_RESP2 response;
 		BM_SC_CHAT_MESSAGE_RESP2::initMessage<BM_SC_CHAT_MESSAGE_RESP2>(&response);
 
-		strcpy_s(response.sender, static_cast<std::string>("SG").c_str());
-		strcpy_s(response.message, static_cast<std::string>(msg).c_str());
+		memcpy(response.sender, static_cast<std::string>("SG").c_str(),32);
+		memcpy(response.message, static_cast<std::string>(msg).c_str(),70);
 		response.type = CHAT_SYSTEM_ANNOUNCEMENT;
 		Session->m_Server->SendBroadcast(&response);
 	}
@@ -126,7 +126,7 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 		std::cout << "Spawning bot...";
 		BM_SC_PLAYER_CHAR_LIST_RESP response;
 		BM_SC_PLAYER_CHAR_LIST_RESP::initMessage<BM_SC_PLAYER_CHAR_LIST_RESP>(&response);
-		strcpy_s(response.resonse, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.resonse, "SUCCESS", 8);
 		response.resonse[7] = static_cast<uint8_t>(0);
 		response.uk1 = 1;
 		response.uk2 = 1;
@@ -135,7 +135,7 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 		response.uk5 = 1;
 
 		std::string charname = "testuser";
-		strcpy_s(response.charname, charname.c_str());
+		memcpy(response.charname, charname.c_str(),43);
 		for (auto i = Session->m_Player->charname.length(); i != 43; i++)
 		{
 			response.charname[i] = static_cast<uint8_t>(0);
@@ -189,8 +189,9 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 	{
 		//SG_RelayHandler::StartGame(Session);
 		std::cout << "GOOGOGOGOGOGOGOGO" << std::endl;
+#ifdef _WIN32
 		Sleep(2000);
-
+#endif
 
 		for(int i = 0;i < 100000;i++)
 		{
@@ -198,8 +199,7 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 			rep.id = i;
 			BULLSHIT_TEST::initMessage(&rep);
 			std::cout << i << std::endl;
-			//Session->SendPacketStruct(&rep);
-			Session->m_Server->SendBroadcast(&rep);
+			Session->SendBroadcast(&rep);
 			//Beep(500, 100);
 			//Sleep(500);
 		}
@@ -216,18 +216,23 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 	{
 		for(char i = 0;i<254;i++)
 		{
+#ifdef _WIN32
 			Sleep(100);
+#endif
 			std::cout << i << std::endl;
-			BM_SC_CHAT_MESSAGE_RESP2 response;
+			BM_SC_CHAT_MESSAGE_RESP2  response;
 			BM_SC_CHAT_MESSAGE_RESP2::initMessage<BM_SC_CHAT_MESSAGE_RESP2>(&response);
 
 			char mg[30];
-			sprintf_s(mg, "%d test message", i);
+			SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
+			
+			memcpy(response.successmessage, "SUCCESS", 8);
+			memcpy(response.message, static_cast<std::string>(mg).c_str(), 30);
+			response.successmessage[7] = static_cast<uint8_t>(0);
+			response.id = i;
+			Session->SendBroadcast(&response);
 
-			strcpy_s(response.sender, static_cast<std::string>(packet->sender).c_str());
-			strcpy_s(response.message, static_cast<std::string>(mg).c_str());
-			response.type = i;
-			Session->m_Server->SendBroadcast(&response);
+			std::cout << response.id << std::endl;
 		}
 	}
 }

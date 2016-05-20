@@ -9,7 +9,7 @@
 #include "SG_ClientSession.h"
 #include "Tools/SG_DataConverter.h"
 #include "Packets/PacketBaseMessage.h"
-#include <Tools/SG_Logger.h>
+#include "Tools/SG_Logger.h"
 
 MySQLConnection *SG_ClientSession::SQLConn = nullptr;
 SG_Config *SG_ClientSession::conf = nullptr;

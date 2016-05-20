@@ -4,7 +4,7 @@
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-#include <Packets/PacketBaseMessage.h>
+#include "Packets/PacketBaseMessage.h"
 
 struct BM_SC_GET_ROOMLIST : public TS_MESSAGE
 {

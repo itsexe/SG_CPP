@@ -1,12 +1,12 @@
 #include "SG_SocialHandler.h"
-#include <Packets/MMO/Social/SocialPacketsResponse.h>
+#include "Packets/MMO/Social/SocialPacketsResponse.h"
 #include "Networking/General/SG_ServerBase.h"
 
 void SG_SocialHandler::HandleMSN(const boost::shared_ptr<SG_ClientSession> Session)
 {
 	MM_SC_MSN_RESP response;
 	MM_SC_MSN_RESP::initMessage<MM_SC_MSN_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	response.uk3 = 1;
 	response.uk4 = 1;
@@ -23,7 +23,7 @@ void SG_SocialHandler::FindUser(const boost::shared_ptr<SG_ClientSession> Sessio
 		//User found
 		MM_SC_MSN_FIND_USER_RESP response;
 		MM_SC_MSN_FIND_USER_RESP::initMessage<MM_SC_MSN_FIND_USER_RESP>(&response);
-		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.successmessage, "SUCCESS", 8);
 		response.successmessage[7] = static_cast<uint8_t>(0);
 		Session->SendPacketStruct(&response);
 	}
@@ -32,7 +32,7 @@ void SG_SocialHandler::FindUser(const boost::shared_ptr<SG_ClientSession> Sessio
 		//User not found (Send packet just to test)
 		MM_SC_MSN_FIND_USER_RESP response;
 		MM_SC_MSN_FIND_USER_RESP::initMessage<MM_SC_MSN_FIND_USER_RESP>(&response);
-		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.successmessage, "SUCCESS", 8);
 		response.successmessage[7] = static_cast<uint8_t>(0);
 		Session->SendPacketStruct(&response);
 	}
@@ -44,7 +44,7 @@ void SG_SocialHandler::FriendRequest(const boost::shared_ptr<SG_ClientSession> S
 	//TODO: Add request to database
 	MM_SC_FRIEND_REQUEST_RESP response;
 	MM_SC_FRIEND_REQUEST_RESP::initMessage<MM_SC_FRIEND_REQUEST_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
@@ -53,7 +53,7 @@ void SG_SocialHandler::CreateClan(const boost::shared_ptr<SG_ClientSession> Sess
 {
 	BM_SC_CLAN_CREATION_RESP response;
 	BM_SC_CLAN_CREATION_RESP::initMessage<BM_SC_CLAN_CREATION_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
@@ -65,17 +65,17 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 	{
 		BM_SC_MATE_INFO_RESP response;
 		BM_SC_MATE_INFO_RESP::initMessage<BM_SC_MATE_INFO_RESP>(&response);
-		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.successmessage, "SUCCESS", 8);
 		response.successmessage[7] = static_cast<uint8_t>(0);
 
 		// TODO
 		// Clean this shit up. I'm currently to tired for this.
 
-		strcpy_s(response.clanname, static_cast<std::string>("Testclan <3").c_str());
-		strcpy_s(response.clantag, static_cast<std::string>("TES").c_str());
-		strcpy_s(response.charname, Session->m_Player->charname.c_str());
-		strcpy_s(response.zoneinfo, Session->m_Player->zoneinfo.c_str());
-		strcpy_s(response.biostr, Session->m_Player->biostr.c_str());
+		memcpy(response.clanname, "Testclan <3",87);
+		memcpy(response.clantag, "TES",4);
+		memcpy(response.charname, Session->m_Player->charname.c_str(),43);
+		memcpy(response.zoneinfo, Session->m_Player->zoneinfo.c_str(),121);
+		memcpy(response.biostr, Session->m_Player->biostr.c_str(),218);
 		
 
 		for (auto i = static_cast<std::string>("Testclan <3").length(); i != 87; ++i)
@@ -97,7 +97,7 @@ void SG_SocialHandler::HandleMateInfo(const boost::shared_ptr<SG_ClientSession> 
 
 		response.age = Session->m_Player->age;
 		response.zoneid = Session->m_Player->zoneid;
-		response.chartype = Session->m_Player->chartype;
+		response.chartype = static_cast<uint8_t>(Session->m_Player->chartype);
 		response.license = Session->m_Player->license;
 		response.level = static_cast<uint16_t>(Session->m_Player->charlevel);
 
@@ -118,7 +118,7 @@ void SG_SocialHandler::UpdateMateInfo(const boost::shared_ptr<SG_ClientSession> 
 
 	BM_SC_UPDATE_MYMATEINFO_RESP response;
 	BM_SC_UPDATE_MYMATEINFO_RESP::initMessage<BM_SC_UPDATE_MYMATEINFO_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 

@@ -6,7 +6,7 @@
 #pragma pack(push, 1)
 #include "SG_Config.h"
 
-const enum TM_SC_RESULT_error : uint16_t
+static enum TM_SC_RESULT_error : uint16_t
 {
 	SUCCESS_INTERNAL = 0, //THIS WILL BE USED FOR INTERNAL COMMUNICATION!
 	MSG_SERVER_NOT_EXIST = 1,// wrong login information passed
@@ -15,12 +15,12 @@ const enum TM_SC_RESULT_error : uint16_t
 	MSG_SERVER_RETRY = 50, // couldnt connect to server, try later
 	MSG_FAIL_WEB_ID = 60, // go to www.gpotato.eu and login
 	AURORA_RESULT_REPETITION = 70, // to many login try's, temporarly banned
-};
-const enum TM_SC_SELECT_SERVER_state : uint16_t
+} c1;
+static enum TM_SC_SELECT_SERVER_state : uint16_t
 {
 	CONNECTION_SUCCES = 0, // continue to login screen
 	CONNECTION_BROKEN = 1, // connection to server broken/lost. please login again
-};
+} c2;
 struct TM_SC_RESULT : public TS_MESSAGE
 {
 	uint16_t uk1;

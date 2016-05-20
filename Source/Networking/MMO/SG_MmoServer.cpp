@@ -3,15 +3,15 @@
 #include "Tools/SG_Logger.h"
 #include "Handlers/MMO/SG_MMOHandler.h"
 #include "Packets/MMO/MMOPackets.h"
-#include <Packets/MMO/Social/SocialPackets.h>
-#include <Packets/MMO/Minigames/MinigamePackets.h>
-#include <Packets/MMO/Rooms/RoomPackets.h>
-#include <Handlers/MMO/Rooms/SG_RoomHandler.h>
-#include <Handlers/MMO/Social/SG_SocialHandler.h>
-#include <Handlers/MMO/Social/SG_ChatHandler.h>
-#include <Handlers/MMO/Minigames/OX/SG_QuizHandler.h>
-#include <Handlers/MMO/Minigames/SG_MinigameHandler.h>
-#include <Tools/SG_DataConverter.h>
+#include "Packets/MMO/Social/SocialPackets.h"
+#include "Packets/MMO/Minigames/MinigamePackets.h"
+#include "Packets/MMO/Rooms/RoomPackets.h"
+#include "Handlers/MMO/Rooms/SG_RoomHandler.h"
+#include "Handlers/MMO/Social/SG_SocialHandler.h"
+#include "Handlers/MMO/Social/SG_ChatHandler.h"
+#include "Handlers/MMO/Minigames/OX/SG_QuizHandler.h"
+#include "Handlers/MMO/Minigames/SG_MinigameHandler.h"
+#include "Tools/SG_DataConverter.h"
 
 #define ALLOW_MULTIPLE_CONNECTIONS true
 

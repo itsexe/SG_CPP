@@ -42,7 +42,10 @@ bool SG_ServerBase::InitServer(const std::string &strIP, uint32_t uiPort, int32_
 
 	if (ec)
 	{
+#ifdef _WIN32
+		//This does not work with g++ for some reason, idk
 		std::cout << "[" << __FUNCTION__ "] Boost error [" << ec << "]" << std::endl;
+#endif
 		return false;
 	}
 
