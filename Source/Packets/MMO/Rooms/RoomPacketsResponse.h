@@ -4,7 +4,7 @@
 #include "Packets/PacketBaseMessage.h"
 
 #pragma pack(push, 1)
-#include <Constructors/sg_constructor.h>
+#include "Constructors/sg_constructor.h"
 
 struct BM_SC_GET_ROOMLIST_RESP : public TS_MESSAGE_WNA
 {
@@ -91,7 +91,7 @@ struct BM_SC_SELECT_MAP_RESP : public TS_MESSAGE
 };
 struct BM_SC_MAP_INFO_RESP : public TS_MESSAGE
 {
-	uint32_t mapid;
+	uint16_t mapid;
 	static const uint16_t packetID = 2164;
 };
 struct BM_SC_START_GAME_RESP : public TS_MESSAGE_WNA

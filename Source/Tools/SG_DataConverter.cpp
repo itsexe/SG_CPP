@@ -11,7 +11,6 @@ void SG_DataConverter::BytebufferToString(uint8_t* pData, std::size_t stSize, st
 		ss << std::hex << std::setfill('0') << std::setw(2) << std::uppercase << static_cast<int32_t>(pData[i]) << " ";
 	}
 }
-
 void SG_DataConverter::ByteToASCII(uint8_t* pData, std::size_t stSize, std::stringstream& ss)
 {
 	for (auto i = 0; i != stSize; ++i)

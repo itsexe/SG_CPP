@@ -7,9 +7,6 @@
 #include "Networking/General/SG_ClientSession.h"
 #include "Tools/Encryption/DesPasswordCipher.h"
 
-// EXT_IP
-#define EXT_IP "31.38.215.40"
-
 SG_AuthHandler::SG_AuthHandler()
 {
 }
@@ -83,7 +80,7 @@ void SG_AuthHandler::AcceptLogin(const boost::shared_ptr<SG_ClientSession> Sessi
 	TS_SC_WE_LOGIN response;
 	TS_MESSAGE::initMessage<TS_SC_WE_LOGIN>(&response);
 	response.uk1 = 1;
-	strcpy_s(response.sessionKey, Session->m_Player->SessionKey.c_str());
+	memcpy(response.sessionKey, Session->m_Player->SessionKey.c_str(),33);
 	response.uk2 = 700;
 	response.uk3 = 1;
 	Session->SendPacketStruct(&response);
@@ -109,19 +106,18 @@ void SG_AuthHandler::SendServerList(const boost::shared_ptr<SG_ClientSession> Se
 	response.Msg_ID = 2;
 	response.Lobby_ID = 3;
 	response.MMO_ID = 4;
-	std::string external_ip = EXT_IP;
-	strcpy_s(response.msg_IP, external_ip.c_str()/*SG_ClientSession::conf->msgIP.c_str()*/);
-	strcpy_s(response.mmo_IP, external_ip.c_str()/*SG_ClientSession::conf->MMOIP.c_str()*/);
-	strcpy_s(response.lobby_IP, external_ip.c_str()/*SG_ClientSession::conf->LobbyIP.c_str()*/);
-	for (auto i = external_ip.length(); i != 16; i++)
+	memcpy(response.msg_IP, SG_ClientSession::conf->msgIP.c_str(),16);
+	memcpy(response.mmo_IP, SG_ClientSession::conf->MMOIP.c_str(),16);
+	memcpy(response.lobby_IP, SG_ClientSession::conf->LobbyIP.c_str(),16);
+	for (auto i = SG_ClientSession::conf->msgIP.length(); i != 16; i++)
 	{
 		response.msg_IP[i] = static_cast<uint8_t>(0);
 	}
-	for (auto i = external_ip.length(); i != 16; i++)
+	for (auto i = SG_ClientSession::conf->MMOIP.length(); i != 16; i++)
 	{
 		response.mmo_IP[i] = static_cast<uint8_t>(0);
 	}
-	for (auto i = external_ip.length(); i != 16; i++)
+	for (auto i = SG_ClientSession::conf->LobbyIP.length(); i != 16; i++)
 	{
 		response.lobby_IP[i] = static_cast<uint8_t>(0);
 	}
@@ -131,17 +127,15 @@ void SG_AuthHandler::SendServerList(const boost::shared_ptr<SG_ClientSession> Se
 	response.CurrentUsers = 0;
 	response.MaximumUsers = SG_ClientSession::conf->MaximumUsersPerServer;
 	Session->SendPacketStruct(&response);
-	std::cout << "server list sent" << std::endl;
 }
 
 void SG_AuthHandler::SelectServer(const boost::shared_ptr<SG_ClientSession> Session, const TS_CA_SELECT_SERVER * packet)
 {
-	std::cout << "select server" << std::endl;
 	TS_CA_SELECT_SERVER_RESP response;
 	TS_CA_SELECT_SERVER_RESP::initMessage<TS_CA_SELECT_SERVER_RESP>(&response);
 	response.state = TM_SC_SELECT_SERVER_state::CONNECTION_SUCCES;
-	response.uk1 = 1;
-	response.uk2 = 2;
-	response.serverId = 3;
+	response.uk1 = 0;
+	response.uk2 = 0;
+	response.uk3 = 0;
 	Session->SendPacketStruct(&response);
 }

@@ -1,7 +1,7 @@
 #include "SG_MessageServer.h"
 #include <string>
 #include "Tools/SG_Logger.h"
-#include <Tools/SG_DataConverter.h>
+#include "Tools/SG_DataConverter.h"
 
 bool SG_MessageServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> pSession)
 {

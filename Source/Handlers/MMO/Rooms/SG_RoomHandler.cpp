@@ -1,10 +1,7 @@
 #include "SG_RoomHandler.h"
-#include <Tools/SG_Logger.h>
-#include <Networking/General/SG_ClientSession.h>
-#include <Networking/General/SG_ServerBase.h>
-
-// EXT_IP
-#define EXT_IP "31.38.215.40"
+#include "Tools/SG_Logger.h"
+#include "Networking/General/SG_ClientSession.h"
+#include "Networking/General/SG_ServerBase.h"
 
 void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
@@ -14,7 +11,7 @@ void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Sess
 	{
 		sg_constructor::rooms_packet room;
 		room.RoomID = iter->RoomID;
-		strcpy_s(room.name, iter->Name.c_str());
+		memcpy(room.name, iter->Name.c_str(),24);
 		for (auto i = iter->Name.length(); i != 24; i++)
 		{
 			room.name[i] = static_cast<uint8_t>(0);
@@ -73,17 +70,15 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 			std::cout << " ==== THIS IS A RANKED GAME ==== " << std::endl;
 		}
 
-		std::string external_ip = EXT_IP;
-
 		BM_SC_CREATE_ROOM_RESP response;
 		BM_SC_CREATE_ROOM_RESP::initMessage<BM_SC_CREATE_ROOM_RESP>(&response);
-		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.successmessage, "SUCCESS", 8);
 		response.successmessage[7] = static_cast<uint8_t>(0);
 		response.roomid = RoomPtr->RoomID;
 		response.relayport = Session->conf->RelayPort;
 		response.udpport = 5000;
-		strcpy_s(response.relayip, external_ip.c_str());
-		for (auto i = external_ip.length(); i != 20; i++)
+		memcpy(response.relayip, SG_ClientSession::conf->relayIP.c_str(),20);
+		for (auto i = SG_ClientSession::conf->relayIP.length(); i != 20; i++)
 		{
 			response.relayip[i] = static_cast<uint8_t>(0);
 		}
@@ -103,7 +98,7 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 		//Something is wrong with the parameters
 		BM_SC_CREATE_FAILED_RESP response;
 		BM_SC_CREATE_FAILED_RESP::initMessage<BM_SC_CREATE_FAILED_RESP>(&response);
-		strcpy_s(response.errormessage, static_cast<std::string>("INVALID_REQUEST").c_str());
+		memcpy(response.errormessage, "INVALID_REQUEST",16);
 		response.errormessage[15] = static_cast<uint8_t>(0);
 		Session->SendPacketStruct(&response);
 	}
@@ -112,7 +107,6 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 
 void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session, const BM_SC_ENTER_ROOM* packet, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
-	std::string external_ip = EXT_IP;
 	for (const auto& iter : *roomlist_ptr)
 	{
 		if (iter->RoomID == packet->roomid + 1)
@@ -121,14 +115,14 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 			Session->m_Player->IsReady = 0;
 			BM_SC_ENTER_ROOM_SUCCESS_RESP response;
 			BM_SC_ENTER_ROOM_SUCCESS_RESP::initMessage<BM_SC_ENTER_ROOM_SUCCESS_RESP>(&response);
-			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+			memcpy(response.successmessage, "SUCCESS", 8);
 			response.successmessage[7] = static_cast<uint8_t>(0);
 			//response.roomid = iter->RoomID;
 			response.team = 0;
 			response.relayport = Session->conf->RelayPort;
 			response.udpport = 5000;
-			strcpy_s(response.relayip, external_ip.c_str());
-			for (auto i = external_ip.length(); i != 20; i++)
+			memcpy(response.relayip, SG_ClientSession::conf->relayIP.c_str(),20);
+			for (auto i = SG_ClientSession::conf->relayIP.length(); i != 20; i++)
 			{
 				response.relayip[i] = static_cast<uint8_t>(0);
 			}
@@ -165,7 +159,7 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 	//Room not found, or is full or something
 	BM_SC_ENTER_ROOM_FAILED_RESP response;
 	BM_SC_ENTER_ROOM_FAILED_RESP::initMessage<BM_SC_ENTER_ROOM_FAILED_RESP>(&response);
-	strcpy_s(response.errormessage, static_cast<std::string>("INVALID_REQUEST").c_str());
+	memcpy(response.errormessage, "INVALID_REQUEST",16);
 	response.errormessage[15] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
@@ -174,7 +168,7 @@ void SG_RoomHandler::RoomLeave(const boost::shared_ptr<SG_ClientSession> Session
 {
 	BM_SC_LEAVE_ROOM_RESP response;
 	BM_SC_LEAVE_ROOM_RESP::initMessage<BM_SC_LEAVE_ROOM_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 	Session->m_Player->roomptr.reset();
@@ -188,7 +182,7 @@ void SG_RoomHandler::HandlePlayerReady(const boost::shared_ptr<SG_ClientSession>
 		Session->m_Player->IsReady = 1;
 	BM_SC_READY_GAME_RESP response;
 	BM_SC_READY_GAME_RESP::initMessage<BM_SC_READY_GAME_RESP>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 	BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session, Session->m_Player->RoomPosition);
@@ -209,13 +203,13 @@ void SG_RoomHandler::HandlePlayerRoomInfo(const boost::shared_ptr<SG_ClientSessi
 		{
 			BM_SC_CHARACTER_INFO_RESP response;
 			BM_SC_CHARACTER_INFO_RESP::initMessage<BM_SC_CHARACTER_INFO_RESP>(&response);
-			strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+			memcpy(response.successmessage, "SUCCESS", 8);
 			response.successmessage[7] = static_cast<uint8_t>(0);
 			response.uk1 = 1;
 			response.uk2 = 2;
 			response.uk3 = 3;
 			response.uk4 = 4;
-			strcpy_s(response.charname, static_cast<std::string>(iter->m_Player->charname).c_str());
+			memcpy(response.charname, static_cast<std::string>(iter->m_Player->charname).c_str(),40);
 			for (auto i = iter->m_Player->charname.length(); i != 40; ++i)
 			{
 				response.charname[i] = static_cast<uint8_t>(0);
@@ -283,8 +277,8 @@ void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session
 			{
 				IDx++;
 				sg_constructor::room_players player;
-				strcpy_s(player.charname, static_cast<std::string>(iter->m_Player->charname).c_str());
-				strcpy_s(player.remoteendpoint, iter->getSocket().remote_endpoint().address().to_string().c_str());
+				memcpy(player.charname, static_cast<std::string>(iter->m_Player->charname).c_str(),40);
+				memcpy(player.remoteendpoint, iter->getSocket().remote_endpoint().address().to_string().c_str(),16);
 				for (auto i = iter->m_Player->charname.length(); i != 40; ++i)
 				{
 					player.charname[i] = static_cast<uint8_t>(0);
@@ -307,8 +301,8 @@ void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session
 	}
 	BM_SC_START_GAME_RESP *response;
 	response = TS_MESSAGE_WNA::create<BM_SC_START_GAME_RESP, sg_constructor::room_players>(playerlist.size());
-	strcpy_s(response->successmessage, static_cast<std::string>("SUCCESS").c_str());
-	strcpy_s(response->encryptionkey, static_cast<std::string>("encryptionbla<3").c_str());
+	memcpy(response->successmessage, "SUCCESS", 8);
+	memcpy(response->encryptionkey, "encryptionbla<3",16);
 	response->successmessage[7] = static_cast<uint8_t>(0);
 	response->encryptionkey[15] = static_cast<uint8_t>(0);
 	response->uk1 = 0;
@@ -321,8 +315,8 @@ void SG_RoomHandler::StartGame(const boost::shared_ptr<SG_ClientSession> Session
 		i++;
 	}
 
-	strcpy_s(response->ip1, "127.0.0.1");
-	strcpy_s(response->ip2, "99999999999999999999999999999999999999999999");
+	memcpy(response->ip1, "127.0.0.1", 45);
+	memcpy(response->ip2, "99999999999999999999999999999999999999999999", 45);
 
 	// IL MANQUE UN TRUC JUSTE ICI
 
@@ -333,7 +327,7 @@ void SG_RoomHandler::EndGame(const boost::shared_ptr<SG_ClientSession> Session, 
 {
 	BM_SC_END_GAME response;
 	BM_SC_END_GAME::initMessage<BM_SC_END_GAME>(&response);
-	strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
 }
@@ -368,14 +362,17 @@ void SG_RoomHandler::UpdateMap(const boost::shared_ptr<SG_ClientSession> Session
 	{
 		BM_SC_SELECT_MAP_RESP response;
 		BM_SC_SELECT_MAP_RESP::initMessage<BM_SC_SELECT_MAP_RESP>(&response);
-		strcpy_s(response.successmessage, static_cast<std::string>("SUCCESS").c_str());
+		memcpy(response.successmessage, "SUCCESS", 8);
 		response.successmessage[7] = static_cast<uint8_t>(0);
 		response.mapid = Session->m_Player->roomptr->currentmap;
 		//Send to everyone in the room
 		Session->m_Server->SendRoomBroadcast(&response, Session->m_Player->roomptr->RoomID, Session, true);
 
+
 		BM_SC_MAP_INFO_RESP response2;
 		BM_SC_MAP_INFO_RESP::initMessage<BM_SC_MAP_INFO_RESP>(&response2);
+		//memcpy(response.successmessage, "SUCCESS",8);
+		//response2.successmessage[7] = static_cast<uint8_t>(0);
 		response2.mapid = Session->m_Player->roomptr->currentmap;
 		Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session, true);
 	}
@@ -385,7 +382,7 @@ void SG_RoomHandler::HandleUnknownInfo(const boost::shared_ptr<SG_ClientSession>
 {
 	BM_SC_UNKNOWN_INFO_RESP response;
 	BM_SC_UNKNOWN_INFO_RESP::initMessage<BM_SC_UNKNOWN_INFO_RESP>(&response);
-	strcpy_s(response.name, static_cast<std::string>("irgendwastest").c_str());
+	memcpy(response.name, "irgendwastest",40);
 	for (auto i = static_cast<std::string>("irgendwastest").length(); i != 33; ++i)
 	{
 		response.name[i] = static_cast<uint8_t>(0);
@@ -397,18 +394,18 @@ BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost
 {
 	BM_SC_ROOM_MULTI_INFO_RESP response;
 	BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response);
-	strcpy_s(response.remoteendpoint, static_cast<std::string>(Session->getSocket().remote_endpoint().address().to_string()).c_str());
+	memcpy(response.remoteendpoint, static_cast<std::string>(Session->getSocket().remote_endpoint().address().to_string()).c_str(),33);
 	for (auto i = Session->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
 	{
 		response.remoteendpoint[i] = static_cast<uint8_t>(0);
 	}
-	strcpy_s(response.charname, static_cast<std::string>(Session->m_Player->charname).c_str());
+	memcpy(response.charname, static_cast<std::string>(Session->m_Player->charname).c_str(),40);
 	for (auto i = Session->m_Player->charname.length(); i != 40; ++i)
 	{
 		response.charname[i] = static_cast<uint8_t>(0);
 	}
 	response.slotdisplay = position;
-	response.chartype = Session->m_Player->chartype;
+	response.chartype = static_cast<uint8_t>(Session->m_Player->chartype);
 	response.ready = Session->m_Player->IsReady;
 	if (newplayer == true)
 		response.enterinfo = 3;

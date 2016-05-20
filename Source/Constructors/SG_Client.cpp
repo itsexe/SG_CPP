@@ -2,7 +2,7 @@
 #include <boost/date_time/posix_time/ptime.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <random>
-#include <Networking/General/SG_ClientSession.h>
+#include "Networking/General/SG_ClientSession.h"
 
 
 SG_Client::SG_Client()

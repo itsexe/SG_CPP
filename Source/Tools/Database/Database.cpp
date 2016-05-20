@@ -133,7 +133,9 @@ MySQLQuery::MySQLQuery(MySQLConnection *mConn, const std::string &sStatement)
 	m_sStatement = sStatement;
 	m_iResultRowCount = 0;
 
-	int argCount = std::count(m_sStatement.begin(), m_sStatement.end(), '?');
+	int argCount = 0;
+	for (int i = 0; i < m_sStatement.size(); i++)
+		if (m_sStatement[i] == '?') argCount++;
 	for (int i = 1; i <= argCount; i++)
 	{
 		m_mArgMap.insert(std::pair<int, std::string>(i, ""));

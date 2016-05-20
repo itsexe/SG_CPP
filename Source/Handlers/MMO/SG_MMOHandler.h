@@ -4,7 +4,7 @@
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include "Networking/General/SG_ClientSession.h"
 #include "Packets/MMO/MMOPackets.h"
-#include <Packets/MMO/MMOPacketsResponse.h>
+#include "Packets/MMO/MMOPacketsResponse.h"
 
 struct BM_SC_END_GAME;
 
