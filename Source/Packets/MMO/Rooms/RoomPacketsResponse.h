@@ -91,7 +91,7 @@ struct BM_SC_SELECT_MAP_RESP : public TS_MESSAGE
 };
 struct BM_SC_MAP_INFO_RESP : public TS_MESSAGE
 {
-	uint16_t mapid;
+	uint32_t mapid;
 	static const uint16_t packetID = 2164;
 };
 struct BM_SC_START_GAME_RESP : public TS_MESSAGE_WNA

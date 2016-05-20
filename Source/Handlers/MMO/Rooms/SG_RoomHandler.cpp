@@ -3,6 +3,9 @@
 #include "Networking/General/SG_ClientSession.h"
 #include "Networking/General/SG_ServerBase.h"
 
+// EXT_IP
+#define EXT_IP "31.38.215.40"
+
 void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
 
@@ -69,7 +72,8 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 		{
 			std::cout << " ==== THIS IS A RANKED GAME ==== " << std::endl;
 		}
-
+		std::string external_ip = EXT_IP;
+		
 		BM_SC_CREATE_ROOM_RESP response;
 		BM_SC_CREATE_ROOM_RESP::initMessage<BM_SC_CREATE_ROOM_RESP>(&response);
 		memcpy(response.successmessage, "SUCCESS", 8);
@@ -77,8 +81,8 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 		response.roomid = RoomPtr->RoomID;
 		response.relayport = Session->conf->RelayPort;
 		response.udpport = 5000;
-		memcpy(response.relayip, SG_ClientSession::conf->relayIP.c_str(),20);
-		for (auto i = SG_ClientSession::conf->relayIP.length(); i != 20; i++)
+		memcpy(response.relayip, external_ip.c_str(),20); //SG_ClientSession::conf->relayIP.c_str()
+		for (auto i = external_ip.length(); i != 20; i++)
 		{
 			response.relayip[i] = static_cast<uint8_t>(0);
 		}
@@ -121,8 +125,8 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 			response.team = 0;
 			response.relayport = Session->conf->RelayPort;
 			response.udpport = 5000;
-			memcpy(response.relayip, SG_ClientSession::conf->relayIP.c_str(),20);
-			for (auto i = SG_ClientSession::conf->relayIP.length(); i != 20; i++)
+			memcpy(response.relayip, external_ip.c_str(),20);
+			for (auto i = external_ip.length(); i != 20; i++)
 			{
 				response.relayip[i] = static_cast<uint8_t>(0);
 			}
@@ -368,11 +372,8 @@ void SG_RoomHandler::UpdateMap(const boost::shared_ptr<SG_ClientSession> Session
 		//Send to everyone in the room
 		Session->m_Server->SendRoomBroadcast(&response, Session->m_Player->roomptr->RoomID, Session, true);
 
-
 		BM_SC_MAP_INFO_RESP response2;
 		BM_SC_MAP_INFO_RESP::initMessage<BM_SC_MAP_INFO_RESP>(&response2);
-		//memcpy(response.successmessage, "SUCCESS",8);
-		//response2.successmessage[7] = static_cast<uint8_t>(0);
 		response2.mapid = Session->m_Player->roomptr->currentmap;
 		Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session, true);
 	}

@@ -11,7 +11,6 @@ void SG_MMOHandler::HandleLogin(const boost::shared_ptr<SG_ClientSession> Sessio
 	std::string skey(packet->sessionKey, packet->sessionKey + 33);
 	Session->m_Player->SessionKey = skey;
 	Session->m_Player->SessionKey.resize(32);
-	
 	//Get Accountsettings
 	MySQLQuery accqry(Session->SQLConn, "Select id, ingamecash from Accounts where Sessionkey = ?;");
 	accqry.setString(1, Session->m_Player->SessionKey);
@@ -99,7 +98,7 @@ void SG_MMOHandler::CreateChar(const boost::shared_ptr<SG_ClientSession> Session
 	response2.state = TM_SC_SELECT_SERVER_state::CONNECTION_BROKEN;
 	response2.uk1 = 0;
 	response2.uk2 = 0;
-	response2.uk3 = 0;
+	response2.serverId = 0;
 	Session->SendPacketStruct(&response);
 }
 
@@ -136,6 +135,21 @@ void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Sess
 	response.trickcount = 13;
 	response.successmessage [7] = static_cast<uint8_t>(0);
 
+	std::string tricks;
+ 	MySQLQuery qry(Session->SQLConn, "SELECT tricks FROM Accounts where Name = ?;");
+ 	qry.setString(1, Session->m_Player->charname);
+ 	std::cout << qry.BuildQueryString() << std::endl;
+ 	qry.ExecuteQuery();
+ 	if (!qry.GetResultRowCount())
+ 	{
+ 		// Level one for everything
+ 		tricks = "1111111111011";
+ 	}
+ 	else
+ 	{
+ 		tricks = qry.getString(1, "tricks");
+ 	}
+	
 	response.TrickIDGrind = 1000;
 	response.TrickIDBackFlip = 1100;
 	response.TrickIDFrontFlip = 1200;
@@ -164,19 +178,19 @@ void SG_MMOHandler::SendTrickList(const boost::shared_ptr<SG_ClientSession> Sess
 	response.ApplyTrickPowerJump = 1;
 	response.ApplyTrickWallRide = 1;
 
-	response.TricklvlGrind = 1;
-	response.TricklvlBackFlip = 1;
-	response.TricklvlFrontFlip = 1;
-	response.TricklvlAirTwist = 1;
-	response.TricklvlPowerSwing = 1;
-	response.TricklvlGripTurn = 1;
-	response.TricklvlDash = 1;
-	response.TricklvlBackSkating = 1;
-	response.TricklvlJumpingSteer = 1;
-	response.TricklvlButting = 1;
-	response.TricklvlPowerSlide = 1;
-	response.TricklvlPowerJump = 1;
-	response.TricklvlWallRide = 1;
+	response.TricklvlGrind = tricks[0]-48;
+	response.TricklvlBackFlip = tricks[1]-48;
+	response.TricklvlFrontFlip = tricks[2]-48;
+	response.TricklvlAirTwist = tricks[3]-48;
+	response.TricklvlPowerSwing = tricks[4]-48;
+	response.TricklvlGripTurn = tricks[5]-48;
+	response.TricklvlDash = tricks[6]-48;
+	response.TricklvlBackSkating = tricks[7]-48;
+	response.TricklvlJumpingSteer = tricks[8]-48;
+	response.TricklvlButting = tricks[9]-48;
+	response.TricklvlPowerSlide = 0; // Could be tricks[10]-48 but it has to be 0 everytime
+	response.TricklvlPowerJump = tricks[11]-48;
+	response.TricklvlWallRide = tricks[12]-48;
 
 	Session->SendPacketStruct(&response);
 }

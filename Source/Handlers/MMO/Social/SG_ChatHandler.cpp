@@ -34,12 +34,24 @@ void SG_ChatHandler::HandleChatMessage(const boost::shared_ptr<SG_ClientSession>
 		Session->SendPacketStruct(&response);
 		*/
 
+		std::cout << sizeof(packet->msg) << std::endl;
+		
 		BM_SC_CHAT_MESSAGE_RESP2 response;
 		BM_SC_CHAT_MESSAGE_RESP2::initMessage<BM_SC_CHAT_MESSAGE_RESP2>(&response);
 
+		char message[68];
+		for(int i = 0; i < 69 ; i ++)
+		{
+			if(packet->msg[i] != '0')
+			{
+				message[i] = packet->msg[i];
+			}
+			message[i] = '0';
+		}
+		
 		memcpy(response.sender, static_cast<std::string>(packet->sender).c_str(),32);
-		memcpy(response.message, static_cast<std::string>(packet->msg).c_str(),70);
-		response.type = CHAT_NORMAL;
+		memcpy(response.message, static_cast<std::string>(message).c_str(),70);
+		response.type = CHAT_NORMAL2;
 		Session->m_Server->SendBroadcast(&response);
 
 	}
@@ -187,7 +199,7 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 			rep.id = i;
 			BULLSHIT_TEST::initMessage(&rep);
 			std::cout << i << std::endl;
-			Session->SendPacketStruct(&rep);
+			Session->SendBroadcast(&rep);
 			//Beep(500, 100);
 			//Sleep(500);
 		}
@@ -202,27 +214,25 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 	// Chat test.
 	if (msg == ";b")
 	{
-		std::cout << "bullshit incoming" << std::endl;
-#ifdef _WIN32
-		Sleep(2000);
-#endif
-
-		for(int i = 2200;i < 2400;i++)
+		for(char i = 0;i<254;i++)
 		{
 #ifdef _WIN32
-			Sleep(200);
+			Sleep(100);
 #endif
-			BM_SC_CHAT_MESSAGE_RESP response;
-			BM_SC_CHAT_MESSAGE_RESP::initMessage<BM_SC_CHAT_MESSAGE_RESP>(&response);
+			std::cout << i << std::endl;
+			BM_SC_CHAT_MESSAGE_RESP2  response;
+			BM_SC_CHAT_MESSAGE_RESP2::initMessage<BM_SC_CHAT_MESSAGE_RESP2>(&response);
+
+			char mg[30];
 			SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
+			
 			memcpy(response.successmessage, "SUCCESS", 8);
+			memcpy(response.message, static_cast<std::string>(mg).c_str(), 30);
 			response.successmessage[7] = static_cast<uint8_t>(0);
 			response.id = i;
-			Session->SendPacketStruct(&response);
+			Session->SendBroadcast(&response);
 
 			std::cout << response.id << std::endl;
-			//Beep(500, 20);
-			//Sleep(500);
 		}
 	}
 }

@@ -57,7 +57,7 @@ struct TS_CA_SELECT_SERVER_RESP : public TS_MESSAGE
 	TM_SC_SELECT_SERVER_state state;
 	uint32_t uk1;
 	uint32_t uk2;
-	uint32_t uk3;
+	uint32_t serverId;
 	static const uint16_t packetID = 1007;
 };
 #pragma pack(pop)
