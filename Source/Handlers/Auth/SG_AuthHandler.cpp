@@ -7,9 +7,6 @@
 #include "Networking/General/SG_ClientSession.h"
 #include "Tools/Encryption/DesPasswordCipher.h"
 
-// EXT_IP
-#define EXT_IP "31.38.215.40"
-
 SG_AuthHandler::SG_AuthHandler()
 {
 }
@@ -109,19 +106,19 @@ void SG_AuthHandler::SendServerList(const boost::shared_ptr<SG_ClientSession> Se
 	response.Msg_ID = 2;
 	response.Lobby_ID = 3;
 	response.MMO_ID = 4;
-	std::string external_ip = EXT_IP;
-	memcpy(response.msg_IP, external_ip.c_str(),16); //SG_ClientSession::conf->msgIP.c_str()
-	memcpy(response.mmo_IP, external_ip.c_str(),16); //SG_ClientSession::conf->MMOIP.c_str()
-	memcpy(response.lobby_IP, external_ip.c_str(),16); //SG_ClientSession::conf->LobbyIP.c_str()
-	for (auto i = external_ip.length(); i != 16; i++)
+	SG_ClientSession::conf->ExternalIP.c_str();
+	memcpy(response.msg_IP, SG_ClientSession::conf->ExternalIP.c_str(),16); //SG_ClientSession::conf->msgIP.c_str()
+	memcpy(response.mmo_IP, SG_ClientSession::conf->ExternalIP.c_str(),16); //SG_ClientSession::conf->MMOIP.c_str()
+	memcpy(response.lobby_IP, SG_ClientSession::conf->ExternalIP.c_str(),16); //SG_ClientSession::conf->LobbyIP.c_str()
+	for (auto i = SG_ClientSession::conf->ExternalIP.length(); i != 16; i++)
 	{
 		response.msg_IP[i] = static_cast<uint8_t>(0);
 	}
-	for (auto i = external_ip.length(); i != 16; i++)
+	for (auto i = SG_ClientSession::conf->ExternalIP.length(); i != 16; i++)
 	{
 		response.mmo_IP[i] = static_cast<uint8_t>(0);
 	}
-	for (auto i = SG_ClientSession::conf->LobbyIP.length(); i != 16; i++)
+	for (auto i = SG_ClientSession::conf->ExternalIP.length(); i != 16; i++)
 	{
 		response.lobby_IP[i] = static_cast<uint8_t>(0);
 	}
