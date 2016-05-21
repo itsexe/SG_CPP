@@ -39,7 +39,7 @@ struct TS_MESSAGE {
 			p++;
 		}
 
-		return value;
+		return static_cast<int8_t>(value);
 	}
 
 	template<typename PacketType>
@@ -71,7 +71,7 @@ struct TS_MESSAGE_WNA : public TS_MESSAGE {
 		PacketType* msg = (PacketType*) new char[sizeof(PacketType) + sizeof(NestedArray)*nestedElementCount];
 		int size = sizeof(PacketType) + sizeof(NestedArray)*nestedElementCount;
 		memset(msg, 0, size);
-		msg->size = size;
+		msg->size = (uint16_t)size;
 		msg->id = PacketType::packetID;
 		msg->msg_check_sum = checkMessage(msg);
 		return msg;
@@ -91,6 +91,7 @@ private:
 
 inline uint8_t getMessageChecksum(uint32_t size, uint16_t id) {
 	uint8_t value = 0;
+
 
 	value += size & 0xFF;
 	value += (size >> 8) & 0xFF;

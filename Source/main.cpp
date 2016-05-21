@@ -32,8 +32,9 @@ int main(int argc, char *argv[])
 	std::cout << "99.	All in one" << std::endl;
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	std::cout << ">> ";
+
 #ifdef _WIN32
-	if (IsDebuggerPresent())
+	if (IsDebuggerPresent()) //IsDebuggerPresent() isn't available on linux
 	{
 		option = 99;
 	}
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
 	std::system("cls"); // For Windows
 	std::system("title Street Gears Emulator 1.0.2");
 #else
+	std::cin >> option;
 	std::system("clear"); //For Linux, Mac, Whatever
 #endif
 

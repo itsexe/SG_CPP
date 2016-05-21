@@ -3,15 +3,15 @@
 #include "Tools/SG_Logger.h"
 #include "Handlers/MMO/SG_MMOHandler.h"
 #include "Packets/MMO/MMOPackets.h"
-#include <Packets/MMO/Social/SocialPackets.h>
-#include <Packets/MMO/Minigames/MinigamePackets.h>
-#include <Packets/MMO/Rooms/RoomPackets.h>
-#include <Handlers/MMO/Rooms/SG_RoomHandler.h>
-#include <Handlers/MMO/Social/SG_SocialHandler.h>
-#include <Handlers/MMO/Social/SG_ChatHandler.h>
-#include <Handlers/MMO/Minigames/OX/SG_QuizHandler.h>
-#include <Handlers/MMO/Minigames/SG_MinigameHandler.h>
-#include <Tools/SG_DataConverter.h>
+#include "Packets/MMO/Social/SocialPackets.h"
+#include "Packets/MMO/Minigames/MinigamePackets.h"
+#include "Packets/MMO/Rooms/RoomPackets.h"
+#include "Handlers/MMO/Rooms/SG_RoomHandler.h"
+#include "Handlers/MMO/Social/SG_SocialHandler.h"
+#include "Handlers/MMO/Social/SG_ChatHandler.h"
+#include "Handlers/MMO/Minigames/OX/SG_QuizHandler.h"
+#include "Handlers/MMO/Minigames/SG_MinigameHandler.h"
+#include "Tools/SG_DataConverter.h"
 
 #define ALLOW_MULTIPLE_CONNECTIONS true
 
@@ -24,7 +24,7 @@ bool SG_MmoServer::OnClientConnected(const boost::shared_ptr<SG_ClientSession> p
 void SG_MmoServer::OnClientDisconnect(const boost::shared_ptr<SG_ClientSession> pSession)
 {
 	SG_Logger::instance().log("[" + pSession->m_Player->SessionKey + "] disconnected!", SG_Logger::kLogLevelMMO);
-	for (int i = 0;i < idConnected.size();i++)
+	for (uint32_t i = 0;i < idConnected.size();i++)
 	{
 		if(idConnected[i] == pSession->m_Player->playerid)
 		{
@@ -72,7 +72,7 @@ bool SG_MmoServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession> pS
 		SG_MMOHandler::SendPlayerInfo(pSession);
 		SG_MMOHandler::SendTrickList(pSession);
 
-		for (int a = 0; a < SG_MmoServer::idConnected.size(); a++)
+		for (uint32_t a = 0; a < SG_MmoServer::idConnected.size(); a++)
 		{
 			if(idConnected[a] == pSession->m_Player->playerid && !ALLOW_MULTIPLE_CONNECTIONS)
 			{

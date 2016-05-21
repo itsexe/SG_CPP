@@ -11,7 +11,7 @@
 #include "Packets/PacketBaseMessage.h"
 #include "Tools/Database/Database.h"
 #include "SG_Config.h"
-#include <Tools/Encryption/RC4Cipher.h>
+#include "Tools/Encryption/RC4Cipher.h"
 
 /*++
 Class for handling client sessions.
