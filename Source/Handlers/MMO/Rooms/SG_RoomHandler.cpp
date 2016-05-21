@@ -3,9 +3,6 @@
 #include "Networking/General/SG_ClientSession.h"
 #include "Networking/General/SG_ServerBase.h"
 
-// EXT_IP
-#define EXT_IP "31.38.215.40"
-
 void SG_RoomHandler::SendRoomList(const boost::shared_ptr<SG_ClientSession> Session, std::list<boost::shared_ptr<sg_constructor::Room>>* roomlist_ptr)
 {
 
@@ -72,7 +69,6 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 		{
 			std::cout << " ==== THIS IS A RANKED GAME ==== " << std::endl;
 		}
-		std::string external_ip = EXT_IP;
 		
 		BM_SC_CREATE_ROOM_RESP response;
 		BM_SC_CREATE_ROOM_RESP::initMessage<BM_SC_CREATE_ROOM_RESP>(&response);
@@ -81,8 +77,8 @@ void SG_RoomHandler::RoomCreate(const boost::shared_ptr<SG_ClientSession> Sessio
 		response.roomid = RoomPtr->RoomID;
 		response.relayport = Session->conf->RelayPort;
 		response.udpport = 5000;
-		memcpy(response.relayip, external_ip.c_str(),20); //SG_ClientSession::conf->relayIP.c_str()
-		for (auto i = external_ip.length(); i != 20; i++)
+		memcpy(response.relayip, SG_ClientSession::conf->ExternalIP.c_str(),20); //SG_ClientSession::conf->relayIP.c_str()
+		for (auto i = SG_ClientSession::conf->ExternalIP.length(); i != 20; i++)
 		{
 			response.relayip[i] = static_cast<uint8_t>(0);
 		}
@@ -115,7 +111,6 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 	{
 		if (iter->RoomID == packet->roomid + 1)
 		{
-			std::string external_ip = EXT_IP;
 			Session->m_Player->roomptr = iter;
 			Session->m_Player->IsReady = 0;
 			BM_SC_ENTER_ROOM_SUCCESS_RESP response;
@@ -126,8 +121,8 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 			response.team = 0;
 			response.relayport = Session->conf->RelayPort;
 			response.udpport = 5000;
-			memcpy(response.relayip, external_ip.c_str(),20);
-			for (auto i = external_ip.length(); i != 20; i++)
+			memcpy(response.relayip, SG_ClientSession::conf->ExternalIP.c_str(),20);
+			for (auto i =SG_ClientSession::conf->ExternalIP.length(); i != 20; i++)
 			{
 				response.relayip[i] = static_cast<uint8_t>(0);
 			}
