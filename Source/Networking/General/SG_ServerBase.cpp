@@ -5,8 +5,7 @@
 #include "SG_Config.h"
 #include "Tools/SG_Logger.h"
 
-SG_ServerBase::SG_ServerBase()
-	: m_Acceptor(m_Service), m_Strand(m_Service)
+SG_ServerBase::SG_ServerBase() : m_Acceptor(m_Service), m_Strand(m_Service)
 {
 
 }
@@ -150,7 +149,7 @@ void SG_ServerBase::SaveChar(const boost::shared_ptr<SG_ClientSession> Session)
 		mysql_query.setInt(6, Session->m_Player->rupees);
 		mysql_query.setInt(7, Session->m_Player->coins);
 		mysql_query.setInt(8, Session->m_Player->questpoints);
-		mysql_query.setInt(9, NULL);//clan id
+		//mysql_query.setInt(9, NULL);//clan id
 		mysql_query.setInt(10, Session->m_Player->chartype);
 		mysql_query.setTime(11, Session->m_Player->LastBonusCoin);
 		mysql_query.setInt(12, Session->m_Player->age);

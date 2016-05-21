@@ -141,7 +141,8 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 			}
 
 			//inform other players about the new room member
-			BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session, 1, true);
+			BM_SC_ROOM_MULTI_INFO_RESP response2;
+			GeneratePlayerRoomUpdate(Session, 1, true, response2);
 			Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session);
 
 			uint8_t position = 2;
@@ -152,7 +153,8 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 				{
 					if (iter2->m_Player->roomptr->RoomID == packet->roomid + 1)
 					{
-						BM_SC_ROOM_MULTI_INFO_RESP response3 = GeneratePlayerRoomUpdate(iter2, position);
+						BM_SC_ROOM_MULTI_INFO_RESP response3;
+						GeneratePlayerRoomUpdate(iter2, position,false, response3);
 						Session->SendPacketStruct(&response3);
 						position++;
 					}
@@ -190,7 +192,8 @@ void SG_RoomHandler::HandlePlayerReady(const boost::shared_ptr<SG_ClientSession>
 	memcpy(response.successmessage, "SUCCESS", 8);
 	response.successmessage[7] = static_cast<uint8_t>(0);
 	Session->SendPacketStruct(&response);
-	BM_SC_ROOM_MULTI_INFO_RESP response2 = GeneratePlayerRoomUpdate(Session, Session->m_Player->RoomPosition);
+	BM_SC_ROOM_MULTI_INFO_RESP response2;
+	GeneratePlayerRoomUpdate(Session, Session->m_Player->RoomPosition,false, response2);
 	Session->SendPacketStruct(&response2);
 	Session->m_Server->SendRoomBroadcast(&response2, Session->m_Player->roomptr->RoomID, Session, true);
 }
@@ -392,9 +395,8 @@ void SG_RoomHandler::HandleUnknownInfo(const boost::shared_ptr<SG_ClientSession>
 	Session->SendPacketStruct(&response);
 }
 
-BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session, uint8_t position, bool newplayer)
+void SG_RoomHandler::GeneratePlayerRoomUpdate(const boost::shared_ptr<SG_ClientSession> Session, uint8_t position, bool newplayer, BM_SC_ROOM_MULTI_INFO_RESP& response)
 {
-	BM_SC_ROOM_MULTI_INFO_RESP response;
 	BM_SC_ROOM_MULTI_INFO_RESP::initMessage<BM_SC_ROOM_MULTI_INFO_RESP>(&response);
 	memcpy(response.remoteendpoint, static_cast<std::string>(Session->getSocket().remote_endpoint().address().to_string()).c_str(),33);
 	for (auto i = Session->getSocket().remote_endpoint().address().to_string().length(); i != 33; ++i)
@@ -421,5 +423,4 @@ BM_SC_ROOM_MULTI_INFO_RESP &SG_RoomHandler::GeneratePlayerRoomUpdate(const boost
 	response.uk2 = 0;
 	response.uk3 = 1;
 	Session->m_Player->RoomPosition = position;
-	return response;
 }
