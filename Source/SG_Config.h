@@ -19,6 +19,7 @@ class SG_Config
 
 		//Global config
 		uint16_t MaximumUsersPerServer;
+		std::string ExternalIP;
 
 		//Database
 		std::string host;
@@ -73,6 +74,7 @@ void SG_Config::init(std::string path)
 
 		//Global config
 		MaximumUsersPerServer = conf.get<uint16_t>("Global.MaximumUsersPerServer");
+		ExternalIP = conf.get<std::string>("Global.ExternalIP");
 
 		//Database
 		host = conf.get<std::string>("Database.Host");
