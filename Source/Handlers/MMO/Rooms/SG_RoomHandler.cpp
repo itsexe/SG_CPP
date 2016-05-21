@@ -115,6 +115,7 @@ void SG_RoomHandler::RoomEnter(const boost::shared_ptr<SG_ClientSession> Session
 	{
 		if (iter->RoomID == packet->roomid + 1)
 		{
+			std::string external_ip = EXT_IP;
 			Session->m_Player->roomptr = iter;
 			Session->m_Player->IsReady = 0;
 			BM_SC_ENTER_ROOM_SUCCESS_RESP response;

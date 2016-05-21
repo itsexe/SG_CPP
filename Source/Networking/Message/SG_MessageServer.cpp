@@ -18,6 +18,7 @@ bool SG_MessageServer::OnPacketReceived(const boost::shared_ptr<SG_ClientSession
 {
 	switch (packet->id)
 	{
+	case 0: //just to "fix" a compiler warning
 	default:
 		std::stringstream ss;
 		SG_DataConverter::BytebufferToString(reinterpret_cast<uint8_t*>(&packet), packet->size, ss);

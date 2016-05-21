@@ -199,9 +199,7 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 			rep.id = i;
 			BULLSHIT_TEST::initMessage(&rep);
 			std::cout << i << std::endl;
-			Session->SendBroadcast(&rep);
-			//Beep(500, 100);
-			//Sleep(500);
+			Session->m_Server->SendBroadcast(&rep);
 		}
 	}
 	
@@ -226,11 +224,10 @@ void SG_ChatHandler::HandleAdminCommand(const boost::shared_ptr<SG_ClientSession
 			char mg[30];
 			SG_Logger::instance().log(Session->m_Player->charname + ": " + std::string(packet->msg, packet->msg + packet->messagelength), SG_Logger::kLogLevelChat);
 			
-			memcpy(response.successmessage, "SUCCESS", 8);
+			memcpy(response.sender, static_cast<std::string>(packet->sender).c_str(), 32);
 			memcpy(response.message, static_cast<std::string>(mg).c_str(), 30);
-			response.successmessage[7] = static_cast<uint8_t>(0);
 			response.id = i;
-			Session->SendBroadcast(&response);
+			Session->m_Server->SendBroadcast(&response);
 
 			std::cout << response.id << std::endl;
 		}

@@ -134,7 +134,7 @@ MySQLQuery::MySQLQuery(MySQLConnection *mConn, const std::string &sStatement)
 	m_iResultRowCount = 0;
 
 	int argCount = 0;
-	for (int i = 0; i < m_sStatement.size(); i++)
+	for (uint16_t i = 0; i < m_sStatement.size(); i++)
 		if (m_sStatement[i] == '?') argCount++;
 	for (int i = 1; i <= argCount; i++)
 	{

@@ -3,7 +3,6 @@
 #include <cstdint>
 #include "Packets/PacketBaseMessage.h"
 
-#pragma pack(push, 1)
 struct BM_SC_MMO_OX_ENTER : public TS_MESSAGE
 {
 	static const uint16_t packetID = 2030;
