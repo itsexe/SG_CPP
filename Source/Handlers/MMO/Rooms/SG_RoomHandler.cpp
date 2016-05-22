@@ -217,8 +217,14 @@ void SG_RoomHandler::HandlePlayerRoomInfo(const boost::shared_ptr<SG_ClientSessi
 			{
 				response.charname[i] = static_cast<uint8_t>(0);
 			}
+
+			// These two variables are shown in debug log like this :
+			// NETWORK:BS_SC_CHARACTER_INFO - 캐릭터 정보 완료(admin, 5, 6)!
+			// NETWORK:BS_SC_CHARACTER_INFO - Complete information about character(pseudo, uk5, uk6)
 			response.uk5 = 5;
 			response.uk6 = 6;
+
+
 			response.uk7 = 7;
 			response.chartype = iter->m_Player->chartype;
 			response.uk8 = 53;
