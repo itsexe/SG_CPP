@@ -56,15 +56,39 @@ class SG_Config
 		std::string MD5Salt;
 
 		inline void init(std::string path);
+
+	private:
+		static inline void CreateMissingConfigFile(std::string name);
 	};
+
+inline void SG_Config::CreateMissingConfigFile(std::string name)
+{
+	std::ofstream outfile(name);
+	outfile << "[Global]" << std::endl;
+	outfile << "MaximumUsersPerServer=1000" << std::endl;
+	outfile << "ExternalIP=127.0.0.1" << std::endl;
+	outfile << "[Database]" << std::endl;
+	outfile << "Host=127.0.0.1" << std::endl << "Port = 3306" << std::endl << "User=root" << std::endl << "Password=" << std::endl << "Database=sg" << std::endl;
+	outfile << "[Auth]" << std::endl;
+	outfile << "ServerIP=127.0.0.1" << std::endl << "ServerPort=1337" << std::endl << "CheckVersion=0" << std::endl << "CheckLanguage=0" << std::endl << "ClientVersion=200708240" << std::endl << "ClientLanguage=fr" << std::endl;
+	outfile << "[MMO]" << std::endl;
+	outfile << "ServerIP=127.0.0.1" << std::endl << "ServerPort=1338" << std::endl;
+	outfile << "[Lobby]" << std::endl;
+	outfile << "ServerIP=127.0.0.1" << std::endl << "ServerPort=1339" << std::endl;
+	outfile << "[Message]" << std::endl;
+	outfile << "ServerIP=127.0.0.1" << std::endl << "ServerPort=1340" << std::endl;
+	outfile << "[Relay]" << std::endl;
+	outfile << "ServerIP=127.0.0.1" << std::endl << "ServerPort=1341" << std::endl;
+	outfile << "[Encryption]" << std::endl;
+	outfile << "DESKey=!_a^Rc* | #][Ych$~'(M _!d4aUo^%${T!~}h*&X%" << std::endl << "MD5Salt=" << std::endl;
+}
 
 void SG_Config::init(std::string path)
 {
 	if(!boost::filesystem::exists(path))
 	{
-		SG_Logger::instance().log("Config file not found in: " + path + ". Please check if the path is valid. Otherwise you can pass the config path as a start argument. Press any key to exit.", SG_Logger::kLogLevelError);
-		getchar();
-		exit(-1);
+		SG_Logger::instance().log("Config file not found in: " + path + ". Creating config file. Everything is set to default, please check the file to customize emulator.", SG_Logger::kLogLevelError);
+		SG_Config::CreateMissingConfigFile(path);
 	}
 	try
 	{
