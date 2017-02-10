@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DF21F608-0EEB-45FB-94F9-D2F23C4B0584}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SG_CPP</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\Libraries\boost;.;..\Libraries\OpenSSL-Win32\include;..\Libraries\mysql-connector-c\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Libraries\boost\stage\lib;..\Libraries\boost\libs;..\Libraries\mysql-connector-c\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_SCL_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\Libraries\OpenSSL-Win32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\Libraries\OpenSSL-Win32\lib\VC\ssleay32MDd.lib;..\Libraries\OpenSSL-Win32\lib\VC\libeay32MDd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(ProjectDir)..\Libraries\mysql-connector-c\lib\libmysql.dll" "$(OutDir)libmysql.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Handlers\Lobby\SG_LobbyHandler.cpp" />
+    <ClCompile Include="Networking\Lobby\SG_LobbyServer.cpp" />
+    <ClCompile Include="Tools\Database\Database.cpp" />
+    <ClCompile Include="Handlers\MMO\SG_MMOHandler.cpp" />
+    <ClCompile Include="Networking\MMO\SG_MmoServer.cpp" />
+    <ClCompile Include="Tools\Encryption\DesPasswordCipher.cpp" />
+    <ClCompile Include="Handlers\Auth\SG_AuthHandler.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Networking\Auth\SG_AuthServer.cpp" />
+    <ClCompile Include="Constructors\SG_Client.cpp" />
+    <ClCompile Include="Networking\General\SG_ClientSession.cpp" />
+    <ClCompile Include="Tools\SG_DataConverter.cpp" />
+    <ClCompile Include="Tools\SG_Logger.cpp" />
+    <ClCompile Include="Networking\General\SG_ServerBase.cpp" />
+    <ClCompile Include="Handlers\Relay\SG_RelayHandler.cpp" />
+    <ClCompile Include="Networking\Relay\SG_RelayServer.cpp" />
+    <ClCompile Include="Handlers\MMO\Social\SG_ChatHandler.cpp" />
+    <ClCompile Include="Handlers\MMO\Minigames\OX\SG_QuizHandler.cpp" />
+    <ClCompile Include="Handlers\MMO\Rooms\SG_RoomHandler.cpp" />
+    <ClCompile Include="Handlers\MMO\Social\SG_SocialHandler.cpp" />
+    <ClCompile Include="Handlers\MMO\Minigames\SG_MinigameHandler.cpp" />
+    <ClCompile Include="Networking\Message\SG_MessageServer.cpp" />
+    <ClCompile Include="Tools\Encryption\RC4Cipher.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Constructors\sg_constructor.h" />
+    <ClInclude Include="Handlers\Lobby\SG_LobbyHandler.h" />
+    <ClInclude Include="Networking\Lobby\SG_LobbyServer.h" />
+    <ClInclude Include="Tools\Database\Database.h" />
+    <ClInclude Include="Handlers\MMO\SG_MMOHandler.h" />
+    <ClInclude Include="Networking\MMO\SG_MmoServer.h" />
+    <ClInclude Include="Packets\Auth\LoginPacketsResponse.h" />
+    <ClInclude Include="Packets\MMO\MMOPacketsResponse.h" />
+    <ClInclude Include="Packets\MMO\MMOPackets.h" />
+    <ClInclude Include="Tools\Encryption\DesPasswordCipher.h" />
+    <ClInclude Include="Packets\Auth\LoginPackets.h" />
+    <ClInclude Include="Packets\PacketBaseMessage.h" />
+    <ClInclude Include="Handlers\Auth\SG_AuthHandler.h" />
+    <ClInclude Include="Networking\Auth\SG_AuthServer.h" />
+    <ClInclude Include="Constructors\SG_Client.h" />
+    <ClInclude Include="Networking\General\SG_ClientSession.h" />
+    <ClInclude Include="SG_Config.h" />
+    <ClInclude Include="Tools\SG_DataConverter.h" />
+    <ClInclude Include="Tools\SG_Logger.h" />
+    <ClInclude Include="Networking\General\SG_ServerBase.h" />
+    <ClInclude Include="Handlers\Relay\SG_RelayHandler.h" />
+    <ClInclude Include="Networking\Relay\SG_RelayServer.h" />
+    <ClInclude Include="Packets\MMO\Minigames\MinigamePackets.h" />
+    <ClInclude Include="Packets\MMO\Minigames\MinigamePacketsResponse.h" />
+    <ClInclude Include="Packets\MMO\Rooms\RoomPackets.h" />
+    <ClInclude Include="Packets\MMO\Rooms\RoomPacketsResponse.h" />
+    <ClInclude Include="Packets\MMO\Social\SocialPackets.h" />
+    <ClInclude Include="Packets\MMO\Social\SocialPacketsResponse.h" />
+    <ClInclude Include="Packets\Relay\RelayPackets.h" />
+    <ClInclude Include="Packets\Relay\RelayPacketsResponse.h" />
+    <ClInclude Include="Handlers\MMO\Social\SG_ChatHandler.h" />
+    <ClInclude Include="Handlers\MMO\Minigames\OX\SG_QuizHandler.h" />
+    <ClInclude Include="Handlers\MMO\Rooms\SG_RoomHandler.h" />
+    <ClInclude Include="Handlers\MMO\Social\SG_SocialHandler.h" />
+    <ClInclude Include="Handlers\MMO\Minigames\SG_MinigameHandler.h" />
+    <ClInclude Include="Networking\Message\SG_MessageServer.h" />
+    <ClInclude Include="Tools\Encryption\RC4Cipher.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
