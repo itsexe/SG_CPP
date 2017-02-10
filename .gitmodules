@@ -1,3 +1,9 @@
 [submodule "SG-Resurrection-Debug"]
 	path = SG-Resurrection-Debug
 	url = https://github.com/maximeb97/SG-Resurrection-Debug
+[submodule "Libraries/SG-Resurrection-Debug"]
+	path = Libraries/SG-Resurrection-Debug
+	url = https://github.com/maximeb97/SG-Resurrection-Debug/
+[submodule "Libraries/boost"]
+	path = Libraries/boost
+	url = https://github.com/boostorg/boost
