@@ -14,6 +14,43 @@ Lobbys/ Races: Partly working
 
 Chat, Friends and stuff: Not working right now.
 
+# How to use
+If you just want to run the server, take a look at the wiki.
+
+## Compile
+
+
+### Windows:
+* Install git if you haven't already (https://desktop.github.com/)
+* Open a git shell (not the github desktop client)
+* Download the source code of the emulator and all dependencies using: 
+```
+git clone --recursive https://github.com/itsexe/SG_CPP
+```
+* Compile boost using (This will take a some time):
+```
+SG_CPP\Libraries\boost\bootstrap.bat
+SG_CPP\Libraries\boost\bjam --build-type=complete stage
+```
+* Open the SG_CPP\Source\SG_CPP.sln using visual studio and you are ready to compile the emulator
+
+### Linux
+* Install git if you haven't already
+* Open a shell
+* Download the source code of the emulator and all dependencies using: 
+```
+git clone --recursive https://github.com/itsexe/SG_CPP
+```
+* Run SG_CPP\Source\build.sh to compile the emulator
+
+### macOS
+* Install git if you haven't already
+* Open a shell
+* Download the source code of the emulator and all dependencies using: 
+```
+git clone --recursive https://github.com/itsexe/SG_CPP
+```
+* Run SG_CPP\Source\build.sh to compile the emulator
 
 ## Structure of the emulator
 The client needs different kinds of servers.
@@ -62,10 +99,6 @@ static const uint16~t packetID = 1003;
 ```
 (The packet in this example is used to check the clientversion and the language).
 We will also use this method to create the packets we send to the client.
-
-
-## Setup
-Please take a look at the wiki!
 
 ## Contribute
 Contributions are always welcome. Feel free to create pull requests (:
