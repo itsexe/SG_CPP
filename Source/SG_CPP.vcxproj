@@ -44,7 +44,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Libraries\boost;.;..\Libraries\OpenSSL-Win32\include;..\Libraries\mysql-connector-c\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Libraries\boost;.;..\Libraries\OpenSSL-Win32\include;..\Libraries\mysql-connector-c\include;..\Libraries\boost\libs\asio\include\;..\Libraries\boost\libs\filesystem\include\;$(IncludePath)</IncludePath>
     <LibraryPath>..\Libraries\boost\stage\lib;..\Libraries\boost\libs;..\Libraries\mysql-connector-c\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
