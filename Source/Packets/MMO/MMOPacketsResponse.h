@@ -169,8 +169,13 @@ struct BM_SC_TRICK_LIST_RESP : public TS_MESSAGE
 	uint32_t TricklvlWallRide;
 	uint8_t ApplyTrickWallRide;
 
-
 	static const uint16_t packetID = 2105;
+};
+struct BM_SC_EXPAND_SLOT_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint32_t uk0;
+	static const uint16_t packetID = 2155;
 };
 struct BM_SC_BALANCE_INFO_RESP : public TS_MESSAGE
 {
@@ -232,6 +237,16 @@ struct BM_SC_SET_SESSION_MESSAGE_RESP : public TS_MESSAGE
 	char sessionmessage[21];
 	static const uint16_t packetID = 2119;
 };
+struct BM_SC_MMO_EVENT_MESSAGE_RESP : public TS_MESSAGE
+{
+	uint64_t uk1;
+	uint64_t uk2;
+	uint64_t uk3;
+	uint64_t uk4;
+	uint32_t uk5;
+	uint32_t unkEvent;
+	static const uint16_t packetID = 2021;
+};
 struct BM_SC_CREATE_CHAR_RESP : public TS_MESSAGE
 {
 	char successmessage[8];
@@ -253,6 +268,31 @@ struct BM_SC_START_MISSION_RESP : public TS_MESSAGE
 	uint64_t missionid;
 	static const uint16_t packetID = 2075;
 };
+struct BM_SC_REWARD_QUEST_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint64_t uk3;
+	uint64_t uk4;
+	uint64_t uk5;
+	uint32_t uk6;
+	uint32_t sp;
+	uint32_t exp;
+	uint32_t rupees;
+	uint32_t coins;
+	uint32_t uk7;
+	uint32_t uk8;
+	static const uint16_t packetID = 2133;
+};
+struct BM_CS_UPDATE_QP_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t questpoints;
+	static const uint16_t packetID = 2141;
+};
 struct BM_SC_INVENTORY_RESP : public TS_MESSAGE_WNA
 {
 	char successmessage[8];
@@ -262,6 +302,24 @@ struct BM_SC_INVENTORY_RESP : public TS_MESSAGE_WNA
 	uint16_t count;
 	sg_constructor::Item items[];
 	static const uint16_t packetID = 2099;
+};
+struct BM_SC_SELECT_ITEM_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint8_t uk3;
+	uint32_t itemId;
+	uint32_t wearInfo;
+	static const uint16_t packetID = 2101;
+};
+struct BM_SC_DELETE_ITEM_RESP : public TS_MESSAGE
+{
+	char successmessage[8];
+	uint64_t uk1;
+	uint64_t uk2;
+	uint32_t itemSlot;
+	static const uint16_t packetID = 2103;
 };
 struct BM_SC_CASH_BALANCE_INFO_RESP : public TS_MESSAGE
 {
