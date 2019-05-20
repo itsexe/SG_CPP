@@ -3,7 +3,7 @@
 This is a emulator for the serverside the StreetGears.
 StreetGears is a mmo that was discontinued mid 2012.
 
-[![Build Status](https://travis-ci.org/itsexe/SG_CPP.svg)](https://travis-ci.org/itsexe/SG_CPP)
+[![Build Status](https://travis-ci.org/r1sim/SG_CPP.svg)](https://travis-ci.org/r1sim/SG_CPP)
 
 ##Status:
 Auth Server/ Login: Finished
@@ -25,7 +25,7 @@ If you just want to run the server, take a look at the wiki.
 * Open a git shell (not the github desktop client)
 * Download the source code of the emulator and all dependencies using: 
 ```
-git clone --recursive https://github.com/itsexe/SG_CPP
+git clone --recursive https://github.com/r1sim/SG_CPP
 ```
 * Compile boost using (This will take a some time):
 ```
@@ -39,7 +39,7 @@ SG_CPP\Libraries\boost\bjam --build-type=complete stage
 * Open a shell
 * Download the source code of the emulator and all dependencies using: 
 ```
-git clone --recursive https://github.com/itsexe/SG_CPP
+git clone --recursive https://github.com/r1sim/SG_CPP
 ```
 * Run SG_CPP\Source\build.sh to compile the emulator
 
@@ -48,7 +48,7 @@ git clone --recursive https://github.com/itsexe/SG_CPP
 * Open a shell
 * Download the source code of the emulator and all dependencies using: 
 ```
-git clone --recursive https://github.com/itsexe/SG_CPP
+git clone --recursive https://github.com/r1sim/SG_CPP
 ```
 * Run SG_CPP\Source\build.sh to compile the emulator
 
